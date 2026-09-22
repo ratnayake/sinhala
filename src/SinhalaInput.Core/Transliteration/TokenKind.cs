@@ -7,4 +7,5 @@ public enum TokenKind
     IndependentVowel,
     DependentVowelSign,
     ConjunctMarker,
+    Anusvara,
 }
