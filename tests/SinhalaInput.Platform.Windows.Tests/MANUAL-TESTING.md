@@ -20,10 +20,13 @@ actually exercise the real behaviour:
   logic is covered by `Input/SendInputSequenceBuilderTests.cs`; whether Notepad/Word/a
   browser/VS Code actually renders the result correctly is a manual check.
 - **`Win32CaretLocator` against real windows.** `GetGUIThreadInfo`, `GetCaretPos`,
-  `AttachThreadInput`, and `ClientToScreen` only produce meaningful results against a real
-  foreground window with a real caret; there is no meaningful fake for "the shape of a
-  third-party app's caret state" that would exercise anything beyond what the (untestable)
-  P/Invoke calls themselves do.
+  `AttachThreadInput`, `ClientToScreen`, UI Automation's `AutomationElement.FocusedElement`/
+  `TextPattern`, and `GetCursorPos` only produce meaningful results against a real foreground
+  window with real OS-level focus; there is no meaningful fake for "the shape of a third-party
+  app's caret state" that would exercise anything beyond what the (untestable) P/Invoke/UIA
+  calls themselves do. This was verified manually on a real Windows 11 desktop while doing the
+  Edge fix (see "Findings from real-desktop verification" below); re-run that check by hand
+  before every release rather than relying on the (necessarily absent) automated coverage.
 - **The "double `Start()`" guard.** The `ObjectDisposedException` and no-op `Stop()`
   lifecycle guards that don't require an installed hook *are* covered
   (`Hooking/LowLevelKeyboardHookLifecycleTests.cs`); the `InvalidOperationException` path for
@@ -42,10 +45,56 @@ actually exercise the real behaviour:
    safely (see design doc §10; the App layer owns the actual password-field detection using
    `ICaretLocator`/window-class inspection, this project only supplies the primitives).
 
-## Known v1 gap
+## Caret location: what's automatic now vs. still manual
 
-`ICaretLocator` implements only the two required Win32 strategies (`GetGUIThreadInfo`, then
-`GetCaretPos`/`ClientToScreen` with `AttachThreadInput`). The UI Automation
-`TextPattern.GetBoundingRectangles` fallback for controls with no Win32 caret (some
-Chromium/UWP surfaces) is not implemented — see the remarks on `Win32CaretLocator` for the
-rationale (new dependency, materially more complex lookup, deferred to v1.1).
+`Win32CaretLocator` chains four strategies: `GetGUIThreadInfo`, then `GetCaretPos`/
+`ClientToScreen` with `AttachThreadInput`, then UI Automation's `TextPattern.GetBoundingRectangles`
+(falling back to the focused element's own bounding rectangle), then `GetCursorPos` as a
+last-resort anchor near the mouse. This closes the gap that used to leave the candidate popup
+with no anchor (and therefore invisible, wherever it last was) for apps that expose no Win32
+caret at all — Chromium (Edge/Chrome/CEF) being the most common case, but manual testing while
+fixing this also found that the current, MSIX-packaged Windows 11 Notepad app does not reliably
+expose a caret via `GetGUIThreadInfo` either (see findings below) — the popup now still gets a
+usable anchor position for both.
+
+Still left to manual smoke testing, because it depends on live OS UI state with no meaningful
+fake: whether each of the four strategies actually fires and returns a *sane* position for a
+given real target app. In particular:
+
+- `GetCaretPos`'s cross-process `AttachThreadInput` result cannot be trusted purely by its
+  boolean return value — it was observed to return `true` with a plausible-but-wrong value, and
+  in another case `true` with an exact `(0, 0)` default, for apps that have no real Win32 caret
+  at all. It is still tried before the more expensive UI Automation strategy (matching the design
+  doc's ordering), so a future contributor changing this file should be aware `GetCaretPos`
+  "succeeding" does not by itself prove the position is meaningful.
+- Whether UI Automation's `TextPattern` is actually implemented (vs. just the element's raw
+  `BoundingRectangle` fallback) varies by app/control and cannot be enumerated exhaustively;
+  spot-check any newly-important target application.
+
+### Findings from real-desktop verification (done for the Edge popup-invisible fix)
+
+Verified interactively against real, focused windows on a Windows 11 desktop (using a throwaway
+xUnit harness invoking `Win32CaretLocator`'s private strategy methods via reflection, since
+`SetForegroundWindow` from a background process is silently denied by Windows' foreground-lock
+rules unless the calling thread first attaches input to the actual current foreground thread —
+the same `AttachThreadInput` trick `TryGetFromCaretPos` already uses for a different reason):
+
+- A genuine, focused, same-thread classic Win32 `EDIT` control: `GetGUIThreadInfo` and
+  `GetCaretPos` both succeed with the exact expected position — confirms the two original
+  strategies are correctly implemented when a real Win32 caret exists.
+- A real Microsoft Edge window, focused on an actual `<input>` element in webpage content
+  (not the address bar): `GetGUIThreadInfo` fails (no caret found, as expected — Chromium
+  renders its own text), `GetCaretPos` returns `true` with `(0, 0)` (a meaningless default, not
+  a real position), and the new UI Automation strategy succeeds with a plausible on-screen
+  position matching the input field's actual location. This is the direct fix for the reported
+  bug.
+- The real, currently-open Windows 11 Notepad window on this desktop: `GetGUIThreadInfo` also
+  fails here. `GetCaretPos` and the UI Automation strategy both return a real (not default)
+  screen position on the user's actual secondary monitor (negative Y — the monitor is stacked
+  above the primary), so the overall chained lookup succeeds either way, but this shows modern
+  Notepad is not the clean "legacy caret always works" baseline it once was.
+- `GetCursorPos` (the final fallback) always succeeds trivially, as expected.
+
+Not verified: the WPF `CandidateWindow` popup's actual on-screen rendering position when
+anchored by each strategy — no screenshot/vision tooling was available for this verification, so
+only the underlying `ICaretLocator` data was confirmed, not the popup's final pixel placement.

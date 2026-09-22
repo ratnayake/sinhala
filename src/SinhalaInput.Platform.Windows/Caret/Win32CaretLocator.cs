@@ -1,24 +1,40 @@
 using System.Runtime.InteropServices;
+using System.Windows.Automation;
+using System.Windows.Automation.Text;
 
 namespace SinhalaInput.Platform.Windows.Caret;
 
 /// <summary>
 /// <see cref="ICaretLocator"/> implemented with <c>GetGUIThreadInfo</c>, falling back to
-/// <c>GetCaretPos</c>/<c>ClientToScreen</c> (design doc §8.3).
+/// <c>GetCaretPos</c>/<c>ClientToScreen</c>, and then to UI Automation's
+/// <c>TextPattern.GetBoundingRectangles</c> (design doc §8.3).
 /// </summary>
 /// <remarks>
-/// A third fallback via UI Automation's <c>TextPattern.GetBoundingRectangles</c> (for controls
-/// that expose no Win32 caret at all, e.g. some Chromium/UWP surfaces) is called out in the
-/// design doc as a stretch goal. It is deliberately not implemented in v1: it pulls in the
-/// <c>UIAutomationClient</c>/<c>UIAutomationTypes</c> dependency and a materially more complex,
-/// slower lookup (walking the focused automation element and its text pattern) for a class of
-/// apps that is a minority of typing surfaces. The two Win32 strategies below are the required
-/// v1 minimum; the gap is documented here so it is easy to find when picking up v1.1 work.
+/// The first two strategies are classic Win32 APIs that only see a caret exposed by native
+/// Win32 text-rendering (e.g. an <c>Edit</c> control). Chromium-based applications (Edge,
+/// Chrome, CEF hosts) and some UWP surfaces render text themselves and never populate either
+/// API, so both strategies silently fail there. <see cref="TryGetFromUIAutomation"/> is the
+/// fallback for exactly that case: UI Automation walks <see cref="AutomationElement.FocusedElement"/>
+/// (which works across processes without the <c>AttachThreadInput</c> dance the two Win32
+/// strategies need) and, when the focused element supports <see cref="TextPattern"/>, reads the
+/// bounding rectangle of its current selection/caret range. If the element exposes no text
+/// pattern at all, or the pattern reports no rectangles for a collapsed caret (some UIA
+/// providers do this), the element's own bounding rectangle is used instead - anchoring near the
+/// input field as a whole is still far better than not anchoring at all.
+///
+/// As a last resort, if none of the three strategies can locate anything, the current mouse
+/// cursor position (<c>GetCursorPos</c>, which always succeeds regardless of which application
+/// or control has focus) is used, so <see cref="TryGetCaretScreenPosition"/> essentially never
+/// returns <see langword="false"/> in practice and the candidate popup is never left anchored to
+/// a stale, off-screen, or default position.
 /// </remarks>
 public sealed class Win32CaretLocator : ICaretLocator
 {
     public bool TryGetCaretScreenPosition(out ScreenPoint position) =>
-        TryGetFromGuiThreadInfo(out position) || TryGetFromCaretPos(out position);
+        TryGetFromGuiThreadInfo(out position)
+        || TryGetFromCaretPos(out position)
+        || TryGetFromUIAutomation(out position)
+        || TryGetFromCursorPos(out position);
 
     private static bool TryGetFromGuiThreadInfo(out ScreenPoint position)
     {
@@ -105,6 +121,128 @@ public sealed class Win32CaretLocator : ICaretLocator
         }
 
         position = new ScreenPoint(clientPoint.X, clientPoint.Y);
+        return true;
+    }
+
+    /// <summary>
+    /// Covers Chromium (Edge/Chrome/CEF) and other surfaces that render text themselves and
+    /// never populate a Win32 caret. Any UI Automation failure (no focused element, RPC error
+    /// talking to another process, pattern not supported) is treated as "this strategy found
+    /// nothing" rather than allowed to throw out of <see cref="TryGetCaretScreenPosition"/>.
+    /// </summary>
+    private static bool TryGetFromUIAutomation(out ScreenPoint position)
+    {
+        position = default;
+
+        AutomationElement? focused;
+        try
+        {
+            focused = AutomationElement.FocusedElement;
+        }
+        catch (ElementNotAvailableException)
+        {
+            return false;
+        }
+
+        if (focused is null)
+        {
+            return false;
+        }
+
+        if (TryGetFromTextPattern(focused, out position))
+        {
+            return true;
+        }
+
+        try
+        {
+            System.Windows.Rect bounds = focused.Current.BoundingRectangle;
+            if (bounds.IsEmpty)
+            {
+                return false;
+            }
+
+            position = new ScreenPoint((int)bounds.Left, (int)bounds.Top);
+            return true;
+        }
+        catch (ElementNotAvailableException)
+        {
+            return false;
+        }
+    }
+
+    private static bool TryGetFromTextPattern(AutomationElement focused, out ScreenPoint position)
+    {
+        position = default;
+
+        object? patternObj;
+        try
+        {
+            if (!focused.TryGetCurrentPattern(TextPattern.Pattern, out patternObj))
+            {
+                return false;
+            }
+        }
+        catch (ElementNotAvailableException)
+        {
+            return false;
+        }
+
+        if (patternObj is not TextPattern textPattern)
+        {
+            return false;
+        }
+
+        TextPatternRange[] selection;
+        try
+        {
+            selection = textPattern.GetSelection();
+        }
+        catch (ElementNotAvailableException)
+        {
+            return false;
+        }
+
+        if (selection.Length == 0)
+        {
+            return false;
+        }
+
+        System.Windows.Rect[] rectangles;
+        try
+        {
+            rectangles = selection[0].GetBoundingRectangles();
+        }
+        catch (ElementNotAvailableException)
+        {
+            return false;
+        }
+
+        // A genuinely collapsed caret sometimes reports no rectangles at all in some UIA
+        // providers; the caller falls back to the focused element's own bounds in that case.
+        if (rectangles.Length == 0)
+        {
+            return false;
+        }
+
+        // Top-left of the caret/selection rectangle, matching the top-left convention the other
+        // two strategies use (rcCaret.Left/Top and the raw GetCaretPos client point) — the
+        // caller (CandidateWindow) is the one that offsets a fixed amount below this point.
+        System.Windows.Rect first = rectangles[0];
+        position = new ScreenPoint((int)first.Left, (int)first.Top);
+        return true;
+    }
+
+    private static bool TryGetFromCursorPos(out ScreenPoint position)
+    {
+        position = default;
+
+        if (!NativeMethods.GetCursorPos(out NativeMethods.POINT cursor))
+        {
+            return false;
+        }
+
+        position = new ScreenPoint(cursor.X, cursor.Y);
         return true;
     }
 }

@@ -162,6 +162,14 @@ internal static partial class NativeMethods
     [LibraryImport("user32.dll")]
     internal static partial uint GetWindowThreadProcessId(nint hWnd, out uint lpdwProcessId);
 
+    /// <summary>
+    /// Last-resort caret-location fallback: always succeeds regardless of which application or
+    /// control has focus, so it is used when none of the other strategies can locate anything.
+    /// </summary>
+    [LibraryImport("user32.dll", SetLastError = true)]
+    [return: MarshalAs(UnmanagedType.Bool)]
+    internal static partial bool GetCursorPos(out POINT lpPoint);
+
     // -- Password-field detection (Focus/Win32PasswordFieldDetector.cs) -----------------------
 
     internal const int GWL_STYLE = -16;

@@ -637,7 +637,7 @@ public interface ITextInjector
 
 ### 8.3 Caret location (for the candidate popup)
 
-Use `GetGUIThreadInfo` on the foreground window's thread to get `rcCaret`/`hwndCaret`, falling back to `GetCaretPos` + `ClientToScreen`, and as a further fallback (apps that don't expose a Win32 caret, e.g. some Chromium/UWP surfaces) UI Automation's `TextPattern.GetBoundingRectangles` on the focused automation element. Wrap all three behind a single `ICaretLocator.TryGetCaretScreenPosition(out Point)` so the app layer never branches on which strategy worked.
+Use `GetGUIThreadInfo` on the foreground window's thread to get `rcCaret`/`hwndCaret`, falling back to `GetCaretPos` + `ClientToScreen`, and as a further fallback (apps that don't expose a Win32 caret, e.g. Chromium-based apps such as Edge/Chrome and some UWP surfaces) UI Automation's `TextPattern.GetBoundingRectangles` on the focused automation element (falling back further still to that element's own bounding rectangle if the pattern reports no rectangles). As a last resort, if none of those three locate anything, anchor near the current mouse cursor (`GetCursorPos`, which always succeeds) rather than leave the candidate popup with no anchor at all. Wrap all four behind a single `ICaretLocator.TryGetCaretScreenPosition(out Point)` so the app layer never branches on which strategy worked.
 
 ---
 

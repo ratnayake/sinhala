@@ -14,4 +14,13 @@
     <InternalsVisibleTo Include="SinhalaInput.Platform.Windows.Tests" />
   </ItemGroup>
 
+  <ItemGroup>
+    <!-- UIAutomationClient/UIAutomationTypes (Caret/Win32CaretLocator.cs's UI Automation
+         fallback) live in the WindowsDesktop shared framework. Referencing the framework
+         directly - rather than setting UseWPF/UseWindowsForms - pulls in exactly those
+         reference assemblies without adding a WPF/WinForms application model to this
+         plain class library. -->
+    <FrameworkReference Include="Microsoft.WindowsDesktop.App" />
+  </ItemGroup>
+
 </Project>
