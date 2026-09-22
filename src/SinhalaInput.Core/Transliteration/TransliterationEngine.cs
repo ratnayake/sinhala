@@ -11,6 +11,7 @@ public sealed class TransliterationEngine : ITransliterationEngine
     private readonly RuleTrie _consonants;
     private readonly RuleTrie _independentVowels;
     private readonly RuleTrie _dependentVowelSigns;
+    private readonly RuleTrie _anusvara;
 
     public TransliterationEngine()
         : this(RuleTable.Consonants, RuleTable.IndependentVowels, RuleTable.DependentVowelSigns)
@@ -18,15 +19,19 @@ public sealed class TransliterationEngine : ITransliterationEngine
     }
 
     // Internal constructor seam for unit tests (and CandidateProvider's alternate-spelling
-    // engines) that need a substituted rule set.
+    // engines) that need a substituted rule set. `anusvara` defaults to RuleTable.AnusvaraRules
+    // (a compile-time-constant default isn't possible here since it's a static readonly list,
+    // not a literal) so existing 3-argument call sites keep compiling unchanged.
     internal TransliterationEngine(
         IEnumerable<SyllableRule> consonants,
         IEnumerable<SyllableRule> independentVowels,
-        IEnumerable<SyllableRule> dependentVowelSigns)
+        IEnumerable<SyllableRule> dependentVowelSigns,
+        IEnumerable<SyllableRule>? anusvara = null)
     {
         _consonants = new RuleTrie(consonants);
         _independentVowels = new RuleTrie(independentVowels);
         _dependentVowelSigns = new RuleTrie(dependentVowelSigns);
+        _anusvara = new RuleTrie(anusvara ?? RuleTable.AnusvaraRules);
     }
 
     public string Transliterate(string latinWord)
@@ -43,6 +48,26 @@ public sealed class TransliterationEngine : ITransliterationEngine
 
         while (i < latinWord.Length)
         {
+            // Anusvara (ං) attaches to the end of a syllable that already has its vowel
+            // (inherent or explicit) rather than replacing one, so — unlike the dependent
+            // vowel signs below, which only apply while a consonant is pending — it must be
+            // recognised on every iteration regardless of pendingConsonantGlyph's state.
+            if (_anusvara.FindLongestMatch(latinWord, i) is { } anusvaraMatch)
+            {
+                if (pendingConsonantGlyph is not null)
+                {
+                    result.Append(pendingConsonantGlyph).Append(RuleTable.Anusvara[0]);
+                    pendingConsonantGlyph = null;
+                }
+                else
+                {
+                    result.Append(RuleTable.Anusvara[0]);
+                }
+
+                i += anusvaraMatch.Latin.Length;
+                continue;
+            }
+
             SyllableRule? consonantMatch = _consonants.FindLongestMatch(latinWord, i);
 
             if (pendingConsonantGlyph is not null
