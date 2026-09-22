@@ -97,6 +97,7 @@ public static class RuleTable
         new("sh", TokenKind.Consonant, "ශ"),
         new("s", TokenKind.Consonant, "ස"),
         new("h", TokenKind.Consonant, "හ"),
+        new("z", TokenKind.Consonant, "ස"), // no native /z/ in Sinhala; §3.2 maps it to ස.
     ];
 
     public const string Virama = "්"; // ් — SINHALA SIGN AL-LAKUNA

@@ -3,29 +3,59 @@ using SinhalaInput.Core.Transliteration;
 namespace SinhalaInput.Core.Candidates;
 
 /// <summary>
-/// Default <see cref="ICandidateProvider"/>.
+/// Default <see cref="ICandidateProvider"/>: ranks the primary engine output ahead of
+/// alternates generated from <see cref="AmbiguousTokenSubstitutions"/>, then promotes whatever
+/// the user previously chose for this exact word to the front (design doc §5).
 /// </summary>
-/// <remarks>
-/// v1 baseline: returns only the engine's single deterministic candidate and does not yet
-/// learn from selections. Ranked alternates and a persisted user dictionary are tracked
-/// follow-up work (design doc §5) — implement them here, backed by a new
-/// <c>UserDictionary</c> type in this folder, and cover both with unit tests before
-/// removing this remark.
-/// </remarks>
-public sealed class CandidateProvider(ITransliterationEngine engine) : ICandidateProvider
+public sealed class CandidateProvider : ICandidateProvider
 {
-    private readonly ITransliterationEngine _engine = engine ?? throw new ArgumentNullException(nameof(engine));
+    private readonly ITransliterationEngine _primaryEngine;
+    private readonly IUserDictionaryStore _userDictionary;
+    private readonly IReadOnlyList<ITransliterationEngine> _alternateEngines;
+
+    public CandidateProvider(ITransliterationEngine primaryEngine, IUserDictionaryStore userDictionary)
+    {
+        ArgumentNullException.ThrowIfNull(primaryEngine);
+        ArgumentNullException.ThrowIfNull(userDictionary);
+
+        _primaryEngine = primaryEngine;
+        _userDictionary = userDictionary;
+        _alternateEngines = AmbiguousTokenSubstitutions.BuildAlternateConsonantRuleSets()
+            .Select(consonants => (ITransliterationEngine)new TransliterationEngine(
+                consonants, RuleTable.IndependentVowels, RuleTable.DependentVowelSigns))
+            .ToArray();
+    }
 
     public IReadOnlyList<string> GetCandidates(string latinWord)
     {
         ArgumentNullException.ThrowIfNull(latinWord);
-        return [_engine.Transliterate(latinWord)];
+
+        var candidates = new List<string> { _primaryEngine.Transliterate(latinWord) };
+        foreach (ITransliterationEngine alternateEngine in _alternateEngines)
+        {
+            string candidate = alternateEngine.Transliterate(latinWord);
+            if (!candidates.Contains(candidate))
+            {
+                candidates.Add(candidate);
+            }
+        }
+
+        string? learned = _userDictionary.TryGetPreferredCandidate(latinWord);
+        if (learned is not null)
+        {
+            // The user's past choice always ranks first, even if it doesn't match any
+            // candidate the current rule set would generate (e.g. the rule set changed since).
+            candidates.Remove(learned);
+            candidates.Insert(0, learned);
+        }
+
+        return candidates;
     }
 
     public void LearnSelection(string latinWord, string chosenSinhala)
     {
         ArgumentNullException.ThrowIfNull(latinWord);
         ArgumentNullException.ThrowIfNull(chosenSinhala);
-        // No-op until the user dictionary lands.
+        _userDictionary.SetPreferredCandidate(latinWord, chosenSinhala);
     }
 }
