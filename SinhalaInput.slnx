@@ -1,0 +1,13 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/SinhalaInput.App/SinhalaInput.App.csproj" />
+    <Project Path="src/SinhalaInput.Cli/SinhalaInput.Cli.csproj" />
+    <Project Path="src/SinhalaInput.Core/SinhalaInput.Core.csproj" />
+    <Project Path="src/SinhalaInput.Platform.Windows/SinhalaInput.Platform.Windows.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/SinhalaInput.App.Tests/SinhalaInput.App.Tests.csproj" />
+    <Project Path="tests/SinhalaInput.Core.Tests/SinhalaInput.Core.Tests.csproj" />
+    <Project Path="tests/SinhalaInput.Platform.Windows.Tests/SinhalaInput.Platform.Windows.Tests.csproj" />
+  </Folder>
+</Solution>
