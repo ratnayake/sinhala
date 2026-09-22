@@ -192,6 +192,57 @@ public sealed class TypingSessionControllerTests
     }
 
     [Fact]
+    public void PasswordField_LettersAndDigitsPassThrough_NeverBufferedOrInjectedOrLearned()
+    {
+        var harness = new ControllerHarness();
+        harness.PasswordFieldDetector.Setup(p => p.IsFocusedControlPasswordField()).Returns(true);
+
+        // A realistic password with a mid-word digit — this is exactly the sequence that, prior
+        // to the password-field guard, would have caused HandleDigit to treat "2" as a candidate
+        // selection and persist the "Winter" fragment via ICandidateProvider.LearnSelection.
+        harness.Type("winter");
+        var digitKeyDown = harness.KeyDown(VirtualKeys.Digit(2));
+        var spaceKeyDown = harness.KeyDown(VirtualKeys.Space);
+
+        harness.Injector.VerifyNoOtherCalls();
+        harness.Candidates.Verify(c => c.LearnSelection(It.IsAny<string>(), It.IsAny<string>()), Times.Never);
+        Assert.False(digitKeyDown.Handled);
+        Assert.False(spaceKeyDown.Handled);
+    }
+
+    [Fact]
+    public void PasswordField_NeverOpensCandidatePopup()
+    {
+        var harness = new ControllerHarness();
+        harness.PasswordFieldDetector.Setup(p => p.IsFocusedControlPasswordField()).Returns(true);
+
+        var states = new List<CandidatePopupState>();
+        harness.Controller.PopupStateChanged += (_, state) => states.Add(state);
+
+        harness.Type("secret");
+
+        Assert.Empty(states);
+    }
+
+    [Fact]
+    public void FocusMovesIntoPasswordFieldMidWord_DiscardsBufferedWord_WithoutCommitting()
+    {
+        var harness = new ControllerHarness();
+        harness.Engine.Setup(e => e.Transliterate("partial")).Returns("SHOULD-NOT-BE-USED");
+
+        harness.Type("partial");
+        harness.Injector.VerifyNoOtherCalls();
+
+        // Simulate focus having moved to a password field before the word was committed.
+        harness.PasswordFieldDetector.Setup(p => p.IsFocusedControlPasswordField()).Returns(true);
+        harness.KeyDown(VirtualKeys.Digit(1));
+        harness.KeyDown(VirtualKeys.Space);
+
+        harness.Injector.VerifyNoOtherCalls();
+        harness.Candidates.Verify(c => c.LearnSelection(It.IsAny<string>(), It.IsAny<string>()), Times.Never);
+    }
+
+    [Fact]
     public void PopupStateChanged_OpensWhileTyping_AndClosesAfterCommit()
     {
         var harness = new ControllerHarness();

@@ -162,6 +162,19 @@ internal static partial class NativeMethods
     [LibraryImport("user32.dll")]
     internal static partial uint GetWindowThreadProcessId(nint hWnd, out uint lpdwProcessId);
 
+    // -- Password-field detection (Focus/Win32PasswordFieldDetector.cs) -----------------------
+
+    internal const int GWL_STYLE = -16;
+    internal const int ES_PASSWORD = 0x0020;
+
+    /// <summary>
+    /// <c>GWL_STYLE</c> is always a 32-bit <c>LONG</c> even on 64-bit Windows (unlike pointer-sized
+    /// indices such as <c>GWLP_WNDPROC</c>), so the plain, non-pointer-width <c>GetWindowLong</c>
+    /// entry point is correct here on both x86 and x64.
+    /// </summary>
+    [LibraryImport("user32.dll", EntryPoint = "GetWindowLongW", SetLastError = true)]
+    internal static partial int GetWindowLong(nint hWnd, int nIndex);
+
     /// <summary>
     /// Not requested explicitly by the design doc's API list, but required for the
     /// <c>GetCaretPos</c> fallback to work at all: <c>GetCaretPos</c> only returns a caret

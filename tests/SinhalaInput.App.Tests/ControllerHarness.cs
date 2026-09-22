@@ -2,13 +2,14 @@ using Moq;
 using SinhalaInput.Core.Candidates;
 using SinhalaInput.Core.Transliteration;
 using SinhalaInput.Platform.Windows.Caret;
+using SinhalaInput.Platform.Windows.Focus;
 using SinhalaInput.Platform.Windows.Hooking;
 using SinhalaInput.Platform.Windows.Input;
 
 namespace SinhalaInput.App.Tests;
 
 /// <summary>
-/// Wires a <see cref="TypingSessionController"/> to Moq mocks of all five interfaces it depends
+/// Wires a <see cref="TypingSessionController"/> to Moq mocks of all six interfaces it depends
 /// on, and drives it by raising <see cref="IKeyboardHook.KeyIntercepted"/> the same way a real
 /// hook would.
 /// </summary>
@@ -19,6 +20,7 @@ internal sealed class ControllerHarness
     public Mock<ICaretLocator> Caret { get; } = new();
     public Mock<ITransliterationEngine> Engine { get; } = new();
     public Mock<ICandidateProvider> Candidates { get; } = new();
+    public Mock<IPasswordFieldDetector> PasswordFieldDetector { get; } = new();
 
     public TypingSessionController Controller { get; }
 
@@ -33,12 +35,17 @@ internal sealed class ControllerHarness
             .Setup(c => c.GetCandidates(It.IsAny<string>()))
             .Returns((string latin) => new List<string> { Engine.Object.Transliterate(latin) });
 
+        // Default to "not a password field" so existing tests exercise the normal typing path;
+        // tests that care about password-field behaviour override this explicitly.
+        PasswordFieldDetector.Setup(p => p.IsFocusedControlPasswordField()).Returns(false);
+
         Controller = new TypingSessionController(
             Hook.Object,
             Injector.Object,
             Caret.Object,
             Engine.Object,
-            Candidates.Object);
+            Candidates.Object,
+            PasswordFieldDetector.Object);
     }
 
     public KeyInterceptedEventArgs KeyDown(int virtualKeyCode)

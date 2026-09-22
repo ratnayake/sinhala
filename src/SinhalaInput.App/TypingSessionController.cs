@@ -2,6 +2,7 @@ using System.Text;
 using SinhalaInput.Core.Candidates;
 using SinhalaInput.Core.Transliteration;
 using SinhalaInput.Platform.Windows.Caret;
+using SinhalaInput.Platform.Windows.Focus;
 using SinhalaInput.Platform.Windows.Hooking;
 using SinhalaInput.Platform.Windows.Input;
 
@@ -69,6 +70,7 @@ public sealed class TypingSessionController : IDisposable
     private readonly ICaretLocator _caretLocator;
     private readonly ITransliterationEngine _transliterationEngine;
     private readonly ICandidateProvider _candidateProvider;
+    private readonly IPasswordFieldDetector _passwordFieldDetector;
 
     private readonly StringBuilder _buffer = new();
     private readonly HashSet<int> _pendingKeyUpSuppressions = [];
@@ -86,19 +88,22 @@ public sealed class TypingSessionController : IDisposable
         ITextInjector textInjector,
         ICaretLocator caretLocator,
         ITransliterationEngine transliterationEngine,
-        ICandidateProvider candidateProvider)
+        ICandidateProvider candidateProvider,
+        IPasswordFieldDetector passwordFieldDetector)
     {
         ArgumentNullException.ThrowIfNull(keyboardHook);
         ArgumentNullException.ThrowIfNull(textInjector);
         ArgumentNullException.ThrowIfNull(caretLocator);
         ArgumentNullException.ThrowIfNull(transliterationEngine);
         ArgumentNullException.ThrowIfNull(candidateProvider);
+        ArgumentNullException.ThrowIfNull(passwordFieldDetector);
 
         _keyboardHook = keyboardHook;
         _textInjector = textInjector;
         _caretLocator = caretLocator;
         _transliterationEngine = transliterationEngine;
         _candidateProvider = candidateProvider;
+        _passwordFieldDetector = passwordFieldDetector;
 
         _keyboardHook.KeyIntercepted += OnKeyIntercepted;
     }
@@ -165,6 +170,20 @@ public sealed class TypingSessionController : IDisposable
 
         if (IsModifierKey(vk))
         {
+            return;
+        }
+
+        if (_passwordFieldDetector.IsFocusedControlPasswordField())
+        {
+            // Never buffer, preview, transliterate, inject, or learn from a password field
+            // (design doc §10). Discard rather than commit anything already buffered — the
+            // word may have been typed partly before focus moved here — and let every key
+            // pass through untouched so the field's own masking is the only thing on screen.
+            if (_buffer.Length > 0)
+            {
+                ResetBuffer();
+            }
+
             return;
         }
 

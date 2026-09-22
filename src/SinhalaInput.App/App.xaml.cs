@@ -6,6 +6,7 @@ using SinhalaInput.App.Settings;
 using SinhalaInput.Core.Candidates;
 using SinhalaInput.Core.Transliteration;
 using SinhalaInput.Platform.Windows.Caret;
+using SinhalaInput.Platform.Windows.Focus;
 using SinhalaInput.Platform.Windows.Hooking;
 using SinhalaInput.Platform.Windows.Input;
 
@@ -41,6 +42,7 @@ public partial class App : System.Windows.Application
                 services.AddSingleton<IKeyboardHook, LowLevelKeyboardHook>();
                 services.AddSingleton<ITextInjector, SendInputTextInjector>();
                 services.AddSingleton<ICaretLocator, Win32CaretLocator>();
+                services.AddSingleton<IPasswordFieldDetector, Win32PasswordFieldDetector>();
                 services.AddSingleton<TypingSessionController>();
                 services.AddSingleton<CandidateWindow>();
                 services.AddTransient<SettingsWindow>();
