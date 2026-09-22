@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  AppxManifest.xml for SinhalaInput.
+
+  IDENTITY / SIGNING NOTE (read before shipping anything built from this file):
+  The Publisher below ("CN=Isuru Sampath Ratnayake") is a PLACEHOLDER subject name
+  that matches this repository's git `user.name`. It only works with a *self-signed*
+  code-signing certificate whose Subject is exactly this string (see
+  Build-MsixPackage.ps1's -Sign switch), and a machine that has been told to trust
+  that specific certificate (see packaging/README.md). That is fine for local
+  installs/testing on machines you control, but it is NOT a real distribution
+  identity: Windows will refuse to install this package on a machine that has not
+  explicitly trusted the self-signed cert, and Explorer/SmartScreen will flag it.
+
+  For real (public) distribution you need one of:
+    - A code-signing certificate from a public CA/EV code-signing vendor, with the
+      Publisher value in this manifest changed to match that certificate's exact
+      Subject, or
+    - A Microsoft Store app identity (via Partner Center), which supplies its own
+      Publisher/Package Identity values that MUST replace the ones below (Store
+      submission reserves and issues these; you cannot pick your own).
+  Either way, the Identity/Publisher and Identity/Name values below would change
+  to match the real identity before that package is signed/submitted.
+-->
+<Package
+    xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10"
+    xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10"
+    xmlns:rescap="http://schemas.microsoft.com/appx/manifest/foundation/windows10/restrictedcapabilities"
+    IgnorableNamespaces="uap rescap">
+
+  <Identity
+      Name="IsuruRatnayake.SinhalaInput"
+      Publisher="CN=Isuru Sampath Ratnayake"
+      Version="1.0.0.0"
+      ProcessorArchitecture="x64" />
+
+  <Properties>
+    <DisplayName>SinhalaInput</DisplayName>
+    <PublisherDisplayName>Isuru Sampath Ratnayake</PublisherDisplayName>
+    <Logo>Assets\StoreLogo.png</Logo>
+    <Description>Sinhala phonetic input tool: transliterates Latin ("Singlish") keystrokes into Sinhala Unicode in real time as a background tray application.</Description>
+  </Properties>
+
+  <!--
+    Win10 1809 is build 17763 (the earliest build with full support for the
+    desktop-bridge/runFullTrust MSIX shape this classic WPF app uses).
+    MaxVersionTested is deliberately left at the same major "10.0.19041.0" family
+    marker Microsoft's own desktop-app MSIX samples use for "runs from 1809
+    through current Win10/11" rather than pinning to one exact current build,
+    since Windows evaluates MaxVersionTested for compatibility warnings only
+    (it does not block newer OS versions from installing the package).
+  -->
+  <Dependencies>
+    <TargetDeviceFamily
+        Name="Windows.Desktop"
+        MinVersion="10.0.17763.0"
+        MaxVersionTested="10.0.19041.0" />
+  </Dependencies>
+
+  <Resources>
+    <Resource Language="en-us" />
+  </Resources>
+
+  <Applications>
+    <Application Id="SinhalaInput" Executable="SinhalaInput.App.exe" EntryPoint="Windows.FullTrustApplication">
+      <uap:VisualElements
+          DisplayName="SinhalaInput"
+          Description="Sinhala phonetic input tool (Singlish to Sinhala Unicode transliteration)"
+          BackgroundColor="#1B5E6B"
+          Square150x150Logo="Assets\Square150x150Logo.png"
+          Square44x44Logo="Assets\Square44x44Logo.png">
+        <uap:DefaultTile
+            Wide310x150Logo="Assets\Wide310x150Logo.png"
+            Square71x71Logo="Assets\Square71x71Logo.png"
+            Square310x310Logo="Assets\Square310x310Logo.png" />
+      </uap:VisualElements>
+    </Application>
+  </Applications>
+
+  <Capabilities>
+    <!--
+      runFullTrust is the standard (and only) capability a classic Win32/WPF app
+      packaged via the desktop bridge needs to run with its normal, unsandboxed
+      Win32 API access (P/Invoke, SetWindowsHookEx, SendInput, etc. — all of which
+      SinhalaInput.Platform.Windows relies on). It is a restricted capability, which
+      is why it lives in the rescap: namespace and requires that namespace to be
+      declared in IgnorableNamespaces above.
+    -->
+    <rescap:Capability Name="runFullTrust" />
+  </Capabilities>
+</Package>
