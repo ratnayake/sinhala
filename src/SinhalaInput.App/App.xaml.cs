@@ -35,6 +35,8 @@ public partial class App : System.Windows.Application
             .ConfigureServices((_, services) =>
             {
                 services.AddSingleton<ITransliterationEngine, TransliterationEngine>();
+                services.AddSingleton<IUserDictionaryStore>(
+                    _ => new JsonUserDictionaryStore(JsonUserDictionaryStore.GetDefaultFilePath()));
                 services.AddSingleton<ICandidateProvider, CandidateProvider>();
                 services.AddSingleton<IKeyboardHook, LowLevelKeyboardHook>();
                 services.AddSingleton<ITextInjector, SendInputTextInjector>();
@@ -55,17 +57,7 @@ public partial class App : System.Windows.Application
             _controller,
             () => _host.Services.GetRequiredService<SettingsWindow>());
 
-        try
-        {
-            // The real hook (SinhalaInput.Platform.Windows.Hooking.LowLevelKeyboardHook) is being
-            // implemented in parallel and currently throws NotImplementedException from Start().
-            // Swallow that here so the tray app and composition root remain runnable during
-            // integration; this becomes a real global hook once that implementation lands.
-            _host.Services.GetRequiredService<IKeyboardHook>().Start();
-        }
-        catch (NotImplementedException)
-        {
-        }
+        _host.Services.GetRequiredService<IKeyboardHook>().Start();
     }
 
     private void OnPopupStateChanged(object? sender, CandidatePopupState state) =>
@@ -84,14 +76,7 @@ public partial class App : System.Windows.Application
 
         if (_host is not null)
         {
-            try
-            {
-                _host.Services.GetRequiredService<IKeyboardHook>().Dispose();
-            }
-            catch (NotImplementedException)
-            {
-            }
-
+            _host.Services.GetRequiredService<IKeyboardHook>().Dispose();
             _host.Dispose();
         }
 
