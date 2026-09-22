@@ -81,14 +81,11 @@ public class TransliterationEngineTests
     [InlineData("ny", "ඤ")]
     [InlineData("t", "ට")] // bare "t" defaults to the retroflex sound.
     [InlineData("T", "ට")] // capitalisation convention: explicit retroflex.
-    [InlineData("tt", "ට")] // doubled-letter alternative to capitalisation.
     [InlineData("th", "ත")] // dental, spelled with the digraph.
     [InlineData("d", "ද")] // bare "d" defaults to dental.
     [InlineData("dh", "ධ")]
     [InlineData("D", "ඩ")] // capitalisation convention: explicit retroflex.
-    [InlineData("dd", "ඩ")] // doubled-letter alternative.
     [InlineData("N", "ණ")]
-    [InlineData("nn", "ණ")]
     [InlineData("n", "න")]
     [InlineData("p", "ප")]
     [InlineData("ph", "ඵ")]
@@ -100,11 +97,9 @@ public class TransliterationEngineTests
     [InlineData("r", "ර")]
     [InlineData("l", "ල")]
     [InlineData("L", "ළ")]
-    [InlineData("ll", "ළ")]
     [InlineData("v", "ව")]
     [InlineData("w", "ව")]
     [InlineData("Sh", "ෂ")]
-    [InlineData("ss", "ෂ")]
     [InlineData("sh", "ශ")]
     [InlineData("s", "ස")]
     [InlineData("h", "හ")]
@@ -152,6 +147,60 @@ public class TransliterationEngineTests
     public void Transliterate_ConsonantCluster_InsertsVirama(string latin, string expected)
     {
         Assert.Equal(expected, _engine.Transliterate(latin));
+    }
+
+    // Regression coverage for the retroflex-shorthand/gemination collision (design doc §3.2):
+    // RuleTable.Consonants used to also register "tt"/"dd"/"nn"/"ll"/"ss" as alternate spellings
+    // of the retroflex letters T/D/N/L/Sh. Because RuleTrie.FindLongestMatch always prefers the
+    // longer key, that shorthand always won over the *far* more common pattern it collided with:
+    // a doubled consonant simply meaning gemination (hal kirīma + a repeat of the same
+    // consonant), which the cluster logic in TransliterationEngine.Transliterate already
+    // handles correctly for two *distinct* consonants (see the theory above). Removing the
+    // shorthand lets that same cluster logic apply uniformly to a repeated letter too, with no
+    // special-casing: each doubled letter here now resolves to <consonant>් + <consonant>.
+    [Theory]
+    [InlineData("tt", "ට්ට")] // "t" defaults to retroflex ට even bare, so this one is unchanged in glyph.
+    [InlineData("dd", "ද්ද")] // "d" (dental), not the retroflex ඩ the old shorthand produced.
+    [InlineData("nn", "න්න")] // "n" (dental), not the retroflex ණ the old shorthand produced.
+    [InlineData("ll", "ල්ල")] // "l" (plain), not the retroflex ළ the old shorthand produced.
+    [InlineData("ss", "ස්ස")] // "s" (plain), not the retroflex ෂ the old shorthand produced.
+    public void Transliterate_DoubledConsonant_IsGeminationNotRetroflexShorthand(string latin, string expected)
+    {
+        Assert.Equal(expected, _engine.Transliterate(latin));
+    }
+
+    // Realistic colloquial words exercising the same gemination pattern end-to-end (not just the
+    // bare doubled letter in isolation), across several different consonants, so this whole class
+    // of bug is guarded against recurring for any consonant, not only the two originally reported.
+    [Theory]
+    [InlineData("malli", "මල්ලි")] // reported bug: used to produce "මළි" (ළ = retroflex l).
+    [InlineData("akka", "අක්ක")] // "elder brother" (colloquial) — kk cluster.
+    [InlineData("appa", "අප්ප")] // "father" (colloquial) — pp cluster.
+    [InlineData("vatta", "වට්ට")] // tt cluster — used to collide with the T/tt retroflex shorthand.
+    [InlineData("vissa", "විස්ස")] // "twenty" — ss cluster, used to collide with the Sh/ss shorthand.
+    [InlineData("adda", "අද්ද")] // constructed word — dd cluster, used to collide with the D/dd shorthand.
+    public void Transliterate_RealisticWords_WithConsonantGemination(string latin, string expected)
+    {
+        Assert.Equal(expected, _engine.Transliterate(latin));
+    }
+
+    // Reported bug: "enne" used to produce "එණෙ" (nn misread as the retroflex ණ instead of an
+    // n+n cluster). The consonant cluster (න්න) is now unambiguously fixed. The word-final vowel
+    // is a separate, harder question: the literal spelling "enne" has a single final "e", which
+    // by this engine's own short/long vowel convention (bare letter = short, doubled/capitalised
+    // = long — see the "vyaparaya" precedent above) deterministically yields the *short* vowel
+    // sign ෙ, giving "එන්නෙ". The colloquially "correct" spelling of this word actually carries a
+    // long final vowel (එන්නේ, spelled "ennee"/"ennE" in this scheme) — recovering that from the
+    // bare "enne" spelling would require inferring vowel length the engine has no dictionary to
+    // infer from, exactly like "vyaparaya" vs. "vyaapaaraya". This is judged out of scope for this
+    // fix (see AmbiguousTokenSubstitutions, which targets single-token consonant ambiguity, not
+    // word-final vowel length — extending it to offer "එන්නේ" as a candidate alternate would need
+    // a position-sensitive substitution the mechanism doesn't support today); this test documents
+    // the current, deterministic behaviour so it isn't silently swept under the rug.
+    [Fact]
+    public void Transliterate_Enne_FixesClusterButKeepsLiteralShortFinalVowel()
+    {
+        Assert.Equal("එන්නෙ", _engine.Transliterate("enne"));
     }
 
     // See the remark on FlushPendingConsonant: a trailing consonant with nothing after it

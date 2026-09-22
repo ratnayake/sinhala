@@ -122,18 +122,18 @@ This "maximal munch over a trie, then syllabify" approach is exactly how the ope
 |---|---|---|---|---|---|
 | `k` | ක | `t` | ට *(retroflex)* | `p` | ප |
 | `kh` | ඛ | `th` | ත *(dental)* | `ph`, `f` | ඵ |
-| `g` | ග | `T` / `tt` | ට *(explicit retroflex)* | `b` | බ |
+| `g` | ග | `T` | ට *(explicit retroflex)* | `b` | බ |
 | `gh` | ඝ | `d` | ද *(dental)* | `bh` | භ |
 | `ng` | ඞ | `dh` | ධ *(dental aspirated)* | `m` | ම |
-| `c`, `ch` | ච | `D`, `dd` | ඩ *(retroflex)* | `y` | ය |
+| `c`, `ch` | ච | `D` | ඩ *(retroflex)* | `y` | ය |
 | `chh` | ඡ | `n` | න | `r` | ර |
-| `j` | ජ | `N`, `nn` | ණ *(retroflex)* | `l` | ල |
+| `j` | ජ | `N` | ණ *(retroflex)* | `l` | ල |
 | `jh` | ඣ | `sh` | ශ | `v`, `w` | ව |
-| `ny` | ඤ | `Sh`, `ss` | ෂ *(retroflex)* | `L`, `ll` | ළ |
+| `ny` | ඤ | `Sh` | ෂ *(retroflex)* | `L` | ළ |
 | | | `s` | ස | `h` | හ |
 | | | | | `z` | ‍ස *(no native /z/; map to ස or reject)* |
 
-The **capitalisation convention** (`T`/`N`/`L`/`Sh` for retroflex sounds) mirrors what the community Singlish schemes (and Google's own tool) use, because English has no separate letters for dental vs. retroflex consonants. The engine should accept both the capitalised shorthand *and* the doubled-letter alternative (`tt`, `dd`, `nn`, `ll`) so users who forget to hold Shift still get a sane result — this is a usability nicety Google's tool also has.
+The **capitalisation convention** (`T`/`N`/`L`/`Sh` for retroflex sounds) mirrors what the community Singlish schemes (and Google's own tool) use, because English has no separate letters for dental vs. retroflex consonants. Capitalisation is the *only* way to get a retroflex consonant: the engine deliberately does **not** also accept a doubled-letter alternative (`tt`, `dd`, `nn`, `ll`, `ss`) for these, because doubling a consonant is already meaningful on its own — it is how a user spells genuine **gemination** (hal kirīma followed by a repeat of the same consonant, e.g. `malli` → මල්ලි, `anda`-style clusters generalised to a repeated letter). Registering both meanings for the same doubled spelling made every geminated retroflex-adjacent consonant ambiguous and, in practice, always lose to the retroflex reading (the longest-match rule always prefers the 2-letter key), silently corrupting common colloquial words like `malli` (→ මළි, wrong) and `enne` (→ එණෙ, wrong). A user who forgets to hold Shift for a retroflex letter gets the plain dental/alveolar consonant instead — a real but different sound, not a corrupted one — rather than a silently wrong gemination somewhere else in the word.
 
 **Special conjuncts:**
 
