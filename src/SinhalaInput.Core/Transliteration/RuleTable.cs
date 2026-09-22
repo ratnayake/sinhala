@@ -99,7 +99,20 @@ public static class RuleTable
     public const string ZeroWidthJoiner = "‍";
     public const string RakaransayaTail = "ර"; // conjunct 'r' glyph used after virama+ZWJ
     public const string YansayaTail = "ය"; // conjunct 'y' glyph used after virama+ZWJ
+    public const string Anusvara = "ං"; // ං — U+0D82 SINHALA SIGN ANUSVARAYA
+
+    // Anusvara attaches to the end of an already-vowelled syllable rather than replacing a
+    // vowel, so it is matched by its own trie (TransliterationEngine._anusvara), checked
+    // unconditionally each iteration instead of only when a consonant is pending like the
+    // dependent vowel signs above. Capital "M" was chosen as the trigger, following this rule
+    // set's existing capitalisation convention for otherwise-ambiguous sounds (T/D/N/L/Sh,
+    // A/I/U/E/O): plain "n" before a consonant already means a full consonant cluster with
+    // virama (e.g. "anda" -> අන්ද), so anusvara needs a trigger that cannot collide with it.
+    public static readonly IReadOnlyList<SyllableRule> AnusvaraRules =
+    [
+        new("M", TokenKind.Anusvara, Anusvara),
+    ];
 
     public static IEnumerable<SyllableRule> All =>
-        Consonants.Concat(IndependentVowels).Concat(DependentVowelSigns);
+        Consonants.Concat(IndependentVowels).Concat(DependentVowelSigns).Concat(AnusvaraRules);
 }

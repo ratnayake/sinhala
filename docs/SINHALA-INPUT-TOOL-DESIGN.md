@@ -144,6 +144,14 @@ The **capitalisation convention** (`T`/`N`/`L`/`Sh` for retroflex sounds) mirror
 
 **Passthrough:** digits, ASCII punctuation, whitespace, and any character not matched by a rule are passed through unchanged — the user can freely mix Sinhala words with numbers, `@handles`, URLs, etc., exactly like Google's tool.
 
+**Anusvara:**
+
+| Latin | Result | Rule |
+|---|---|---|
+| `M` | appends ං to the preceding syllable | *Anusvara*: e.g. `laMkaa` → ලංකා, `siMhala` → සිංහල |
+
+Anusvara (ං, U+0D82 SINHALA SIGN ANUSVARAYA) is a nasal diacritic that attaches to the *end* of a syllable that already has its inherent or explicit vowel — unlike a dependent vowel sign, it does not replace one. Capital `M` is its trigger, following the same capitalisation convention used elsewhere for otherwise-ambiguous sounds (`T`/`D`/`N`/`L`/`Sh`, `A`/`I`/`U`/`E`/`O`): plain `n` before a consonant already means an ordinary consonant cluster with virama (e.g. `anda` → අන්ද), so anusvara needs its own spelling that cannot collide with that existing meaning. This rule was added after round-trip testing the engine against real Sinhala news text showed anusvara had no way to be typed at all, despite being needed for extremely common words — including `ලංකා` ("Lanka") and `සිංහල` ("Sinhala", the language's own name).
+
 ### 3.3 Algorithm (syllable-oriented, longest match)
 
 ```

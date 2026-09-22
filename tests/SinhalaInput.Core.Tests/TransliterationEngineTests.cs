@@ -229,4 +229,37 @@ public class TransliterationEngineTests
     {
         Assert.Equal(expected, _engine.Transliterate(latin));
     }
+
+    // Anusvara (ං, U+0D82) attaches to the end of an already-vowelled syllable rather than
+    // replacing a vowel (design doc §3.2 "Anusvara"). Capital "M" is its trigger because plain
+    // "n" before a consonant already means a full consonant cluster with virama (see
+    // Transliterate_ConsonantCluster_InsertsVirama's "anda" -> අන්ද below), so anusvara needs
+    // its own unambiguous spelling that cannot collide with that existing meaning.
+    [Theory]
+    [InlineData("laMkaa", "ලංකා")] // Lanka.
+    [InlineData("siMhala", "සිංහල")] // Sinhala -- the language's own name.
+    [InlineData("beMgaala", "බෙංගාල")] // Bengal.
+    public void Transliterate_Anusvara_AttachesToPrecedingSyllable(string latin, string expected)
+    {
+        Assert.Equal(expected, _engine.Transliterate(latin));
+    }
+
+    // Regression: plain "n" immediately before another consonant must still produce an
+    // ordinary consonant cluster (virama), completely unaffected by the new "M" anusvara
+    // trigger introduced above.
+    [Fact]
+    public void Transliterate_Anusvara_DoesNotAffectPlainNConsonantClusters()
+    {
+        Assert.Equal("අන්ද", _engine.Transliterate("anda"));
+    }
+
+    // Regression: sanity-check a couple of ordinary words untouched by the anusvara addition,
+    // beyond relying on the full suite alone.
+    [Theory]
+    [InlineData("mama", "මම")]
+    [InlineData("api", "අපි")]
+    public void Transliterate_Anusvara_DoesNotAffectOrdinaryWords(string latin, string expected)
+    {
+        Assert.Equal(expected, _engine.Transliterate(latin));
+    }
 }
