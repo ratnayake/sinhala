@@ -6,12 +6,6 @@ namespace SinhalaInput.Core.Transliteration;
 /// Deterministic, syllable-oriented Latin-to-Sinhala transliteration engine.
 /// See docs/SINHALA-INPUT-TOOL-DESIGN.md §3.3 for the algorithm this implements.
 /// </summary>
-/// <remarks>
-/// This is the v1 baseline: it covers the core consonant/vowel algorithm. It does not yet
-/// special-case consonant-cluster viramas beyond a single trailing consonant, nor the
-/// rakāraṃśaya/yansaya conjuncts (design doc §3.2 "Special conjuncts") — those are tracked
-/// as follow-up work, to be covered by <c>WordList.csv</c> golden tests before being marked done.
-/// </remarks>
 public sealed class TransliterationEngine : ITransliterationEngine
 {
     private readonly RuleTrie _consonants;
@@ -23,7 +17,8 @@ public sealed class TransliterationEngine : ITransliterationEngine
     {
     }
 
-    // Internal constructor seam for unit tests that need a reduced rule set.
+    // Internal constructor seam for unit tests (and CandidateProvider's alternate-spelling
+    // engines) that need a substituted rule set.
     internal TransliterationEngine(
         IEnumerable<SyllableRule> consonants,
         IEnumerable<SyllableRule> independentVowels,
@@ -49,6 +44,23 @@ public sealed class TransliterationEngine : ITransliterationEngine
         while (i < latinWord.Length)
         {
             SyllableRule? consonantMatch = _consonants.FindLongestMatch(latinWord, i);
+
+            if (pendingConsonantGlyph is not null
+                && consonantMatch is { } candidate
+                && TryGetConjunctTail(candidate.Latin, out string? tailGlyph)
+                && IsFollowedByVowel(latinWord, i + candidate.Latin.Length))
+            {
+                // Rakāraṃśaya / yansaya (design doc §3.2 "Special conjuncts"): the head
+                // consonant gives up its own vowel to virama + ZWJ + the conjunct tail, and
+                // the tail itself becomes the new pending consonant so the vowel that follows
+                // attaches to *it* via the ordinary vowel-sign handling below (e.g. "krama"'s
+                // "ra" still needs to resolve its own inherent/explicit vowel).
+                result.Append(pendingConsonantGlyph).Append(RuleTable.Virama[0]).Append(RuleTable.ZeroWidthJoiner[0]);
+                pendingConsonantGlyph = tailGlyph;
+                i += candidate.Latin.Length;
+                continue;
+            }
+
             SyllableRule? vowelMatch = pendingConsonantGlyph is not null
                 ? _dependentVowelSigns.FindLongestMatch(latinWord, i)
                 : _independentVowels.FindLongestMatch(latinWord, i);
@@ -59,16 +71,20 @@ public sealed class TransliterationEngine : ITransliterationEngine
             {
                 // A bare 'a' right after a consonant is the *inherent* vowel: it has no
                 // dependent sign of its own (RuleTable.DependentVowelSigns has no "a" entry
-                // by design), so it must be consumed silently rather than treated as an
-                // unmatched passthrough character.
+                // by design), so it finalizes the pending consonant with no sign appended,
+                // rather than being treated as an unmatched passthrough character.
                 if (pendingConsonantGlyph is not null && latinWord[i] == 'a')
                 {
+                    result.Append(pendingConsonantGlyph);
+                    pendingConsonantGlyph = null;
                     i++;
                     continue;
                 }
 
-                FlushPendingConsonant(result, ref pendingConsonantGlyph);
-                result.Append(latinWord[i]); // passthrough: punctuation, digits, unknown chars
+                // Passthrough (punctuation/digits/unknown chars) never inserts a virama: a
+                // pending consonant ahead of it simply keeps its inherent vowel.
+                FlushPendingConsonant(result, ref pendingConsonantGlyph, appendVirama: false);
+                result.Append(latinWord[i]);
                 i++;
                 continue;
             }
@@ -76,7 +92,9 @@ public sealed class TransliterationEngine : ITransliterationEngine
             switch (chosen.Value.Kind)
             {
                 case TokenKind.Consonant:
-                    FlushPendingConsonant(result, ref pendingConsonantGlyph); // consonant cluster -> virama
+                    // Superseding a still-pending consonant with no vowel in between is a
+                    // consonant cluster: the first consonant's vowel is suppressed (virama).
+                    FlushPendingConsonant(result, ref pendingConsonantGlyph, appendVirama: true);
                     pendingConsonantGlyph = chosen.Value.Glyph;
                     break;
 
@@ -90,29 +108,64 @@ public sealed class TransliterationEngine : ITransliterationEngine
                     break;
 
                 case TokenKind.ConjunctMarker:
-                    // Reserved for rakāraṃśaya/yansaya handling; not yet produced by any rule table.
+                    // Reserved: no rule table currently carries this kind. Conjuncts are
+                    // produced by the rakāraṃśaya/yansaya check above instead.
                     break;
             }
 
             i += chosen.Value.Latin.Length;
         }
 
-        FlushPendingConsonant(result, ref pendingConsonantGlyph);
+        // A consonant with no vowel that follows anywhere else in the word is word-final: it
+        // keeps its inherent vowel (matching Google's observed behaviour), never a virama —
+        // a virama is only ever inserted when another consonant supersedes it (see the
+        // Consonant case above) or as part of a rakāraṃśaya/yansaya conjunct.
+        FlushPendingConsonant(result, ref pendingConsonantGlyph, appendVirama: false);
         return result.ToString();
     }
 
-    private static void FlushPendingConsonant(StringBuilder result, ref string? pendingConsonantGlyph)
+    private static void FlushPendingConsonant(StringBuilder result, ref string? pendingConsonantGlyph, bool appendVirama)
     {
         if (pendingConsonantGlyph is null)
         {
             return;
         }
 
-        // A consonant with no vowel that follows is either word-final (keeps its inherent
-        // vowel, matching Google's observed behaviour) or is about to be superseded by the
-        // next consonant, which appends the virama itself — see the Consonant case above.
         result.Append(pendingConsonantGlyph);
+        if (appendVirama)
+        {
+            result.Append(RuleTable.Virama[0]);
+        }
+
         pendingConsonantGlyph = null;
+    }
+
+    private bool IsFollowedByVowel(ReadOnlySpan<char> text, int position)
+    {
+        if (position >= text.Length)
+        {
+            return false;
+        }
+
+        // The inherent 'a' has no entry of its own in DependentVowelSigns (see above), so it
+        // must be checked for explicitly alongside an actual dependent-vowel-sign match.
+        return text[position] == 'a' || _dependentVowelSigns.FindLongestMatch(text, position) is not null;
+    }
+
+    private static bool TryGetConjunctTail(string consonantLatin, out string tailGlyph)
+    {
+        switch (consonantLatin)
+        {
+            case "r":
+                tailGlyph = RuleTable.RakaransayaTail;
+                return true;
+            case "y":
+                tailGlyph = RuleTable.YansayaTail;
+                return true;
+            default:
+                tailGlyph = string.Empty;
+                return false;
+        }
     }
 
     private static SyllableRule? PickLongerMatch(SyllableRule? a, SyllableRule? b)
