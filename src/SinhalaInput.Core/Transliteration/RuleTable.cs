@@ -29,6 +29,8 @@ public static class RuleTable
         new("oo", TokenKind.IndependentVowel, "ඕ"),
         new("O", TokenKind.IndependentVowel, "ඕ"),
         new("au", TokenKind.IndependentVowel, "ඖ"),
+        new("R", TokenKind.IndependentVowel, "ඍ"), // U+0D8D SINHALA LETTER IRUYANNA
+        new("RR", TokenKind.IndependentVowel, "ඎ"), // U+0D8E SINHALA LETTER IRUUYANNA
     ];
 
     public static readonly IReadOnlyList<SyllableRule> DependentVowelSigns =
@@ -53,6 +55,8 @@ public static class RuleTable
         new("oo", TokenKind.DependentVowelSign, "ෝ"), // ෝ
         new("O", TokenKind.DependentVowelSign, "ෝ"),
         new("au", TokenKind.DependentVowelSign, "ෞ"), // ෞ
+        new("R", TokenKind.DependentVowelSign, "ෘ"), // U+0DD8 SINHALA VOWEL SIGN GAETTA-PILLA
+        new("RR", TokenKind.DependentVowelSign, "ෲ"), // U+0DF2 SINHALA VOWEL SIGN DIGA GAETTA-PILLA
     ];
 
     public static readonly IReadOnlyList<SyllableRule> Consonants =
@@ -68,12 +72,17 @@ public static class RuleTable
         new("j", TokenKind.Consonant, "ජ"),
         new("jh", TokenKind.Consonant, "ඣ"),
         new("ny", TokenKind.Consonant, "ඤ"),
+        new("jny", TokenKind.Consonant, "ඥ"), // U+0DA5; supersedes the ජ්ඤ cluster "j"+"ny" would give.
         new("T", TokenKind.Consonant, "ට"),
         new("t", TokenKind.Consonant, "ට"),
         new("th", TokenKind.Consonant, "ත"),
+        // "Th"/"Dh" deliberately supersede the former T+h / D+h cluster readings (ට්හ / ඩ්හ),
+        // which essentially never occur in Sinhala, while ඨ/ඪ appear in common tatsama words.
+        new("Th", TokenKind.Consonant, "ඨ"), // U+0DA8
         new("d", TokenKind.Consonant, "ද"),
         new("dh", TokenKind.Consonant, "ධ"),
         new("D", TokenKind.Consonant, "ඩ"),
+        new("Dh", TokenKind.Consonant, "ඪ"), // U+0DAA
         new("N", TokenKind.Consonant, "ණ"),
         new("n", TokenKind.Consonant, "න"),
         new("p", TokenKind.Consonant, "ප"),
@@ -93,6 +102,13 @@ public static class RuleTable
         new("s", TokenKind.Consonant, "ස"),
         new("h", TokenKind.Consonant, "හ"),
         new("z", TokenKind.Consonant, "ස"), // no native /z/ in Sinhala; §3.2 maps it to ස.
+        // Sanyaka (prenasalized) consonants. "z" is free as a prefix because it has no sound of
+        // its own in Sinhala, and "n"+stop is already taken by the ordinary cluster (අන්ද).
+        new("zg", TokenKind.Consonant, "ඟ"), // U+0D9F
+        new("zj", TokenKind.Consonant, "ඦ"), // U+0DA6
+        new("zD", TokenKind.Consonant, "ඬ"), // U+0DAC
+        new("zd", TokenKind.Consonant, "ඳ"), // U+0DB3
+        new("zb", TokenKind.Consonant, "ඹ"), // U+0DB9
     ];
 
     public const string Virama = "්"; // ් — SINHALA SIGN AL-LAKUNA
