@@ -1,25 +1,25 @@
 sinhala	singlish	status	note
 මැලේසියාව	maeleesiyaava	PASS	
 පරාජය	paraajaya	PASS	
-කරමින්	karamin	NEEDS-U1	bare word-final consonant needs virama once Unit 1 hal fix lands
+කරමින්	karamin	PASS	was NEEDS-U1; passes with word-final hal (PR #10)
 ශ්‍රී	shrii	PASS	
 ලංකාව	laMkaava	PASS	
 තෙවැනි	thevaeni	PASS	
-ස්ථානයට	sthaanayaTa	BUG	Sinhala letter ථ (dental aspirated 'tha', U+0DAE) has no Singlish token in the current scheme (not in base table, not in the Unit-2 new-letters list); engine falls back to plain ත (da/tha) so output reads ස්තා... instead of ස්ථා...
-නාමල්	naamal	NEEDS-U1	bare word-final consonant needs virama once Unit 1 hal fix lands
+ස්ථානයට	sthhaanayaTa	PASS	was BUG: no spelling for ථ; fixed: thh -> ථ (row respelled)
+නාමල්	naamal	PASS	was NEEDS-U1; passes with word-final hal (PR #10)
 පතිරගේ	pathiragee	PASS	
 හොංකොං	hoMkoM	PASS	
 හිදී	hidii	PASS	
 පෙරේදා	pereedaa	PASS	
 නිමාවට	nimaavaTa	PASS	
-පත්	path	NEEDS-U1	bare word-final consonant needs virama once Unit 1 hal fix lands
+පත්	path	PASS	was NEEDS-U1; passes with word-final hal (PR #10)
 වූ	vuu	PASS	
 වැනි	vaeni	PASS	
 ආසියානු	aasiyaanu	PASS	
 දැල්පන්දු	daelpandu	PASS	
-නෙට්බෝල්	neTbool	NEEDS-U1	bare word-final consonant needs virama once Unit 1 hal fix lands
+නෙට්බෝල්	neTbool	PASS	was NEEDS-U1; passes with word-final hal (PR #10)
 තරගාවලියේ	tharagaavaliyee	PASS	
-ස්ථානය	sthaanaya	BUG	Sinhala letter ථ (dental aspirated 'tha', U+0DAE) has no Singlish token in the current scheme (not in base table, not in the Unit-2 new-letters list); engine falls back to plain ත (da/tha) so output reads ස්තා... instead of ස්ථා...
+ස්ථානය	sthhaanaya	PASS	was BUG: no spelling for ථ; fixed: thh -> ථ (row respelled)
 ලංකාවට	laMkaavaTa	PASS	
 හිමි	himi	PASS	
 විය	viya	PASS	
@@ -29,39 +29,39 @@ sinhala	singlish	status	note
 ලකුණු	lakuNu	PASS	
 කට	kaTa	PASS	
 කිරීමට	kiriimaTa	PASS	
-සමත්	samath	NEEDS-U1	bare word-final consonant needs virama once Unit 1 hal fix lands
+සමත්	samath	PASS	was NEEDS-U1; passes with word-final hal (PR #10)
 මෙවර	mevara	PASS	
 තරගාවලිය	tharagaavaliya	PASS	
-ජයගත්	jayagath	NEEDS-U1	bare word-final consonant needs virama once Unit 1 hal fix lands
+ජයගත්	jayagath	PASS	was NEEDS-U1; passes with word-final hal (PR #10)
 සිංගප්පූරුව	siMgappuuruva	PASS	
-අවසන්	avasan	NEEDS-U1	bare word-final consonant needs virama once Unit 1 hal fix lands
+අවසන්	avasan	PASS	was NEEDS-U1; passes with word-final hal (PR #10)
 මහ	maha	PASS	
-කින්	kin	NEEDS-U1	bare word-final consonant needs virama once Unit 1 hal fix lands
-පහසුවෙන්	pahasuven	NEEDS-U1	bare word-final consonant needs virama once Unit 1 hal fix lands
+කින්	kin	PASS	was NEEDS-U1; passes with word-final hal (PR #10)
+පහසුවෙන්	pahasuven	PASS	was NEEDS-U1; passes with word-final hal (PR #10)
 සත්කාරක	sathkaaraka	PASS	
 මුළු	muLu	PASS	
 තරගාවලියේදී	tharagaavaliyeedii	PASS	
-ඔවුන්	ovun	NEEDS-U1	bare word-final consonant needs virama once Unit 1 hal fix lands
+ඔවුන්	ovun	PASS	was NEEDS-U1; passes with word-final hal (PR #10)
 තරග	tharaga	PASS	
-හතෙන්	hathen	NEEDS-U1	bare word-final consonant needs virama once Unit 1 hal fix lands
-හයක්	hayak	NEEDS-U1	bare word-final consonant needs virama once Unit 1 hal fix lands
+හතෙන්	hathen	PASS	was NEEDS-U1; passes with word-final hal (PR #10)
+හයක්	hayak	PASS	was NEEDS-U1; passes with word-final hal (PR #10)
 දිනා	dinaa	PASS	
 ගත්තේය	gaththeeya	PASS	
 එහිදී	ehidii	PASS	
-දෙවතාවක්	devathaavak	NEEDS-U1	bare word-final consonant needs virama once Unit 1 hal fix lands
+දෙවතාවක්	devathaavak	PASS	was NEEDS-U1; passes with word-final hal (PR #10)
 මූලික	muulika	PASS	
 හා	haa	PASS	
 පූර්ව	puurva	PASS	
 ඔවුන්ට	ovunTa	PASS	
 කුසලාන	kusalaana	PASS	
-ගත්	gath	NEEDS-U1	bare word-final consonant needs virama once Unit 1 hal fix lands
-පස්	pas	NEEDS-U1	bare word-final consonant needs virama once Unit 1 hal fix lands
-අවස්ථාව	avasthaava	BUG	Sinhala letter ථ (dental aspirated 'tha', U+0DAE) has no Singlish token in the current scheme (not in base table, not in the Unit-2 new-letters list); engine falls back to plain ත (da/tha) so output reads ස්තා... instead of ස්ථා...
+ගත්	gath	PASS	was NEEDS-U1; passes with word-final hal (PR #10)
+පස්	pas	PASS	was NEEDS-U1; passes with word-final hal (PR #10)
+අවස්ථාව	avasthhaava	PASS	was BUG: no spelling for ථ; fixed: thh -> ථ (row respelled)
 එයයි	eyayi	PASS	
 වට	vaTa	PASS	
-දෙකක්	dekak	NEEDS-U1	bare word-final consonant needs virama once Unit 1 hal fix lands
+දෙකක්	dekak	PASS	was NEEDS-U1; passes with word-final hal (PR #10)
 පෙරමුණ	peramuNa	PASS	
-ගනිමින්	ganimin	NEEDS-U1	bare word-final consonant needs virama once Unit 1 hal fix lands
+ගනිමින්	ganimin	PASS	was NEEDS-U1; passes with word-final hal (PR #10)
 තරගය	tharagaya	PASS	
 ජය	jaya	PASS	
 පරාජයට	paraajayaTa	PASS	
@@ -69,7 +69,7 @@ sinhala	singlish	status	note
 දෙවැනි	devaeni	PASS	
 එය	eya	PASS	
 වටයේදී	vaTayeedii	PASS	
-විසින්	visin	NEEDS-U1	bare word-final consonant needs virama once Unit 1 hal fix lands
+විසින්	visin	PASS	was NEEDS-U1; passes with word-final hal (PR #10)
 කරන	karana	PASS	
 ලද්දේ	laddee	PASS	
 කිනි	kini	PASS	
@@ -77,12 +77,12 @@ sinhala	singlish	status	note
 අනුව	anuva	PASS	
 හතකට	hathakaTa	PASS	
 සහභාගි	sahabhaagi	PASS	
-වෙමින්	vemin	NEEDS-U1	bare word-final consonant needs virama once Unit 1 hal fix lands
-ඉන්	in	NEEDS-U1	bare word-final consonant needs virama once Unit 1 hal fix lands
-හතරක්	hatharak	NEEDS-U1	bare word-final consonant needs virama once Unit 1 hal fix lands
+වෙමින්	vemin	PASS	was NEEDS-U1; passes with word-final hal (PR #10)
+ඉන්	in	PASS	was NEEDS-U1; passes with word-final hal (PR #10)
+හතරක්	hatharak	PASS	was NEEDS-U1; passes with word-final hal (PR #10)
 ගෙන	gena	PASS	
-එක්	ek	NEEDS-U1	bare word-final consonant needs virama once Unit 1 hal fix lands
-තරගයක්	tharagayak	NEEDS-U1	bare word-final consonant needs virama once Unit 1 hal fix lands
+එක්	ek	PASS	was NEEDS-U1; passes with word-final hal (PR #10)
+තරගයක්	tharagayak	PASS	was NEEDS-U1; passes with word-final hal (PR #10)
 සම	sama	PASS	
 සෙසු	sesu	PASS	
 දෙක	deka	PASS	
@@ -91,7 +91,7 @@ sinhala	singlish	status	note
 කර	kara	PASS	
 තිබේ	thibee	PASS	
 පුරා	puraa	PASS	
-රැස්	raes	NEEDS-U1	bare word-final consonant needs virama once Unit 1 hal fix lands
+රැස්	raes	PASS	was NEEDS-U1; passes with word-final hal (PR #10)
 එරෙහිව	erehiva	PASS	
-ප්‍රතිවාදිනියන්	prathivaadiniyan	NEEDS-U1	bare word-final consonant needs virama once Unit 1 hal fix lands
+ප්‍රතිවාදිනියන්	prathivaadiniyan	PASS	was NEEDS-U1; passes with word-final hal (PR #10)
 ලබා	labaa	PASS	

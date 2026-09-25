@@ -2,7 +2,7 @@ sinhala	singlish	status	note
 මනෝප්‍රිය	manoopriya	PASS
 ගුණසේකර	guNaseekara	PASS
 සහ	saha	PASS
-රංජන්	raMjan	NEEDS-U1
+රංජන්	raMjan	PASS	was NEEDS-U1; passes with word-final hal (PR #10)
 කස්තුරි	kasthuri	PASS
 ආබාධිත	aabaadhitha	PASS
 පුද්ගලයකුට	pudgalayakuTa	PASS
@@ -10,20 +10,20 @@ sinhala	singlish	status	note
 සෑදීම	saaediima	PASS
 සදහා	sadahaa	PASS
 රජයේ	rajayee	PASS
-මුදල්	mudal	NEEDS-U1
+මුදල්	mudal	PASS	was NEEDS-U1; passes with word-final hal (PR #10)
 ලබාදීමට	labaadiimaTa	PASS
-රුපියල්	rupiyal	NEEDS-U1
+රුපියල්	rupiyal	PASS	was NEEDS-U1; passes with word-final hal (PR #10)
 ලක්ෂයක	lakShayaka	PASS
-අල්ලසක්	allasak	NEEDS-U1
+අල්ලසක්	allasak	PASS	was NEEDS-U1; passes with word-final hal (PR #10)
 ඉල්ලා	illaa	PASS
-එයින්	eyin	NEEDS-U1
-25000ක්		SKIP	digits (Latin/numeral token, not transliterated)
+එයින්	eyin	PASS	was NEEDS-U1; passes with word-final hal (PR #10)
+25000ක්	25000k	PASS	was SKIP (digits+Sinhala); digits pass through, so typed as 25000k
 ලබා	labaa	PASS
 ගැනීමේ	gaeniimee	PASS
 චෝදනාවට	choodanaavaTa	PASS
-කොළඹ	koLazba	NEEDS-U2	requires prenasalized ba letter (ඹ)
+කොළඹ	koLazba	PASS	was NEEDS-U2; passes with the additional letters (PR #9)
 මහාධිකරණය	mahaadhikaraNaya	PASS
-මගින්	magin	NEEDS-U1
+මගින්	magin	PASS	was NEEDS-U1; passes with word-final hal (PR #10)
 වරදකරු	varadakaru	PASS
 කොට	koTa	PASS
 බරපතළ	barapathaLa	PASS
@@ -32,7 +32,7 @@ sinhala	singlish	status	note
 වසර	vasara	PASS
 පහක	pahaka	PASS
 සිර	sira	PASS
-දඬුවම්	dazDuvam	NEEDS-U1+U2	requires prenasalized da letter (ඬ) and word-final hal
+දඬුවම්	dazDuvam	PASS	was NEEDS-U1+U2; passes with PRs #9 and #10
 නියමව	niyamava	PASS
 සිටි	siTi	PASS
 රත්නපුර	rathnapura	PASS
@@ -41,24 +41,24 @@ sinhala	singlish	status	note
 හිටපු	hiTapu	PASS
 ග්‍රාම	graama	PASS
 නිලධාරියකුට	niladhaariyakuTa	PASS
-දුන්	dun	NEEDS-U1
+දුන්	dun	PASS	was NEEDS-U1; passes with word-final hal (PR #10)
 අදාළ	adaaLa	PASS
-දඬුවම	dazDuvama	NEEDS-U2	requires prenasalized da letter (ඬ)
-ශ්‍රේෂ්ඨාධිකරණය	shreeShThaadhikaraNaya	NEEDS-U2	requires retroflex aspirate Th letter (ඨ)
+දඬුවම	dazDuvama	PASS	was NEEDS-U2; passes with the additional letters (PR #9)
+ශ්‍රේෂ්ඨාධිකරණය	shreeShThaadhikaraNaya	PASS	was NEEDS-U2; passes with the additional letters (PR #9)
 තහවුරු	thahavuru	PASS
 කළේය	kaLeeya	PASS
 මෙසේ	mesee	PASS
-සිරදඬුවම	siradazDuvama	NEEDS-U2	requires prenasalized da letter (ඬ)
+සිරදඬුවම	siradazDuvama	PASS	was NEEDS-U2; passes with the additional letters (PR #9)
 කරනු	karanu	PASS
 ලැබුවේ	laebuvee	PASS
 එම	ema	PASS
 නිලධාරියා	niladhaariyaa	PASS
-විසින්	visin	NEEDS-U1
+විසින්	visin	PASS	was NEEDS-U1; passes with word-final hal (PR #10)
 ගොනුකොට	gonukoTa	PASS
 තිබූ	thibuu	PASS
 විශේෂ	visheeSha	PASS
 අභියාචන	abhiyaachana	PASS
-පෙතසමක්	pethasamak	NEEDS-U1
+පෙතසමක්	pethasamak	PASS	was NEEDS-U1; passes with word-final hal (PR #10)
 විභාගයට	vibhaagayaTa	PASS
 ගැනීම	gaeniima	PASS
 ප්‍රතික්ෂේප	prathikSheepa	PASS
@@ -67,60 +67,60 @@ sinhala	singlish	status	note
 පෙත්සම	pethsama	PASS
 අගවිනිසුරු	agavinisuru	PASS
 ප්‍රීතී	priithii	PASS
-පද්මන්	padman	NEEDS-U1
+පද්මන්	padman	PASS	was NEEDS-U1; passes with word-final hal (PR #10)
 සූරසේන	suuraseena	PASS
-ශ්‍රේෂ්ඨාධිකරණ	shreeShThaadhikaraNa	NEEDS-U2	requires retroflex aspirate Th letter (ඨ)
+ශ්‍රේෂ්ඨාධිකරණ	shreeShThaadhikaraNa	PASS	was NEEDS-U2; passes with the additional letters (PR #9)
 විනිසුරු	vinisuru	PASS
 අචල	achala	PASS
-වෙන්ගප්පුලි	vengappuli	BUG	engine greedily matches the "ng" digraph (mapping to ඞ) even when n and g belong to separate syllables (ven+hal+ga); produced වෙඞප්පුලි instead of වෙන්ගප්පුලි; scheme has no escape to force n+hal+g reading
+වෙන්ගප්පුලි	vengappuli	PASS	was BUG: ng swallowed as ඞ; fixed: ඞ moved to nG
 යන	yana	PASS
-මහත්වරුන්ගේ	mahathvarungee	BUG	engine greedily matches the "ng" digraph (mapping to ඞ) even when n and g belong to separate syllables; produced මහත්වරුඞේ instead of මහත්වරුන්ගේ; scheme has no escape to force n+hal+g reading
+මහත්වරුන්ගේ	mahathvarungee	PASS	was BUG: ng swallowed as ඞ; fixed: ඞ moved to nG
 සමන්විත	samanvitha	PASS
-මඩුල්ලක්	maDullak	NEEDS-U1
+මඩුල්ලක්	maDullak	PASS	was NEEDS-U1; passes with word-final hal (PR #10)
 හමුවේ	hamuvee	PASS
 ගැනීණි	gaeniiNi	PASS
 කුඩව	kuDava	PASS
 නිලධාරී	niladhaarii	PASS
-එම්	em	NEEDS-U1
+එම්	em	PASS	was NEEDS-U1; passes with word-final hal (PR #10)
 රණසිංහ	raNasiMha	PASS
 නමැත්තා	namaeththaa	PASS
 පෙතසමේ	pethasamee	PASS
-වගඋත්තරකරු	vagauththarakaru	BUG	compound-word hiatus: the independent vowel උ follows a bare consonant ග (word boundary vaga+uttharakaru); typed "gau" is instead read as the "au" dependent vowel sign attaching to ග, producing වගෞත්තරකරු; the scheme has no way to force an independent vowel break immediately after a consonant carrying its inherent a
-අල්ලස්	allas	NEEDS-U1
+වගඋත්තරකරු	vagaquththarakaru	PASS	was BUG: au read as the ෞ sign across a compound boundary; fixed: q syllable break (row respelled)
+අල්ලස්	allas	PASS	was NEEDS-U1; passes with word-final hal (PR #10)
 හෝ	hoo	PASS
 දූෂණ	duuShaNa	PASS
 කොමිසමේ	komisamee	PASS
 අධ්‍යක්ෂ	adhyakSha	PASS
 ජනරාල්වරයා	janaraalvarayaa	PASS
-නම්	nam	NEEDS-U1
+නම්	nam	PASS	was NEEDS-U1; passes with word-final hal (PR #10)
 කර	kara	PASS
 තිබිණී	thibiNii	PASS
 අධිකරණයේ	adhikaraNayee	PASS
 සලකා	salakaa	PASS
 බැලූ	baeluu	PASS
-අවස්ථාවේදී	avasthaaveedii	BUG	aspirated dental ථ has no mapping in the rule table at all (only plain ත "th" is defined) and is not among the Unit 2 new-letter list either; produced අවස්තාවේදී (plain ත) instead of අවස්ථාවේදී
+අවස්ථාවේදී	avasthhaaveedii	PASS	was BUG: no spelling for ථ; fixed: thh -> ථ (row respelled)
 විත්තිකාර	viththikaara	PASS
 අභියාචක	abhiyaachaka	PASS
-වෙනුවෙන්	venuven	NEEDS-U1
+වෙනුවෙන්	venuven	PASS	was NEEDS-U1; passes with word-final hal (PR #10)
 පෙනී	penii	PASS
 ජනාධිපති	janaadhipathi	PASS
-නීතිඥ	niithijnya	NEEDS-U2	requires single-glyph ඥ letter; engine currently renders j+ny as the visually similar but codepoint-different conjunct ජ්ඤ
+නීතිඥ	niithijnya	PASS	was NEEDS-U2; passes with the additional letters (PR #9)
 කාලිංග	kaaliMga	PASS
 ඉන්ද්‍රතිස්ස	indrathissa	PASS
 මහතා	mahathaa	PASS
 කරුණු	karuNu	PASS
-දක්වමින්	dakvamin	NEEDS-U1
+දක්වමින්	dakvamin	PASS	was NEEDS-U1; passes with word-final hal (PR #10)
 කියා	kiyaa	PASS
 සිටියේ	siTiyee	PASS
 තම	thama	PASS
 සේවාදායකයා	seevaadaayakayaa	PASS
 මුදල	mudala	PASS
-කිසිවිටෙකත්	kisiviTekath	NEEDS-U1
-නොගත්	nogath	NEEDS-U1
-බවත්	bavath	NEEDS-U1
+කිසිවිටෙකත්	kisiviTekath	PASS	was NEEDS-U1; passes with word-final hal (PR #10)
+නොගත්	nogath	PASS	was NEEDS-U1; passes with word-final hal (PR #10)
+බවත්	bavath	PASS	was NEEDS-U1; passes with word-final hal (PR #10)
 උපාය	upaaya	PASS
 දූතයාගේ	duuthayaagee	PASS
 සාක්ෂි	saakShi	PASS
 පැමිණිල්ලේ	paemiNillee	PASS
 පරස්පර	paraspara	PASS
-බවත්ය	bavathya	BUG	engine's automatic consonant+y+vowel -> ZWJ yansaya conjunct rule fires for th+ya here, producing බවත්‍ය (with ZWJ); the real word බවත්ය uses plain hal+ya with no conjunct, and the scheme has no escape to suppress the automatic conjunct
+බවත්ය	bavathqya	PASS	was BUG: automatic yansaya where the word has plain hal + ය; fixed: q syllable break (row respelled)

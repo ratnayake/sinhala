@@ -23,6 +23,8 @@ For every distinct Sinhala word (punctuation stripped) the Singlish spelling was
 
 ## Status summary
 
+> Round 2: every row now passes (see [CHECKLIST.md](CHECKLIST.md)). The counts below are the Round-1 triage.
+
 | Status | Count |
 |---|---|
 | PASS | 106 |
@@ -35,10 +37,10 @@ For every distinct Sinhala word (punctuation stripped) the Singlish spelling was
 
 ## Checklist of BUG rows
 
-- [ ] ඇඟලු‍ම් (aezgalum) — source HTML has a stray ZWJ (U+200D) between `ු` and `ම්` not adjacent to any r/y conjunct (likely a lankadeepa.lk CMS/copy-paste artifact); the engine cannot emit a bare ZWJ, so no spelling reproduces this exact sequence. The word also separately needs U1 (word-final `ම්`) and U2 (`ඟ` for `zg`).
-- [ ] ඉල්ලු‍ම (illuma) — same stray-ZWJ source artifact as above (no U1/U2 needed otherwise; `ල්ල` and `ම` round-trip fine once the extra ZWJ is ignored).
-- [ ] කාර්ය (kaarya) — source spells the rakaransaya+yansaya cluster as `ර්ය` (no ZWJ), but the engine's r/y-conjunct rule always inserts a ZWJ when `y` follows any consonant+virama (including `r`), producing `ර්‍ය`. Standard Sinhala orthography for this word usually does use the yansaya ligature, so the source is likely missing it — the engine has no way to produce the ZWJ-less form.
-- [ ] ප්‍රථම (prathama) — contains ථ (U+0DAE, aspirated dental "th"), which is entirely absent from `RuleTable.cs` and not covered by either the U1 or U2 scope. No Singlish spelling can currently produce this letter; best effort ("th") renders as ත (dental t) instead.
+- [x] ඇඟලු‍ම් (aezgalum) — source HTML has a stray ZWJ (U+200D) between `ු` and `ම්` not adjacent to any r/y conjunct (likely a lankadeepa.lk CMS/copy-paste artifact); the engine cannot emit a bare ZWJ, so no spelling reproduces this exact sequence. The word also separately needs U1 (word-final `ම්`) and U2 (`ඟ` for `zg`). *(Round 2: fixed, see [CHECKLIST.md](CHECKLIST.md).)*
+- [x] ඉල්ලු‍ම (illuma) — same stray-ZWJ source artifact as above (no U1/U2 needed otherwise; `ල්ල` and `ම` round-trip fine once the extra ZWJ is ignored). *(Round 2: fixed, see [CHECKLIST.md](CHECKLIST.md).)*
+- [x] කාර්ය (kaarya) — source spells the rakaransaya+yansaya cluster as `ර්ය` (no ZWJ), but the engine's r/y-conjunct rule always inserts a ZWJ when `y` follows any consonant+virama (including `r`), producing `ර්‍ය`. Standard Sinhala orthography for this word usually does use the yansaya ligature, so the source is likely missing it — the engine has no way to produce the ZWJ-less form. *(Round 2: fixed, see [CHECKLIST.md](CHECKLIST.md).)*
+- [x] ප්‍රථම (prathama) — contains ථ (U+0DAE, aspirated dental "th"), which is entirely absent from `RuleTable.cs` and not covered by either the U1 or U2 scope. No Singlish spelling can currently produce this letter; best effort ("th") renders as ත (dental t) instead. *(Round 2: fixed, see [CHECKLIST.md](CHECKLIST.md).)*
 
 ## Notes
 

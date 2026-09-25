@@ -3,23 +3,23 @@ sinhala	singlish	status	note
 මහික	mahika	PASS
 වීරරත්න	viirarathna	PASS
 සහ	saha	PASS
-සුජිත්	sujith	NEEDS-U1
+සුජිත්	sujith	PASS	was NEEDS-U1; passes with word-final hal (PR #10)
 හේවාජුලිගේ	heevaajuligee	PASS
 22		SKIP	digits (Latin/numeral token, not transliterated)
-සංශෝධනයෙන්	saMshoodhanayen	NEEDS-U1
+සංශෝධනයෙන්	saMshoodhanayen	PASS	was NEEDS-U1; passes with word-final hal (PR #10)
 කෙරෙන්නේ	kerennee	PASS
 ජනතාවගේ	janathaavagee	PASS
 ප්‍රධාන	pradhaana	PASS
-අභිලාෂයක්	abhilaaShayak	NEEDS-U1
+අභිලාෂයක්	abhilaaShayak	PASS	was NEEDS-U1; passes with word-final hal (PR #10)
 ඉටු	iTu	PASS
 කිරීම	kiriima	PASS
 බව	bava	PASS
-කෘෂිකර්ම	kRShikarma	NEEDS-U2	requires vocalic R vowel sign (ෘ)
-ඉඩම්	iDam	NEEDS-U1
+කෘෂිකර්ම	kRShikarma	PASS	was NEEDS-U2; passes with the additional letters (PR #9)
+ඉඩම්	iDam	PASS	was NEEDS-U1; passes with word-final hal (PR #10)
 වාරිමාර්ග	vaarimaarga	PASS
 අමාත්‍ය	amaathya	PASS
 කේඩී	keeDii	PASS
-ලාල්	laal	NEEDS-U1
+ලාල්	laal	PASS	was NEEDS-U1; passes with word-final hal (PR #10)
 කාන්ත	kaantha	PASS
 මහතා	mahathaa	PASS
 පාර්ලිමේන්තුවේදී	paarlimeenthuveedii	PASS
@@ -27,7 +27,7 @@ sinhala	singlish	status	note
 මේ	mee	PASS
 සංශෝධනයේ	saMshoodhanayee	PASS
 අරමුණ	aramuNa	PASS
-එක්	ek	NEEDS-U1
+එක්	ek	PASS	was NEEDS-U1; passes with word-final hal (PR #10)
 කිරීමයි	kiriimayi	PASS
 ඒක	eeka	PASS
 බරපතල	barapathala	PASS
@@ -45,56 +45,56 @@ sinhala	singlish	status	note
 තිබෙනවා	thibenavaa	PASS
 අප	apa	PASS
 රටේ	raTee	PASS
-බිඳ	bizda	NEEDS-U2	requires prenasalized ද letter (ඟ family: ඳ)
+බිඳ	bizda	PASS	was NEEDS-U2; passes with the additional letters (PR #9)
 වැටුණු	vaeTuNu	PASS
 දේශපාලන	deeshapaalana	PASS
-සංස්කෘතියක්	saMskRthiyak	NEEDS-U1+U2	requires vocalic R and word-final hal
+සංස්කෘතියක්	saMskRthiyak	PASS	was NEEDS-U1+U2; passes with PRs #9 and #10
 ජනතාව	janathaava	PASS
 පීඩාවට	piiDaavata	PASS
 පත්වුණා	pathvuNaa	PASS
 වගේම	vageema	PASS
 පද්ධතියේ	paddhathiyee	PASS
 ස්වභාවය	svabhaavaya	PASS
-මහත්	mahath	NEEDS-U1
+මහත්	mahath	PASS	was NEEDS-U1; passes with word-final hal (PR #10)
 පත්වෙනවා	pathvenavaa	PASS
-වශයෙන්	vashayen	NEEDS-U1
+වශයෙන්	vashayen	PASS	was NEEDS-U1; passes with word-final hal (PR #10)
 ජනතා	janathaa	PASS
 විවේචනයට	viveechanayaTa	PASS
 නඩු	naDu	PASS
-කල්යාම	kalyaama	BUG	engine's automatic consonant+y+vowel -> ZWJ yansaya conjunct rule fires for l+ya here, producing කල්‍යාම (with ZWJ); the real word කල්යාම uses plain hal+ya with no conjunct, and the scheme has no escape to suppress the automatic conjunct
+කල්යාම	kalqyaama	PASS	was BUG: automatic yansaya where the word has plain hal + ය; fixed: q syllable break (row respelled)
 රජයට	rajayaTa	PASS
 ඒ	ee	PASS
-වෙනුවෙන්	venuven	NEEDS-U1
-මුදලක්	mudalak	NEEDS-U1
+වෙනුවෙන්	venuven	PASS	was NEEDS-U1; passes with word-final hal (PR #10)
+මුදලක්	mudalak	PASS	was NEEDS-U1; passes with word-final hal (PR #10)
 වැය	vaeya	PASS
 කරන්නට	karannaTa	PASS
 සිදුවී	siduvii	PASS
-මහජනතාවටත්	mahajanathaavaTath	NEEDS-U1
-වියදම්	viyadam	NEEDS-U1
+මහජනතාවටත්	mahajanathaavaTath	PASS	was NEEDS-U1; passes with word-final hal (PR #10)
+වියදම්	viyadam	PASS	was NEEDS-U1; passes with word-final hal (PR #10)
 එහෙම	ehema	PASS
 නාස්ති	naasthi	PASS
 වෙන්නේ	vennee	PASS
-තමන්ගේ	thamangee	BUG	engine greedily matches the "ng" digraph (mapping to ඞ) even when n and g belong to separate syllables (than+hal+ge); produced තමඞේ instead of තමන්ගේ; scheme has no escape to force n+hal+g reading
+තමන්ගේ	thamangee	PASS	was BUG: ng swallowed as ඞ; fixed: ඞ moved to nG
 ජීවිතයේ	jiivithayee	PASS
-වෙනත්	venath	NEEDS-U1
+වෙනත්	venath	PASS	was NEEDS-U1; passes with word-final hal (PR #10)
 ප්‍රතිඵලදායක	prathiphaladaayaka	PASS
 වැඩකට	vaeDakaTa	PASS
 යොදාගන්න	yodaaganna	PASS
 තියෙන	thiyena	PASS
-මුදල්	mudal	NEEDS-U1
+මුදල්	mudal	PASS	was NEEDS-U1; passes with word-final hal (PR #10)
 මේවා	meevaa	PASS
 අපි	api	PASS
 බලන්න	balanna	PASS
 ඕන	oona	PASS
 පැත්තේ	paeththee	PASS
 සිට	siTa	PASS
-ආණ්ඩුවක්	aaNDuvak	NEEDS-U1
+ආණ්ඩුවක්	aaNDuvak	PASS	was NEEDS-U1; passes with word-final hal (PR #10)
 ලෙස	lesa	PASS
 මේවාට	meevaaTa	PASS
 උත්තර	uththara	PASS
 සෙවිය	seviya	PASS
 යුතු	yuthu	PASS
 නැද්ද	naedda	PASS
-යනුවෙන්	yanuven	NEEDS-U1
+යනුවෙන්	yanuven	PASS	was NEEDS-U1; passes with word-final hal (PR #10)
 ප්‍රශ්න	prashna	PASS
 කළේය	kaLeeya	PASS

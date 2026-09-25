@@ -29,6 +29,8 @@ Every distinct Sinhala word (152) plus Latin/digit tokens (7: `Trial`, `at`, `Ba
 
 ## Status summary (159 rows)
 
+> Round 2: every row now passes (see [CHECKLIST.md](CHECKLIST.md)). The counts below are the Round-1 triage.
+
 | Status | Count |
 |---|---|
 | PASS | 127 |
@@ -39,4 +41,4 @@ Every distinct Sinhala word (152) plus Latin/digit tokens (7: `Trial`, `at`, `Ba
 
 ## BUG checklist
 
-- [ ] අවසන්ය (avasanya, "concluded") — typed as `avasanya` (a-v-a-s-a-n-y-a), which should produce ස+න්(hal)+ය (plain "n" consonant with virama, directly followed by "ය"; the source word has **no** ZWJ, so this is not the ක්‍ර/ව්‍ය conjunct case). Instead the engine's trie greedily matches the 2-letter substring "ny" as its own consonant token (ඤ) before it ever considers "n" as a standalone consonant needing a virama, so the CLI outputs අවසඤ instead of අවසන්ය. The same defect (with "ng"→ඞ instead of hal-n + ග) also breaks 3 words in *feature-2* (බල්ලන්ගේ, කොල්ලන්ගේ, ලෙන්ගතුම) — see that file for the shared diagnosis. There is no documented escape in the target scheme to type a bare "n" immediately before "y" or "g" without it collapsing into the ny/ng digraph.
+- [x] අවසන්ය (avasanya, "concluded") — typed as `avasanya` (a-v-a-s-a-n-y-a), which should produce ස+න්(hal)+ය (plain "n" consonant with virama, directly followed by "ය"; the source word has **no** ZWJ, so this is not the ක්‍ර/ව්‍ය conjunct case). Instead the engine's trie greedily matches the 2-letter substring "ny" as its own consonant token (ඤ) before it ever considers "n" as a standalone consonant needing a virama, so the CLI outputs අවසඤ instead of අවසන්ය. The same defect (with "ng"→ඞ instead of hal-n + ග) also breaks 3 words in *feature-2* (බල්ලන්ගේ, කොල්ලන්ගේ, ලෙන්ගතුම) — see that file for the shared diagnosis. There is no documented escape in the target scheme to type a bare "n" immediately before "y" or "g" without it collapsing into the ny/ng digraph. *(Round 2: fixed, see [CHECKLIST.md](CHECKLIST.md).)*

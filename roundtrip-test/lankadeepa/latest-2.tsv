@@ -3,29 +3,29 @@ sinhala	singlish	status	note
 මහික	mahika	PASS	
 වීරරත්න	viirarathna	PASS	
 සහ	saha	PASS	
-සුජිත්	sujith	NEEDS-U1	
+සුජිත්	sujith	PASS	was NEEDS-U1; passes with word-final hal (PR #10)
 හේවාජුලිගේ	heevaajuligee	PASS	
 22		SKIP	
 වැනි	vaeni	PASS	
 ආණ්ඩුක්‍රම	aaNDukrama	PASS	
-ව්‍යවස්ථා	vyavasthaa	BUG	Contains U+0DAE (dental aspirated tha) with no Singlish mapping in the target scheme; same root cause as sthaapitha in latest-1.
+ව්‍යවස්ථා	vyavasthhaa	PASS	was BUG: no spelling for ථ; fixed: thh -> ථ (row respelled)
 සංශෝධනය	saMshoodhanaya	PASS	
-නිරුවත්	niruvath	NEEDS-U1	
-සංශෝධනයක්	saMshoodhanayak	NEEDS-U1	
+නිරුවත්	niruvath	PASS	was NEEDS-U1; passes with word-final hal (PR #10)
+සංශෝධනයක්	saMshoodhanayak	PASS	was NEEDS-U1; passes with word-final hal (PR #10)
 බව	bava	PASS	
 විපක්ෂ	vipakSha	PASS	
 නායක	naayaka	PASS	
-සජිත්	sajith	NEEDS-U1	
+සජිත්	sajith	PASS	was NEEDS-U1; passes with word-final hal (PR #10)
 ප්‍රේමදාස	preemadaasa	PASS	
 මහතා	mahathaa	PASS	
 පාර්ලිමේන්තුවේදී	paarlimeenthuveedii	PASS	
 අද	ada	PASS	
 පැවසීය	paevasiiya	PASS	
 රටට	ratata	PASS	
-හොඳ	hozda	NEEDS-U2	
+හොඳ	hozda	PASS	was NEEDS-U2; passes with the additional letters (PR #9)
 යැයි	yaeyi	PASS	
 කොච්චර	kochchara	PASS	
-කිව්වත්	kivvath	NEEDS-U1	
+කිව්වත්	kivvath	PASS	was NEEDS-U1; passes with word-final hal (PR #10)
 ඒ	ee	PASS	
 කතාව	kathaava	PASS	
 ඇත්ත	aeththa	PASS	
@@ -41,7 +41,7 @@ sinhala	singlish	status	note
 ගරුත්වය	garuthvaya	PASS	
 කෙලෙසන	kelesana	PASS	
 මානව	maanava	PASS	
-අයිතීන්	ayithiin	NEEDS-U1	
+අයිතීන්	ayithiin	PASS	was NEEDS-U1; passes with word-final hal (PR #10)
 උල්ලංඝනය	ullaMghanaya	PASS	
 කරන	karana	PASS	
 කිව	kiva	PASS	
@@ -49,7 +49,7 @@ sinhala	singlish	status	note
 මෑත	maaetha	PASS	
 කාලයේ	kaalayee	PASS	
 සංශෝධන	saMshoodhana	PASS	
-ගණනාවක්	gaNanaavak	NEEDS-U1	
+ගණනාවක්	gaNanaavak	PASS	was NEEDS-U1; passes with word-final hal (PR #10)
 ආවා	aavaa	PASS	
 17		SKIP	
 ආවේ	aavee	PASS	
@@ -58,12 +58,12 @@ sinhala	singlish	status	note
 අඩු	aDu	PASS	
 කරන්න	karanna	PASS	
 18		SKIP	
-සංශෝධනයෙන්	saMshoodhanayen	NEEDS-U1	
+සංශෝධනයෙන්	saMshoodhanayen	PASS	was NEEDS-U1; passes with word-final hal (PR #10)
 කළේ	kaLee	PASS	
 කරපු	karapu	PASS	
 නැවත	naevatha	PASS	
 විධායකය	vidhaayakaya	PASS	
-විසින්	visin	NEEDS-U1	
+විසින්	visin	PASS	was NEEDS-U1; passes with word-final hal (PR #10)
 ලබා	labaa	PASS	
 ගත්තා	gaththaa	PASS	
 19		SKIP	
@@ -71,13 +71,13 @@ sinhala	singlish	status	note
 20		SKIP	
 මොකක්ද	mokakda	PASS	
 69		SKIP	
-ලක්ෂයෙන්	lakShayen	NEEDS-U1	
+ලක්ෂයෙන්	lakShayen	PASS	was NEEDS-U1; passes with word-final hal (PR #10)
 පත්වුණු	pathvuNu	PASS	
 ජනාධිපතිවරයා	janaadhipathivarayaa	PASS	
 ඊට	iita	PASS	
 පස්සේ	passee	PASS	
 රට	rata	PASS	
-බංකොලොත්	baMkoloth	NEEDS-U1	
+බංකොලොත්	baMkoloth	PASS	was NEEDS-U1; passes with word-final hal (PR #10)
 වුණා	vuNaa	PASS	
 විනාශ	vinaasha	PASS	
 මුඛය	mukhaya	PASS	
@@ -86,19 +86,19 @@ sinhala	singlish	status	note
 21		SKIP	
 වෙනි	veni	PASS	
 පැමිණියා	paemiNiyaa	PASS	
-එයින්	eyin	NEEDS-U1	
+එයින්	eyin	PASS	was NEEDS-U1; passes with word-final hal (PR #10)
 විධායකට	vidhaayakata	PASS	
-ගත්	gath	NEEDS-U1	
+ගත්	gath	PASS	was NEEDS-U1; passes with word-final hal (PR #10)
 කිරීමයි	kiriimayi	PASS	
 උපරිමාධිකරණ	uparimaadhikaraNa	PASS	
-විනිසුරුවන්	vinisuruvan	NEEDS-U1	
+විනිසුරුවන්	vinisuruvan	PASS	was NEEDS-U1; passes with word-final hal (PR #10)
 හිතුමතේ	hithumathee	PASS	
-පත්	path	NEEDS-U1	
+පත්	path	PASS	was NEEDS-U1; passes with word-final hal (PR #10)
 කිරීමට	kiriimata	PASS	
 නොහැකි	nohaeki	PASS	
 වගන්ති	vaganthi	PASS	
 එහි	ehi	PASS	
-ඇතුළත්	aethuLath	NEEDS-U1	
+ඇතුළත්	aethuLath	PASS	was NEEDS-U1; passes with word-final hal (PR #10)
 මේ	mee	PASS	
 ප්‍රජාතන්ත්‍රවාදයේ	prajaathanthravaadayee	PASS	
 ඛේදවාචකය	kheedavaachakaya	PASS	
@@ -114,7 +114,7 @@ sinhala	singlish	status	note
 ඉන්නවා	innavaa	PASS	
 ජනතාව	janathaava	PASS	
 අයට	ayata	PASS	
-ඡන්දත්	chhandath	NEEDS-U1	
+ඡන්දත්	chhandath	PASS	was NEEDS-U1; passes with word-final hal (PR #10)
 දීලා	diilaa	PASS	
 තියෙනවා	thiyenavaa	PASS	
 ඔන්න	onna	PASS	

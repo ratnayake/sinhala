@@ -1,23 +1,23 @@
 sinhala	singlish	status	note
 ත්‍රස්ත	thrastha	PASS	
 ප්‍රහාරය	prahaaraya	PASS	
-සම්බන්ධයෙන්	sambandhayen	NEEDS-U1	
-මෙතෙක්	methek	NEEDS-U1	
+සම්බන්ධයෙන්	sambandhayen	PASS	was NEEDS-U1; passes with word-final hal (PR #10)
+මෙතෙක්	methek	PASS	was NEEDS-U1; passes with word-final hal (PR #10)
 විභාග	vibhaaga	PASS	
 වූ	vuu	PASS	
 නඩු	naDu	PASS	
 ලබා	labaa	PASS	
-දුන්	dun	NEEDS-U1	
+දුන්	dun	PASS	was NEEDS-U1; passes with word-final hal (PR #10)
 තීන්දු	thiindu	PASS	
 සහ	saha	PASS	
 වර්තමාන	varthamaana	PASS	
 නීතිමය	niithimaya	PASS	
 තත්ත්වය	thaththvaya	PASS	
-පිළිබඳ	piLibazda	NEEDS-U2	
+පිළිබඳ	piLibazda	PASS	was NEEDS-U2; passes with the additional letters (PR #9)
 මේ	mee	PASS	
-අදහස්	adahas	NEEDS-U1	
+අදහස්	adahas	PASS	was NEEDS-U1; passes with word-final hal (PR #10)
 දැක්වීම	daekviima	PASS	
-මහාචාර්ය	mahaacaarya	PASS	
+මහාචාර්ය	mahaacaarya	PASS	marked PASS in Round 1 but failed: ZWJ yansaya emitted after ර; fixed: ර + ය is a plain cluster
 ප්‍රතිභා	prathibhaa	PASS	
 මහානාමහේවා	mahaanaamaheevaa	PASS	
 පාස්කු	paasku	PASS	
@@ -30,7 +30,7 @@ sinhala	singlish	status	note
 විට	vita	PASS	
 අපරාධ	aparaadha	PASS	
 මූලික	muulika	PASS	
-අයිතිවාසිකම්	ayithivaasikam	NEEDS-U1	
+අයිතිවාසිකම්	ayithivaasikam	PASS	was NEEDS-U1; passes with word-final hal (PR #10)
 විමර්ශන	vimarshana	PASS	
 මට්ටමේ	mattamee	PASS	
 පවතින	pavathina	PASS	
@@ -39,14 +39,14 @@ sinhala	singlish	status	note
 ක්‍රියාත්මක	kriyaathmaka	PASS	
 වී	vii	PASS	
 ඇත	aetha	PASS	
-ඉන්	in	NEEDS-U1	
+ඉන්	in	PASS	was NEEDS-U1; passes with word-final hal (PR #10)
 ප්‍රධාන	pradhaana	PASS	
 කිහිපයක	kihipayaka	PASS	
-විටත්	vitath	NEEDS-U1	
+විටත්	vitath	PASS	was NEEDS-U1; passes with word-final hal (PR #10)
 ප්‍රකාශයට	prakaashayata	PASS	
-පත්	path	NEEDS-U1	
+පත්	path	PASS	was NEEDS-U1; passes with word-final hal (PR #10)
 කර	kara	PASS	
-අවසන්ය	avasanya	BUG	n+y adjacency (no ZWJ conjunct) is swallowed by the 'ny' digraph rule -> produced ඤ instead of න්‍less ya; no escape exists in scheme to type hal-n followed by plain ya
+අවසන්ය	avasanqya	PASS	was BUG: ny swallowed as ඤ; fixed: ඤ moved to nY, plus q to suppress the yansaya (row respelled)
 ත්‍රිපුද්ගල	thripudgala	PASS	
 මහාධිකරණ	mahaadhikaraNa	PASS	
 විනිසුරු	vinisuru	PASS	
@@ -71,13 +71,13 @@ sinhala	singlish	status	note
 තීන්දුවකට	thiinduvakata	PASS	
 එරෙහිව	erehiva	PASS	
 අභියාචනාධිකරණය	abhiyaacanaadhikaraNaya	PASS	
-මඟහැර	mazgahaera	NEEDS-U2	
+මඟහැර	mazgahaera	PASS	was NEEDS-U2; passes with the additional letters (PR #9)
 කෙලින්ම	kelinma	PASS	
-ශ්‍රේෂ්ඨාධිකරණයට	shreeShThaadhikaraNayata	NEEDS-U2	
+ශ්‍රේෂ්ඨාධිකරණයට	shreeShThaadhikaraNayata	PASS	was NEEDS-U2; passes with the additional letters (PR #9)
 දින	dina	PASS	
-ක්	k	NEEDS-U1	
+ක්	k	PASS	was NEEDS-U1; passes with word-final hal (PR #10)
 ඇතුළත	aethuLatha	PASS	
-ඉදිරිපත්	idiripath	NEEDS-U1	
+ඉදිරිපත්	idiripath	PASS	was NEEDS-U1; passes with word-final hal (PR #10)
 කිරීමේ	kiriimee	PASS	
 හිමිකම	himikama	PASS	
 විත්තිකරුවන්ට	viththikaruvanta	PASS	
@@ -85,22 +85,22 @@ sinhala	singlish	status	note
 වේ	vee	PASS	
 එවැනි	evaeni	PASS	
 අභියාචනයකදී	abhiyaacanayakadii	PASS	
-ශ්‍රේෂ්ඨාධිකරණය	shreeShThaadhikaraNaya	NEEDS-U2	
+ශ්‍රේෂ්ඨාධිකරණය	shreeShThaadhikaraNaya	PASS	was NEEDS-U2; passes with the additional letters (PR #9)
 නැවත	naevatha	PASS	
 සාක්ෂි	saakShi	PASS	
-කිරීමක්	kiriimak	NEEDS-U1	
+කිරීමක්	kiriimak	PASS	was NEEDS-U1; passes with word-final hal (PR #10)
 සිදු	sidu	PASS	
 නොකරන	nokarana	PASS	
 අතර	athara	PASS	
-මුල්	mul	NEEDS-U1	
+මුල්	mul	PASS	was NEEDS-U1; passes with word-final hal (PR #10)
 වාර්තාවේ	vaarthaavee	PASS	
 අඩංගු	aDaMgu	PASS	
 හෝ	hoo	PASS	
 කරුණුමය	karuNumaya	PASS	
 දෝෂ	dooSha	PASS	
-පදනම්	padanam	NEEDS-U1	
-කරගනිමින්	karaganimin	NEEDS-U1	
-නීතිඥ	niithijnya	NEEDS-U2	
+පදනම්	padanam	PASS	was NEEDS-U1; passes with word-final hal (PR #10)
+කරගනිමින්	karaganimin	PASS	was NEEDS-U1; passes with word-final hal (PR #10)
+නීතිඥ	niithijnya	PASS	was NEEDS-U2; passes with the additional letters (PR #9)
 තර්ක	tharka	PASS	
 සලකා	salakaa	PASS	
 බලා	balaa	PASS	
@@ -117,7 +117,7 @@ sinhala	singlish	status	note
 බුද්ධි	buddhi	PASS	
 තොරතුරු	thorathuru	PASS	
 ලැබී	laebii	PASS	
-තිබියදීත්	thibiyadiith	NEEDS-U1	
+තිබියදීත්	thibiyadiith	PASS	was NEEDS-U1; passes with word-final hal (PR #10)
 එය	eya	PASS	
 වළක්වා	vaLakvaa	PASS	
 ගැනීමට	gaeniimata	PASS	
@@ -128,7 +128,7 @@ sinhala	singlish	status	note
 පූජිත	puujitha	PASS	
 ජයසුන්දර	jayasundara	PASS	
 ආරක්ෂක	aarakShaka	PASS	
-ලේකම්	leekam	NEEDS-U1	
+ලේකම්	leekam	PASS	was NEEDS-U1; passes with word-final hal (PR #10)
 හේමසිරි	heemasiri	PASS	
 ප්‍රනාන්දු	pranaandu	PASS	
 යන	yana	PASS	
@@ -138,8 +138,8 @@ sinhala	singlish	status	note
 විය	viya	PASS	
 අනතුර	anathura	PASS	
 දැන	daena	PASS	
-සිටියදීත්	sitiyadiith	NEEDS-U1	
-නොගැනීමෙන්	nogaeniimen	NEEDS-U1	
+සිටියදීත්	sitiyadiith	PASS	was NEEDS-U1; passes with word-final hal (PR #10)
+නොගැනීමෙන්	nogaeniimen	PASS	was NEEDS-U1; passes with word-final hal (PR #10)
 මනුෂ්‍ය	manuShya	PASS	
 ඝාතන	ghaathana	PASS	
 සිදුවීමට	siduviimata	PASS	
@@ -148,7 +148,7 @@ sinhala	singlish	status	note
 මත	matha	PASS	
 ඔවුන්ට	ovunta	PASS	
 මරණ	maraNa	PASS	
-දඬුවම	dazDuvama	NEEDS-U2	
+දඬුවම	dazDuvama	PASS	was NEEDS-U2; passes with the additional letters (PR #9)
 නියම	niyama	PASS	
 කෙරිණි	keriNi	PASS	
 2019		SKIP	Latin/digit token

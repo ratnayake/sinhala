@@ -23,6 +23,8 @@ Same method as business-1.md: Singlish spellings derived directly from `src/Sinh
 
 ## Status summary
 
+> Round 2: every row now passes (see [CHECKLIST.md](CHECKLIST.md)). The counts below are the Round-1 triage.
+
 | Status | Count |
 |---|---|
 | PASS | 101 |
@@ -35,10 +37,10 @@ Same method as business-1.md: Singlish spellings derived directly from `src/Sinh
 
 ## Checklist of BUG rows
 
-- [ ] ආචාර්ය (aachaarya) — source spells the rakaransaya+yansaya cluster as `ර්ය` (no ZWJ), but the engine's r/y-conjunct rule always inserts a ZWJ when `y` follows any consonant+virama (including `r`), producing `ර්‍ය`. Standard Sinhala orthography for this word usually does use the yansaya ligature, so the source is likely missing it — the engine has no way to produce the ZWJ-less form. (Same class of issue as `කාර්ය` in business-1.)
-- [ ] ආර්ථික (aarthika) — contains ථ (U+0DAE, aspirated dental "th"), absent from `RuleTable.cs` and outside the U1/U2 scope. Best effort ("th") renders as ත instead. Appears twice in this excerpt.
-- [ ] ස්ථාවරත්වය (sthaavarathvaya) — same ථ gap as above. Appears twice in this excerpt.
-- [ ] අවස්ථා (avasthaa) — same ථ gap as above.
+- [x] ආචාර්ය (aachaarya) — source spells the rakaransaya+yansaya cluster as `ර්ය` (no ZWJ), but the engine's r/y-conjunct rule always inserts a ZWJ when `y` follows any consonant+virama (including `r`), producing `ර්‍ය`. Standard Sinhala orthography for this word usually does use the yansaya ligature, so the source is likely missing it — the engine has no way to produce the ZWJ-less form. (Same class of issue as `කාර්ය` in business-1.) *(Round 2: fixed, see [CHECKLIST.md](CHECKLIST.md).)*
+- [x] ආර්ථික (aarthika) — contains ථ (U+0DAE, aspirated dental "th"), absent from `RuleTable.cs` and outside the U1/U2 scope. Best effort ("th") renders as ත instead. Appears twice in this excerpt. *(Round 2: fixed, see [CHECKLIST.md](CHECKLIST.md).)*
+- [x] ස්ථාවරත්වය (sthaavarathvaya) — same ථ gap as above. Appears twice in this excerpt. *(Round 2: fixed, see [CHECKLIST.md](CHECKLIST.md).)*
+- [x] අවස්ථා (avasthaa) — same ථ gap as above. *(Round 2: fixed, see [CHECKLIST.md](CHECKLIST.md).)*
 
 ## Notes
 

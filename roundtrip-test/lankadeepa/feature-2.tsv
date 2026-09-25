@@ -5,36 +5,36 @@ sinhala	singlish	status	note
 වාර්තා	vaarthaa	PASS	
 වූයේ	vuuyee	PASS	
 ලංකාවේ	laMkaavee	PASS	
-බල්ලන්ගේ	ballangee	BUG	n+g adjacency (mid-word cluster, no special ඟ letter in source) is swallowed by the 'ng' digraph rule -> produced ඞ instead of hal-n + ga; no escape exists in scheme
+බල්ලන්ගේ	ballangee	PASS	was BUG: ng swallowed as ඞ; fixed: ඞ moved to nG
 ජනගහනය	janagahanaya	PASS	
-කොල්ලන්ගේ	kollangee	BUG	n+g adjacency (mid-word cluster, no special ඟ letter in source) is swallowed by the 'ng' digraph rule -> produced ඞ instead of hal-n + ga; no escape exists in scheme
+කොල්ලන්ගේ	kollangee	PASS	was BUG: ng swallowed as ඞ; fixed: ඞ moved to nG
 ඉක්මවා	ikmavaa	PASS	
-ගොස්	gos	NEEDS-U1	
+ගොස්	gos	PASS	was NEEDS-U1; passes with word-final hal (PR #10)
 ඇති	aethi	PASS	
 බවය	bavaya	PASS	
 පසුගිය	pasugiya	PASS	
 සතියේ	sathiyee	PASS	
-බල්ලන්	ballan	NEEDS-U1	
+බල්ලන්	ballan	PASS	was NEEDS-U1; passes with word-final hal (PR #10)
 ගැන	gaena	PASS	
 දැඩි	daeDi	PASS	
 සමාජ	samaaja	PASS	
-කතිකාවතක්	kathikaavathak	NEEDS-U1	
-උන්	un	NEEDS-U1	
-පිළිබඳ	piLibazda	NEEDS-U2	
-චක්‍රලේඛයක්	cakraleekhayak	NEEDS-U1	
-නිකුත්	nikuth	NEEDS-U1	
-වීමත්	viimath	NEEDS-U1	
-සමඟමය	samazgamaya	NEEDS-U2	
+කතිකාවතක්	kathikaavathak	PASS	was NEEDS-U1; passes with word-final hal (PR #10)
+උන්	un	PASS	was NEEDS-U1; passes with word-final hal (PR #10)
+පිළිබඳ	piLibazda	PASS	was NEEDS-U2; passes with the additional letters (PR #9)
+චක්‍රලේඛයක්	cakraleekhayak	PASS	was NEEDS-U1; passes with word-final hal (PR #10)
+නිකුත්	nikuth	PASS	was NEEDS-U1; passes with word-final hal (PR #10)
+වීමත්	viimath	PASS	was NEEDS-U1; passes with word-final hal (PR #10)
+සමඟමය	samazgamaya	PASS	was NEEDS-U2; passes with the additional letters (PR #9)
 අන්තිමට	anthimata	PASS	
 සිදුවූයේ	siduvuuyee	PASS	
-ගැසට්	gaesat	NEEDS-U1	
+ගැසට්	gaesat	PASS	was NEEDS-U1; passes with word-final hal (PR #10)
 එකද	ekada	PASS	
 බල්ලටම	ballatama	PASS	
 යෑමය	yaaemaya	PASS	
 ඒ	ee	PASS	
 කියන්නේ	kiyannee	PASS	
 නිර්දේශ	nirdeesha	PASS	
-ඇතුළත්	aethuLath	NEEDS-U1	
+ඇතුළත්	aethuLath	PASS	was NEEDS-U1; passes with word-final hal (PR #10)
 නිවේදනයක්ද	niveedanayakda	PASS	
 වීමෙනි	viimeni	PASS	
 තහවුරු	thahavuru	PASS	
@@ -43,31 +43,31 @@ sinhala	singlish	status	note
 ජල	jala	PASS	
 භීතිකා	bhiithikaa	PASS	
 රෝගය	roogaya	PASS	
-මෙරටින්	meratin	NEEDS-U1	
-තුරන්	thuran	NEEDS-U1	
+මෙරටින්	meratin	PASS	was NEEDS-U1; passes with word-final hal (PR #10)
+තුරන්	thuran	PASS	was NEEDS-U1; passes with word-final hal (PR #10)
 කිරීමේ	kiriimee	PASS	
-අරමුණින්	aramuNin	NEEDS-U1	
-සුනඛයන්	sunakhayan	NEEDS-U1	
+අරමුණින්	aramuNin	PASS	was NEEDS-U1; passes with word-final hal (PR #10)
+සුනඛයන්	sunakhayan	PASS	was NEEDS-U1; passes with word-final hal (PR #10)
 ලියාපදිංචි	liyaapadiMci	PASS	
 කිරීම	kiriima	PASS	
-අනිවාර්ය	anivaarya	PASS	
+අනිවාර්ය	anivaarya	PASS	marked PASS in Round 1 but failed: ZWJ yansaya emitted after ර; fixed: ර + ය is a plain cluster
 කර	kara	PASS	
 ඇත	aetha	PASS	
 නොකරන	nokarana	PASS	
 අයට	ayata	PASS	
 එරෙහිව	erehiva	PASS	
 ගාස්තුව	gaasthuva	PASS	
-සමඟ	samazga	NEEDS-U2	
-රුපියල්	rupiyal	NEEDS-U1	
+සමඟ	samazga	PASS	was NEEDS-U2; passes with the additional letters (PR #9)
+රුපියල්	rupiyal	PASS	was NEEDS-U1; passes with word-final hal (PR #10)
 ක	ka	PASS	
-දඩයක්	daDayak	NEEDS-U1	
+දඩයක්	daDayak	PASS	was NEEDS-U1; passes with word-final hal (PR #10)
 නියම	niyama	PASS	
-කරමින්	karamin	NEEDS-U1	
+කරමින්	karamin	PASS	was NEEDS-U1; passes with word-final hal (PR #10)
 රාජ්‍ය	raajya	PASS	
 පරිපාලන	paripaalana	PASS	
 ස්වදේශ	svadeesha	PASS	
 කටයුතු	katayuthu	PASS	
-පළාත්	paLaath	NEEDS-U1	
+පළාත්	paLaath	PASS	was NEEDS-U1; passes with word-final hal (PR #10)
 සභා	sabhaa	PASS	
 හා	haa	PASS	
 පාලන	paalana	PASS	
@@ -86,10 +86,10 @@ sinhala	singlish	status	note
 සුනඛයකුම	sunakhayakuma	PASS	
 වාර්ෂිකව	vaarShikava	PASS	
 රෝගයට	roogayata	PASS	
-එන්නත්	ennath	NEEDS-U1	
+එන්නත්	ennath	PASS	was NEEDS-U1; passes with word-final hal (PR #10)
 කළ	kaLa	PASS	
 යුතු	yuthu	PASS	
-බවටත්	bavatath	NEEDS-U1	
+බවටත්	bavatath	PASS	was NEEDS-U1; passes with word-final hal (PR #10)
 ආයතන	aayathana	PASS	
 වෙත	vetha	PASS	
 නියෝග	niyooga	PASS	
@@ -107,10 +107,10 @@ sinhala	singlish	status	note
 ගාස්තුවට	gaasthuvata	PASS	
 අමතරව	amatharava	PASS	
 දඩ	daDa	PASS	
-මුදලක්	mudalak	NEEDS-U1	
+මුදලක්	mudalak	PASS	was NEEDS-U1; passes with word-final hal (PR #10)
 ගෙවීමට	geviimata	PASS	
 සිදුවේ	siduvee	PASS	
-මින්	min	NEEDS-U1	
+මින්	min	PASS	was NEEDS-U1; passes with word-final hal (PR #10)
 ඉදිරියට	idiriyata	PASS	
 බල	bala	PASS	
 ප්‍රදේශවල	pradeeshavala	PASS	
@@ -122,21 +122,21 @@ sinhala	singlish	status	note
 ගත	gatha	PASS	
 සුනඛ	sunakha	PASS	
 අභිජනන	abhijanana	PASS	
-මධ්‍යස්ථාන	madhyasthaana	BUG	Sinhala letter ථ (dental aspirated ta, U+0DAE) has no mapping in RuleTable at all -- outside both Unit 1 and Unit 2 scope; 'th' already taken by ත so this word cannot be spelled correctly
+මධ්‍යස්ථාන	madhyasthhaana	PASS	was BUG: no spelling for ථ; fixed: thh -> ථ (row respelled)
 පවත්වාගෙන	pavathvaagena	PASS	
-පුද්ගලයන්	pudgalayan	NEEDS-U1	
-අනිවාර්යයෙන්ම	anivaaryayenma	PASS	
-බලපත්‍රයක්	balapathrayak	NEEDS-U1	
+පුද්ගලයන්	pudgalayan	PASS	was NEEDS-U1; passes with word-final hal (PR #10)
+අනිවාර්යයෙන්ම	anivaaryayenma	PASS	marked PASS in Round 1 but failed: ZWJ yansaya emitted after ර; fixed: ර + ය is a plain cluster
+බලපත්‍රයක්	balapathrayak	PASS	was NEEDS-U1; passes with word-final hal (PR #10)
 අතර	athara	PASS	
 නොමැතිව	nomaethiva	PASS	
-පැටවුන්	paetavun	NEEDS-U1	
+පැටවුන්	paetavun	PASS	was NEEDS-U1; passes with word-final hal (PR #10)
 විකිණීමට	vikiNiimata	PASS	
 අවසර	avasara	PASS	
 හිමි	himi	PASS	
 නොවේ	novee	PASS	
 මේ	mee	PASS	
-කවරාකාරයෙන්	kavaraakaarayen	NEEDS-U1	
-පැවසුවත්	paevasuvath	NEEDS-U1	
+කවරාකාරයෙන්	kavaraakaarayen	PASS	was NEEDS-U1; passes with word-final hal (PR #10)
+පැවසුවත්	paevasuvath	PASS	was NEEDS-U1; passes with word-final hal (PR #10)
 මිනිසාට	minisaata	PASS	
 වඩාත්ම	vaDaathma	PASS	
 සමීප	samiipa	PASS	
@@ -144,22 +144,22 @@ sinhala	singlish	status	note
 සුරතලා	surathalaa	PASS	
 ආරක්ෂකයා	aarakShakayaa	PASS	
 සහ	saha	PASS	
-ලෙන්ගතුම	lengathuma	BUG	n+g adjacency (mid-word cluster, no special ඟ letter in source) is swallowed by the 'ng' digraph rule -> produced ඞ instead of hal-n + ga; no escape exists in scheme
+ලෙන්ගතුම	lengathuma	PASS	was BUG: ng swallowed as ඞ; fixed: ඞ moved to nG
 මිත්‍රයා	mithrayaa	PASS	
 සුනඛයා	sunakhayaa	PASS	
 යැයි	yaeyi	PASS	
-යමෙක්	yamek	NEEDS-U1	
-කිවහොත්	kivahoth	NEEDS-U1	
+යමෙක්	yamek	PASS	was NEEDS-U1; passes with word-final hal (PR #10)
+කිවහොත්	kivahoth	PASS	was NEEDS-U1; passes with word-final hal (PR #10)
 එය	eya	PASS	
-කිසිවිටෙකත්	kisivitekath	NEEDS-U1	
-අතිශයෝක්තියක්	athishayookthiyak	NEEDS-U1	
+කිසිවිටෙකත්	kisivitekath	PASS	was NEEDS-U1; passes with word-final hal (PR #10)
+අතිශයෝක්තියක්	athishayookthiyak	PASS	was NEEDS-U1; passes with word-final hal (PR #10)
 මන්ද	manda	PASS	
-යත්	yath	NEEDS-U1	
-තරම්	tharam	NEEDS-U1	
+යත්	yath	PASS	was NEEDS-U1; passes with word-final hal (PR #10)
+තරම්	tharam	PASS	was NEEDS-U1; passes with word-final hal (PR #10)
 මිනිසා	minisaa	PASS	
 සම්බන්ධතා	sambandhathaa	PASS	
 පවත්වන	pavathvana	PASS	
-අන්	an	NEEDS-U1	
+අන්	an	PASS	was NEEDS-U1; passes with word-final hal (PR #10)
 කිසිදු	kisidu	PASS	
 සිවුපාවකු	sivupaavaku	PASS	
 නොවන	novana	PASS	

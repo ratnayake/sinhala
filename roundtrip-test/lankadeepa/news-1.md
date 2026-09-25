@@ -15,6 +15,8 @@
 
 ## Status summary (98 distinct words + 1 digit token)
 
+> Round 2: every row now passes (see [CHECKLIST.md](CHECKLIST.md)). The counts below are the Round-1 triage.
+
 | Status | Count |
 |---|---|
 | PASS | 77 |
@@ -26,5 +28,5 @@
 
 ## BUG checklist
 
-- [ ] කල්යාම — engine's automatic consonant+y+vowel → ZWJ yansaya conjunct rule fires for l+ya, producing කල්‍යාම (with ZWJ) instead of plain hal+ya කල්යාම; no escape sequence exists in the scheme to suppress the automatic conjunct here.
-- [ ] තමන්ගේ — engine greedily matches the "ng" digraph (→ ඞ) even though n and g belong to separate syllables (than+hal+ge); produced තමඞේ instead of තමන්ගේ; no escape exists to force a separate n+hal+g reading.
+- [x] කල්යාම — engine's automatic consonant+y+vowel → ZWJ yansaya conjunct rule fires for l+ya, producing කල්‍යාම (with ZWJ) instead of plain hal+ya කල්යාම; no escape sequence exists in the scheme to suppress the automatic conjunct here. *(Round 2: fixed, see [CHECKLIST.md](CHECKLIST.md).)*
+- [x] තමන්ගේ — engine greedily matches the "ng" digraph (→ ඞ) even though n and g belong to separate syllables (than+hal+ge); produced තමඞේ instead of තමන්ගේ; no escape exists to force a separate n+hal+g reading. *(Round 2: fixed, see [CHECKLIST.md](CHECKLIST.md).)*

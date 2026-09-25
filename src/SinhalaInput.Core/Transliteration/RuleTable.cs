@@ -65,17 +65,20 @@ public static class RuleTable
         new("kh", TokenKind.Consonant, "ඛ"),
         new("g", TokenKind.Consonant, "ග"),
         new("gh", TokenKind.Consonant, "ඝ"),
-        new("ng", TokenKind.Consonant, "ඞ"),
+        // "nG"/"nY" rather than "ng"/"ny": plain n+g and n+y are ordinary clusters (බල්ලන්ගේ,
+        // සාමාන්‍ය) and far more common than ඞ/ඤ, so they must keep the regular cluster reading.
+        new("nG", TokenKind.Consonant, "ඞ"),
         new("ch", TokenKind.Consonant, "ච"),
         new("c", TokenKind.Consonant, "ච"),
         new("chh", TokenKind.Consonant, "ඡ"),
         new("j", TokenKind.Consonant, "ජ"),
         new("jh", TokenKind.Consonant, "ඣ"),
-        new("ny", TokenKind.Consonant, "ඤ"),
-        new("jny", TokenKind.Consonant, "ඥ"), // U+0DA5; supersedes the ජ්ඤ cluster "j"+"ny" would give.
+        new("nY", TokenKind.Consonant, "ඤ"),
+        new("jny", TokenKind.Consonant, "ඥ"), // U+0DA5; kept as "jny" (not "jnY") because ජ්න්‍ය never occurs.
         new("T", TokenKind.Consonant, "ට"),
         new("t", TokenKind.Consonant, "ට"),
         new("th", TokenKind.Consonant, "ත"),
+        new("thh", TokenKind.Consonant, "ථ"), // U+0DAE; mirrors ch/chh. The ත්හ cluster it supersedes never occurs.
         // "Th"/"Dh" deliberately supersede the former T+h / D+h cluster readings (ට්හ / ඩ්හ),
         // which essentially never occur in Sinhala, while ඨ/ඪ appear in common tatsama words.
         new("Th", TokenKind.Consonant, "ඨ"), // U+0DA8
@@ -116,6 +119,13 @@ public static class RuleTable
     public const string RakaransayaTail = "ර"; // conjunct 'r' glyph used after virama+ZWJ
     public const string YansayaTail = "ය"; // conjunct 'y' glyph used after virama+ZWJ
     public const string Anusvara = "ං"; // ං — U+0D82 SINHALA SIGN ANUSVARAYA
+
+    // Emits nothing; it only ends the current syllable, exactly as a passthrough character
+    // would. Needed where the default reading is a real word too and only a dictionary could
+    // choose: කල්යාම ("kalqyaama", not the yansaya of කල්‍යාණ) and hiatus like වගඋත්තරකරු
+    // ("vagaquththarakaru", not the ෞ sign). "q" because the typing session only buffers
+    // letters and "q" has no Sinhala reading; "x" is left free for a future ක්ෂ.
+    public const char SyllableBreak = 'q';
 
     // Anusvara attaches to the end of an already-vowelled syllable rather than replacing a
     // vowel, so it is matched by its own trie (TransliterationEngine._anusvara), checked
