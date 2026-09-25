@@ -19,7 +19,7 @@ Each one was hand-traced through the actual algorithm (`TransliterationEngine.Tr
 |---|---|---|
 | **Test's ground truth was wrong** (used `t` instead of `th`, dropped a long vowel, invented a doubled consonant that doesn't exist in the real word, used lowercase `l` instead of retroflex `L`, etc.) | ~15 | `muhuddu` (wrong — real word `මුහුදු` has no doubled consonant, correct spelling is `muhudu`); `yaatra` (wrong — needs `yaathraa` for the dental `th` and the conjunct's long final vowel) |
 | **Genuine, previously-undocumented engine gap: no way to type anusvara (ං)** | 3 | `bengaal`/`lankaa`/(and `සිංහල` itself) — fixed this round, see below |
-| **Already-known architectural limitation**: a word-final bare consonant always keeps its inherent vowel rather than getting a virama (same class of issue already documented for `enne` in a prior fix) — not new, not fixed here | ~5 | `විසින්`, `ගමන්`, `ජගත්` |
+| **Already-known architectural limitation**: a word-final bare consonant always keeps its inherent vowel rather than getting a virama (same class of issue already documented for `enne` in a prior fix) — not fixed in this round; since resolved, see the update note under the conclusion | ~5 | `විසින්`, `ගමන්`, `ජගත්` |
 | **Genuine gap, not fixed this round**: prenasalized consonant letters (ඳ, ඟ) have no rule table entry | 1 | `සඳහා` ("for/regarding" — a very common function word) |
 
 None of the 31 "LOW confidence" mismatches were investigated individually — the testing agent already flagged those as its own uncertain romanization, consistent with the pattern found in the "HIGH confidence" set.
@@ -45,7 +45,7 @@ After the anusvara fix, the following corrected phonetic spellings (my own manua
 | `vaeni` | වැනි | වැනි | PASS |
 | `vetha` | වෙත | වෙත | PASS |
 | `athara` | අතර | අතර | PASS |
-| `adaaL` | අදාළ | අදාළ | PASS |
+| `adaaLa` | අදාළ | අදාළ | PASS |
 | `aarambha` | ආරම්භ | ආරම්භ | PASS |
 | `siMhala` | සිංහල | සිංහල | PASS |
 
@@ -56,6 +56,7 @@ After the anusvara fix, the following corrected phonetic spellings (my own manua
 This engine is a deterministic, dictionary-free, character-level phonetic converter by design (see design doc §2 — no ML, no word list, for latency and simplicity). Two classes of real Sinhala spelling choice are **fundamentally not recoverable from pronunciation alone**, no matter how the rule table is tuned:
 
 1. **Word-final vowel suppression**: many extremely common words end in a bare consonant with no vowel at all (විසින්, ගමන්, ජගත්, එහෙත්, නම්...). This engine's own established convention is that a bare word-final consonant keeps its inherent vowel (already documented precedent, see the `enne` case in the previous fix). Resolving this exactly would need either a dictionary/word-list lookup, or a new explicit "kill the vowel" marker added to the typing scheme — a design decision, not a bug, and out of scope for this round.
+   > **Update (resolved):** the engine now follows the Google/Helakuru convention — a consonant with no vowel after it always takes the hal mark, word-final included (`visin` → විසින්, `gaman` → ගමන්, `nam` → නම්); the inherent vowel must be typed as `a`, so round 2's `adaaL` is now spelled `adaaLa` in the table above (see design doc §3.3).
 2. **Etymological spelling choices**: a nasal sound before a consonant can be spelled as a full cluster (න්ද), a prenasalized single letter (ඳ), or anusvara (ං) depending on the specific word's etymology, not its pronunciation — Sanskrit/Pali loanwords vs. native words differ, and no phonetic rule can tell them apart. This round added an explicit marker for anusvara; prenasalized letters (ඳ, ඟ) remain unaddressed and would need their own explicit marker, following the same pattern.
 
-**Recommendation for follow-up work** (not done this round, to keep this PR focused): add an explicit word-final "suppress vowel" marker, and explicit markers for prenasalized ඳ/ඟ, following the same capitalization-convention pattern used throughout this rule table. That would close most of the remaining gap for real-world text.
+**Recommendation for follow-up work** (not done this round, to keep this PR focused): ~~add an explicit word-final "suppress vowel" marker~~ (superseded by the always-hal default, see the update note above), and add explicit markers for prenasalized ඳ/ඟ, following the same capitalization-convention pattern used throughout this rule table. That would close most of the remaining gap for real-world text.
