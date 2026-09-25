@@ -1,0 +1,97 @@
+sinhala	singlish	status	note
+මැලේසියාව	maeleesiyaava	PASS	
+පරාජය	paraajaya	PASS	
+කරමින්	karamin	NEEDS-U1	bare word-final consonant needs virama once Unit 1 hal fix lands
+ශ්‍රී	shrii	PASS	
+ලංකාව	laMkaava	PASS	
+තෙවැනි	thevaeni	PASS	
+ස්ථානයට	sthaanayaTa	BUG	Sinhala letter ථ (dental aspirated 'tha', U+0DAE) has no Singlish token in the current scheme (not in base table, not in the Unit-2 new-letters list); engine falls back to plain ත (da/tha) so output reads ස්තා... instead of ස්ථා...
+නාමල්	naamal	NEEDS-U1	bare word-final consonant needs virama once Unit 1 hal fix lands
+පතිරගේ	pathiragee	PASS	
+හොංකොං	hoMkoM	PASS	
+හිදී	hidii	PASS	
+පෙරේදා	pereedaa	PASS	
+නිමාවට	nimaavaTa	PASS	
+පත්	path	NEEDS-U1	bare word-final consonant needs virama once Unit 1 hal fix lands
+වූ	vuu	PASS	
+වැනි	vaeni	PASS	
+ආසියානු	aasiyaanu	PASS	
+දැල්පන්දු	daelpandu	PASS	
+නෙට්බෝල්	neTbool	NEEDS-U1	bare word-final consonant needs virama once Unit 1 hal fix lands
+තරගාවලියේ	tharagaavaliyee	PASS	
+ස්ථානය	sthaanaya	BUG	Sinhala letter ථ (dental aspirated 'tha', U+0DAE) has no Singlish token in the current scheme (not in base table, not in the Unit-2 new-letters list); engine falls back to plain ත (da/tha) so output reads ස්තා... instead of ස්ථා...
+ලංකාවට	laMkaavaTa	PASS	
+හිමි	himi	PASS	
+විය	viya	PASS	
+පැවැති	paevaethi	PASS	
+තේරීමේ	theeriimee	PASS	
+තරගයේදී	tharagayeedii	PASS	
+ලකුණු	lakuNu	PASS	
+කට	kaTa	PASS	
+කිරීමට	kiriimaTa	PASS	
+සමත්	samath	NEEDS-U1	bare word-final consonant needs virama once Unit 1 hal fix lands
+මෙවර	mevara	PASS	
+තරගාවලිය	tharagaavaliya	PASS	
+ජයගත්	jayagath	NEEDS-U1	bare word-final consonant needs virama once Unit 1 hal fix lands
+සිංගප්පූරුව	siMgappuuruva	PASS	
+අවසන්	avasan	NEEDS-U1	bare word-final consonant needs virama once Unit 1 hal fix lands
+මහ	maha	PASS	
+කින්	kin	NEEDS-U1	bare word-final consonant needs virama once Unit 1 hal fix lands
+පහසුවෙන්	pahasuven	NEEDS-U1	bare word-final consonant needs virama once Unit 1 hal fix lands
+සත්කාරක	sathkaaraka	PASS	
+මුළු	muLu	PASS	
+තරගාවලියේදී	tharagaavaliyeedii	PASS	
+ඔවුන්	ovun	NEEDS-U1	bare word-final consonant needs virama once Unit 1 hal fix lands
+තරග	tharaga	PASS	
+හතෙන්	hathen	NEEDS-U1	bare word-final consonant needs virama once Unit 1 hal fix lands
+හයක්	hayak	NEEDS-U1	bare word-final consonant needs virama once Unit 1 hal fix lands
+දිනා	dinaa	PASS	
+ගත්තේය	gaththeeya	PASS	
+එහිදී	ehidii	PASS	
+දෙවතාවක්	devathaavak	NEEDS-U1	bare word-final consonant needs virama once Unit 1 hal fix lands
+මූලික	muulika	PASS	
+හා	haa	PASS	
+පූර්ව	puurva	PASS	
+ඔවුන්ට	ovunTa	PASS	
+කුසලාන	kusalaana	PASS	
+ගත්	gath	NEEDS-U1	bare word-final consonant needs virama once Unit 1 hal fix lands
+පස්	pas	NEEDS-U1	bare word-final consonant needs virama once Unit 1 hal fix lands
+අවස්ථාව	avasthaava	BUG	Sinhala letter ථ (dental aspirated 'tha', U+0DAE) has no Singlish token in the current scheme (not in base table, not in the Unit-2 new-letters list); engine falls back to plain ත (da/tha) so output reads ස්තා... instead of ස්ථා...
+එයයි	eyayi	PASS	
+වට	vaTa	PASS	
+දෙකක්	dekak	NEEDS-U1	bare word-final consonant needs virama once Unit 1 hal fix lands
+පෙරමුණ	peramuNa	PASS	
+ගනිමින්	ganimin	NEEDS-U1	bare word-final consonant needs virama once Unit 1 hal fix lands
+තරගය	tharagaya	PASS	
+ජය	jaya	PASS	
+පරාජයට	paraajayaTa	PASS	
+කළ	kaLa	PASS	
+දෙවැනි	devaeni	PASS	
+එය	eya	PASS	
+වටයේදී	vaTayeedii	PASS	
+විසින්	visin	NEEDS-U1	bare word-final consonant needs virama once Unit 1 hal fix lands
+කරන	karana	PASS	
+ලද්දේ	laddee	PASS	
+කිනි	kini	PASS	
+ඒ	ee	PASS	
+අනුව	anuva	PASS	
+හතකට	hathakaTa	PASS	
+සහභාගි	sahabhaagi	PASS	
+වෙමින්	vemin	NEEDS-U1	bare word-final consonant needs virama once Unit 1 hal fix lands
+ඉන්	in	NEEDS-U1	bare word-final consonant needs virama once Unit 1 hal fix lands
+හතරක්	hatharak	NEEDS-U1	bare word-final consonant needs virama once Unit 1 hal fix lands
+ගෙන	gena	PASS	
+එක්	ek	NEEDS-U1	bare word-final consonant needs virama once Unit 1 hal fix lands
+තරගයක්	tharagayak	NEEDS-U1	bare word-final consonant needs virama once Unit 1 hal fix lands
+සම	sama	PASS	
+සෙසු	sesu	PASS	
+දෙක	deka	PASS	
+සිය	siya	PASS	
+සහභාගිත්වය	sahabhaagithvaya	PASS	
+කර	kara	PASS	
+තිබේ	thibee	PASS	
+පුරා	puraa	PASS	
+රැස්	raes	NEEDS-U1	bare word-final consonant needs virama once Unit 1 hal fix lands
+එරෙහිව	erehiva	PASS	
+ප්‍රතිවාදිනියන්	prathivaadiniyan	NEEDS-U1	bare word-final consonant needs virama once Unit 1 hal fix lands
+ලබා	labaa	PASS	
