@@ -24,6 +24,14 @@ namespace SinhalaInput.App;
 /// keys, Alt+Tab's Tab-with-Alt-held) force-commits a pending buffer rather than leaving it
 /// in limbo, and disabling the tool (Ctrl+Space) also force-commits. A true fix needs the
 /// platform layer to additionally surface focus-change/mouse-click notifications.
+///
+/// Key events arrive on the low-level hook callback, which Windows silently skips (and
+/// eventually unhooks) if it exceeds <c>LowLevelHooksTimeout</c> (design doc §8.1, §10). Caret
+/// lookup can take hundreds of milliseconds in Chromium (cross-process UI Automation/MSAA), so it
+/// never runs inline: popup content is raised immediately with the anchor known so far for the
+/// current word, and the anchor is resolved on a <see cref="CaretAnchorResolver"/> worker, which
+/// re-raises the popup state once it arrives. <see cref="PopupStateChanged"/> may therefore be
+/// raised from that worker thread; subscribers must marshal to their UI thread.
 /// </remarks>
 public sealed class TypingSessionController : IDisposable
 {
@@ -67,7 +75,7 @@ public sealed class TypingSessionController : IDisposable
 
     private readonly IKeyboardHook _keyboardHook;
     private readonly ITextInjector _textInjector;
-    private readonly ICaretLocator _caretLocator;
+    private readonly CaretAnchorResolver _anchorResolver;
     private readonly ITransliterationEngine _transliterationEngine;
     private readonly ICandidateProvider _candidateProvider;
     private readonly IPasswordFieldDetector _passwordFieldDetector;
@@ -83,6 +91,13 @@ public sealed class TypingSessionController : IDisposable
     private IReadOnlyList<string> _candidates = [];
     private int _selectedCandidateIndex;
 
+    // Guards the popup state shared with the caret-resolver thread, and serializes every
+    // PopupStateChanged raise so subscribers observe them in order.
+    private readonly object _popupGate = new();
+    private long _popupSession;
+    private CandidatePopupState? _openPopupState;
+    private ScreenPoint? _wordAnchor;
+
     public TypingSessionController(
         IKeyboardHook keyboardHook,
         ITextInjector textInjector,
@@ -90,6 +105,22 @@ public sealed class TypingSessionController : IDisposable
         ITransliterationEngine transliterationEngine,
         ICandidateProvider candidateProvider,
         IPasswordFieldDetector passwordFieldDetector)
+        : this(keyboardHook, textInjector, caretLocator, transliterationEngine, candidateProvider, passwordFieldDetector, resolveCaretInline: false)
+    {
+    }
+
+    /// <param name="resolveCaretInline">
+    /// Test-only: resolve the caret synchronously on the calling thread instead of on the
+    /// background resolver thread.
+    /// </param>
+    internal TypingSessionController(
+        IKeyboardHook keyboardHook,
+        ITextInjector textInjector,
+        ICaretLocator caretLocator,
+        ITransliterationEngine transliterationEngine,
+        ICandidateProvider candidateProvider,
+        IPasswordFieldDetector passwordFieldDetector,
+        bool resolveCaretInline)
     {
         ArgumentNullException.ThrowIfNull(keyboardHook);
         ArgumentNullException.ThrowIfNull(textInjector);
@@ -100,7 +131,7 @@ public sealed class TypingSessionController : IDisposable
 
         _keyboardHook = keyboardHook;
         _textInjector = textInjector;
-        _caretLocator = caretLocator;
+        _anchorResolver = new CaretAnchorResolver(caretLocator, resolveCaretInline);
         _transliterationEngine = transliterationEngine;
         _candidateProvider = candidateProvider;
         _passwordFieldDetector = passwordFieldDetector;
@@ -133,6 +164,7 @@ public sealed class TypingSessionController : IDisposable
     public void Dispose()
     {
         _keyboardHook.KeyIntercepted -= OnKeyIntercepted;
+        _anchorResolver.Dispose();
     }
 
     private void OnKeyIntercepted(object? sender, KeyInterceptedEventArgs e)
@@ -352,7 +384,9 @@ public sealed class TypingSessionController : IDisposable
         }
 
         _selectedCandidateIndex = Math.Clamp(_selectedCandidateIndex + delta, 0, _candidates.Count - 1);
-        RaisePopupStateChanged(isOpen: true);
+
+        // Moving the highlight does not move the caret, so the current anchor is still valid.
+        RaisePopupStateChanged(isOpen: true, relocate: false);
     }
 
     private void UpdatePopup()
@@ -367,7 +401,7 @@ public sealed class TypingSessionController : IDisposable
         _primaryPreview = _transliterationEngine.Transliterate(latin);
         _candidates = _candidateProvider.GetCandidates(latin);
         _selectedCandidateIndex = 0;
-        RaisePopupStateChanged(isOpen: true);
+        RaisePopupStateChanged(isOpen: true, relocate: true);
     }
 
     private void ResetBuffer()
@@ -376,20 +410,55 @@ public sealed class TypingSessionController : IDisposable
         _primaryPreview = string.Empty;
         _candidates = [];
         _selectedCandidateIndex = 0;
-        RaisePopupStateChanged(isOpen: false);
+        RaisePopupStateChanged(isOpen: false, relocate: false);
     }
 
-    private void RaisePopupStateChanged(bool isOpen)
+    private void RaisePopupStateChanged(bool isOpen, bool relocate)
     {
-        ScreenPoint? anchor = null;
-        if (isOpen && _caretLocator.TryGetCaretScreenPosition(out ScreenPoint position))
+        long session;
+        lock (_popupGate)
         {
-            anchor = position;
+            if (!isOpen)
+            {
+                // A new session makes any lookup still in flight for the closed word stale.
+                _popupSession++;
+                _openPopupState = null;
+                _wordAnchor = null;
+                PopupStateChanged?.Invoke(this, CandidatePopupState.Closed);
+                return;
+            }
+
+            _openPopupState = new CandidatePopupState(true, _primaryPreview, _candidates, _selectedCandidateIndex, _wordAnchor);
+            session = _popupSession;
+            PopupStateChanged?.Invoke(this, _openPopupState);
         }
 
-        PopupStateChanged?.Invoke(
-            this,
-            new CandidatePopupState(isOpen, _primaryPreview, _candidates, _selectedCandidateIndex, anchor));
+        if (relocate)
+        {
+            _anchorResolver.Request(anchor => OnAnchorResolved(session, anchor));
+        }
+    }
+
+    private void OnAnchorResolved(long session, ScreenPoint? anchor)
+    {
+        if (anchor is null)
+        {
+            return;
+        }
+
+        lock (_popupGate)
+        {
+            // Results for the same word are still accepted even if newer lookups are queued:
+            // under continuous fast typing a strict latest-request match would never be met.
+            if (session != _popupSession || _openPopupState is null || _openPopupState.Anchor == anchor)
+            {
+                return;
+            }
+
+            _wordAnchor = anchor;
+            _openPopupState = _openPopupState with { Anchor = anchor };
+            PopupStateChanged?.Invoke(this, _openPopupState);
+        }
     }
 
     private void UpdateModifierState(KeyInterceptedEventArgs e)

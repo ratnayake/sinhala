@@ -197,4 +197,60 @@ internal static partial class NativeMethods
 
     [LibraryImport("kernel32.dll")]
     internal static partial uint GetCurrentThreadId();
+
+    [LibraryImport("user32.dll", EntryPoint = "GetClassNameW", SetLastError = true)]
+    internal static unsafe partial int GetClassName(nint hWnd, char* lpClassName, int nMaxCount);
+
+    internal const uint OBJID_CARET = 0xFFFFFFF8;
+
+    /// <summary>
+    /// MSAA's <c>OBJID_CARET</c> object. Chromium (Chrome/Edge/Electron) exposes its real text
+    /// caret here (for screen magnifiers) even though it never creates a Win32 caret.
+    /// </summary>
+    [LibraryImport("oleacc.dll")]
+    internal static partial int AccessibleObjectFromWindow(nint hwnd, uint dwId, in Guid riid, out nint ppvObject);
+
+    internal static readonly Guid IID_IAccessible = new("618736E0-3C3D-11CF-810C-00AA00389B71");
+
+    // -- DPI + popup placement (Dpi/*, Windowing/PopupPlacement.cs) ----------------------------
+
+    internal static readonly nint DPI_AWARENESS_CONTEXT_PER_MONITOR_AWARE_V2 = -4;
+
+    [LibraryImport("user32.dll")]
+    internal static partial nint SetThreadDpiAwarenessContext(nint dpiContext);
+
+    internal const uint MONITOR_DEFAULTTONEAREST = 2;
+
+    [StructLayout(LayoutKind.Sequential)]
+    internal struct MONITORINFO
+    {
+        internal uint cbSize;
+        internal RECT rcMonitor;
+        internal RECT rcWork;
+        internal uint dwFlags;
+    }
+
+    [LibraryImport("user32.dll")]
+    internal static partial nint MonitorFromPoint(POINT pt, uint dwFlags);
+
+    [LibraryImport("user32.dll", EntryPoint = "GetMonitorInfoW")]
+    [return: MarshalAs(UnmanagedType.Bool)]
+    internal static partial bool GetMonitorInfo(nint hMonitor, ref MONITORINFO lpmi);
+
+    internal const int MDT_EFFECTIVE_DPI = 0;
+
+    [LibraryImport("shcore.dll")]
+    internal static partial int GetDpiForMonitor(nint hmonitor, int dpiType, out uint dpiX, out uint dpiY);
+
+    [LibraryImport("user32.dll", SetLastError = true)]
+    [return: MarshalAs(UnmanagedType.Bool)]
+    internal static partial bool GetWindowRect(nint hWnd, out RECT lpRect);
+
+    internal static readonly nint HWND_TOPMOST = -1;
+    internal const uint SWP_NOSIZE = 0x0001;
+    internal const uint SWP_NOACTIVATE = 0x0010;
+
+    [LibraryImport("user32.dll", SetLastError = true)]
+    [return: MarshalAs(UnmanagedType.Bool)]
+    internal static partial bool SetWindowPos(nint hWnd, nint hWndInsertAfter, int x, int y, int cx, int cy, uint uFlags);
 }
