@@ -5,7 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
         Title="SinhalaInput Settings"
-        Height="160" Width="320"
+        Width="360"
+        SizeToContent="Height"
         ResizeMode="NoResize"
         WindowStartupLocation="CenterScreen">
     <StackPanel Margin="16">
@@ -14,6 +15,14 @@
                   Checked="OnEnabledCheckBoxToggled"
                   Unchecked="OnEnabledCheckBoxToggled"
                   Margin="0,0,0,12" />
-        <TextBlock x:Name="HotkeyText" />
+        <CheckBox x:Name="StartWithWindowsCheckBox"
+                  Content="Start SinhalaInput when I sign in to Windows"
+                  Checked="OnStartWithWindowsCheckBoxToggled"
+                  Unchecked="OnStartWithWindowsCheckBoxToggled" />
+        <TextBlock x:Name="StartupManagedText"
+                   Text="Starting SinhalaInput when you sign in to Windows is managed by Windows: turn it on or off in Settings › Apps › Startup."
+                   TextWrapping="Wrap"
+                   Visibility="Collapsed" />
+        <TextBlock x:Name="HotkeyText" Margin="0,12,0,0" />
     </StackPanel>
 </Window>

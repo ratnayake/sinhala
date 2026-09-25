@@ -24,7 +24,11 @@ internal sealed class ControllerHarness
 
     public TypingSessionController Controller { get; }
 
-    public ControllerHarness()
+    /// <param name="resolveCaretInline">
+    /// <see langword="true"/> (the default) resolves the caret synchronously so tests are
+    /// deterministic; <see langword="false"/> uses the production background resolver thread.
+    /// </param>
+    public ControllerHarness(bool resolveCaretInline = true)
     {
         ScreenPoint ignoredPosition;
         Caret.Setup(c => c.TryGetCaretScreenPosition(out ignoredPosition)).Returns(false);
@@ -39,13 +43,22 @@ internal sealed class ControllerHarness
         // tests that care about password-field behaviour override this explicitly.
         PasswordFieldDetector.Setup(p => p.IsFocusedControlPasswordField()).Returns(false);
 
-        Controller = new TypingSessionController(
-            Hook.Object,
-            Injector.Object,
-            Caret.Object,
-            Engine.Object,
-            Candidates.Object,
-            PasswordFieldDetector.Object);
+        Controller = resolveCaretInline
+            ? new TypingSessionController(
+                Hook.Object,
+                Injector.Object,
+                Caret.Object,
+                Engine.Object,
+                Candidates.Object,
+                PasswordFieldDetector.Object,
+                resolveCaretInline: true)
+            : new TypingSessionController(
+                Hook.Object,
+                Injector.Object,
+                Caret.Object,
+                Engine.Object,
+                Candidates.Object,
+                PasswordFieldDetector.Object);
     }
 
     public KeyInterceptedEventArgs KeyDown(int virtualKeyCode)

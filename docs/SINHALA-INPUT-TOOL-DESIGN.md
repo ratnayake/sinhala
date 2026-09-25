@@ -666,6 +666,14 @@ public interface ITextInjector
 
 Use `GetGUIThreadInfo` on the foreground window's thread to get `rcCaret`/`hwndCaret`, falling back to `GetCaretPos` + `ClientToScreen`, and as a further fallback (apps that don't expose a Win32 caret, e.g. Chromium-based apps such as Edge/Chrome and some UWP surfaces) UI Automation's `TextPattern.GetBoundingRectangles` on the focused automation element (falling back further still to that element's own bounding rectangle if the pattern reports no rectangles). As a last resort, if none of those three locate anything, anchor near the current mouse cursor (`GetCursorPos`, which always succeeds) rather than leave the candidate popup with no anchor at all. Wrap all four behind a single `ICaretLocator.TryGetCaretScreenPosition(out Point)` so the app layer never branches on which strategy worked.
 
+Lessons from implementing this on real mixed-DPI desktops:
+
+- **Run every lookup in physical pixels.** Use a per-monitor-v2 thread DPI context. Without it, Win32 results are scaled by the system DPI, but UI Automation results are not scaled the same way, so the strategies disagree with each other.
+- **Try MSAA `OBJID_CARET` right after `GetGUIThreadInfo`.** Chromium publishes its real caret there.
+- **Reject degenerate results.** For example, Chromium's `GetCaretPos` reports a client `(0, 0)`, and some providers report zero-height rectangles. Rejecting these lets the chain fall through to the next strategy.
+- **Never call the locator from the hook callback.** UIA and MSAA calls cross processes and can be slow. The App layer resolves the anchor on a background MTA thread, where the latest request wins.
+- **Place the popup in physical pixels.** Use `SetWindowPos`, not WPF's DPI-scaled `Left`/`Top`. Clamp the popup to the work area of the caret's monitor.
+
 ---
 
 ## 9. Testing strategy
