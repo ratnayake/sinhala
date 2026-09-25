@@ -1,0 +1,117 @@
+sinhala	singlish	status	note
+අංජුල	aMjula	PASS	
+මහික	mahika	PASS	
+වීරරත්න	viirarathna	PASS	
+සහ	saha	PASS	
+සුජිත්	sujith	NEEDS-U1	
+හේවාජුලිගේ	heevaajuligee	PASS	
+දිවයින	divayina	PASS	
+පුරා	puraa	PASS	
+පිහිටි	pihiti	PASS	
+පාසල්	paasal	NEEDS-U1	
+සඳහා	sazdahaa	NEEDS-U2	
+අධ්‍යාපන	adhyaapana	PASS	
+නවීකරණ	naviikaraNa	PASS	
+ව්‍යාපෘති	vyaapRthi	NEEDS-U2	
+කිහිපයක්	kihipayak	NEEDS-U1	
+යටතේ	yatathee	PASS	
+සුහුරු	suhuru	PASS	
+පුවරු	puvaru	PASS	
+Smart		SKIP	
+boards		SKIP	
+4,570		SKIP	
+ක්	k	NEEDS-U1	
+ආනයනය	aanayanaya	PASS	
+කර	kara	PASS	
+වෙත	vetha	PASS	
+බෙදා	bedaa	PASS	
+හැරීමට	haeriimata	PASS	
+පියවර	piyavara	PASS	
+ගෙන	gena	PASS	
+ඇති	aethi	PASS	
+බව	bava	PASS	
+අග්‍රාමාත්‍ය	agraamaathya	PASS	
+ආචාර්ය	aachaarya	BUG	Engine inserts a spurious ZWJ conjunct for the bare "r"+"y" cluster (ර්ය) - outputs ආචාර්‍ය instead of ආචාර්ය. The consonant+r/y+vowel ZWJ-conjunct rule appears to fire even when the preceding consonant is itself "r", which real orthography never ligates. Not part of Unit 1/2 scope.
+හරිනි	harini	PASS	
+අමරසූරිය	amarasuuriya	PASS	
+පාර්ලිමේන්තුවේදී	paarlimeenthuveedii	PASS	
+පැවසුවාය	paevasuvaaya	PASS	
+පාර්ලිමේන්තු	paarlimeenthu	PASS	
+මන්ත්‍රීනී	manthriinii	PASS	
+රෝහිණී	roohiNii	PASS	
+කුමාරි	kumaari	PASS	
+විජේරත්න	vijeerathna	PASS	
+මහත්මිය	mahathmiya	PASS	
+අසන	asana	PASS	
+ලද	lada	PASS	
+ප්‍රශ්නයකට	prashnayakata	PASS	
+පිළිතුරු	piLithuru	PASS	
+දෙමින්	demin	NEEDS-U1	
+අග්‍රාමාත්‍යවරිය	agraamaathyavariya	PASS	
+මේ	mee	PASS	
+කීවාය	kiivaaya	PASS	
+මෙම	mema	PASS	
+වැඩසටහන	vaeDasatahana	PASS	
+2024		SKIP	
+වසරේ	vasaree	PASS	
+විදුලි	viduli	PASS	
+සංදේශ	saMdeesha	PASS	
+නියාමන	niyaamana	PASS	
+කොමිෂන්	komiShan	NEEDS-U1	
+සභා	sabhaa	PASS	
+ප්‍රතිපාදන	prathipaadana	PASS	
+ව්‍යාපෘතිය	vyaapRthiya	NEEDS-U2	
+මගින්	magin	NEEDS-U1	
+ලබාගත්	labaagath	NEEDS-U1	
+1,000		SKIP	
+වන	vana	PASS	
+විට	vita	PASS	
+දී	dii	PASS	
+අවසන්	avasan	NEEDS-U1	
+සඳහන්	sazdahan	NEEDS-U1+U2	
+කළාය	kaLaaya	PASS	
+2025-2026		SKIP	
+වසර	vasara	PASS	
+චීන	chiina	PASS	
+ආධාර	aadhaara	PASS	
+කරන	karana	PASS	
+900		SKIP	
+න්	n	NEEDS-U1	
+500		SKIP	
+ලබා	labaa	PASS	
+අතර	athara	PASS	
+රජයෙන්	rajayen	NEEDS-U1	
+පත්	path	NEEDS-U1	
+කළමනාකරණ	kaLamanaakaraNa	PASS	
+කමිටුව	kamituva	PASS	
+එම	ema	PASS	
+ස්ථාපිත	sthaapitha	BUG	Contains U+0DAE (dental aspirated tha) which has no Singlish mapping in the target scheme; typing "th" maps to U+0DAD (unaspirated dental tha) instead, so the engine cannot reproduce this letter regardless of Unit 1/2. Neither unit covers it.
+කිරීමේ	kiriimee	PASS	
+Installation		SKIP	
+කටයුතු	katayuthu	PASS	
+සිදු	sidu	PASS	
+කරමින්	karamin	NEEDS-U1	
+පවතින්නේ	pavathinnee	PASS	
+යැයිද	yaeyida	PASS	
+මීට	miita	PASS	
+අමතරව	amatharava	PASS	
+ඩිජිටල්	Dijital	NEEDS-U1	
+කාර්යසාධක	kaaryasaadhaka	BUG	Same "r"+"y" spurious-ZWJ issue as ආචාර්ය - outputs කාර්‍යසාධක instead of කාර්යසාධක. Not part of Unit 1/2 scope.
+බලකායේ	balakaayee	PASS	
+මඟපෙන්වීම	mazgapenviima	NEEDS-U2	
+ආර්ථික	aarthika	BUG	Contains U+0DAE (dental aspirated tha) with no Singlish mapping in the target scheme; same root cause as sthaapitha.
+අමාත්‍යාංශ	amaathyaaMsha	PASS	
+පළාත්	paLaath	NEEDS-U1	
+මට්ටමින්	mattamin	NEEDS-U1	
+ප්‍රසම්පාදනය	prasampaadanaya	PASS	
+2,670		SKIP	
+ම	ma	PASS	
+සම්පූර්ණයෙන්ම	sampuurNayenma	PASS	
+ඒවා	eevaa	PASS	
+පාසල්වල	paasalvala	PASS	
+සවිකිරීමේ	savikiriimee	PASS	
+ද	da	PASS	
+සක්‍රීයව	sakriiyava	PASS	
+කෙරෙමින්	keremin	NEEDS-U1	
+තිබෙන	thibena	PASS	
+බවද	bavada	PASS	
