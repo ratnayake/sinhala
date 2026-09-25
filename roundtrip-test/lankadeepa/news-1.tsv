@@ -5,7 +5,7 @@ sinhala	singlish	status	note
 සහ	saha	PASS
 සුජිත්	sujith	NEEDS-U1
 හේවාජුලිගේ	heevaajuligee	PASS
-22	SKIP	SKIP	digits
+22		SKIP	digits (Latin/numeral token, not transliterated)
 සංශෝධනයෙන්	saMshoodhanayen	NEEDS-U1
 කෙරෙන්නේ	kerennee	PASS
 ජනතාවගේ	janathaavagee	PASS

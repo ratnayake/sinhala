@@ -17,7 +17,7 @@ sinhala	singlish	status	note
 අල්ලසක්	allasak	NEEDS-U1
 ඉල්ලා	illaa	PASS
 එයින්	eyin	NEEDS-U1
-25000ක්	SKIP	SKIP	digits
+25000ක්		SKIP	digits (Latin/numeral token, not transliterated)
 ලබා	labaa	PASS
 ගැනීමේ	gaeniimee	PASS
 චෝදනාවට	choodanaavaTa	PASS
