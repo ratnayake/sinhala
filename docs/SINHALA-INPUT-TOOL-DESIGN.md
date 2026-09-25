@@ -74,7 +74,7 @@ Sinhala is an abugida: a consonant letter carries an *inherent* short `a` vowel 
 This means transliteration is **not** a 1:1 character map — it is a **syllable-oriented, longest-match rewrite**:
 
 1. Scan the Latin buffer left to right.
-2. At each position, try to match the *longest* known Latin pattern first (multi-letter aspirated/retroflex/vowel digraphs like `th`, `sh`, `ng`, `aa`, `ae`, `oo` must win over their shorter single-letter substrings).
+2. At each position, try to match the *longest* known Latin pattern first (multi-letter aspirated/retroflex/vowel digraphs like `th`, `sh`, `thh`, `aa`, `ae`, `oo` must win over their shorter single-letter substrings).
 3. Classify the matched token as a **consonant**, **independent vowel**, or **vowel sign continuation**, and emit the corresponding Sinhala glyph(s), correctly choosing between:
    - a bare consonant glyph (inherent `a`),
    - a consonant + dependent vowel sign,
@@ -122,15 +122,15 @@ This "maximal munch over a trie, then syllabify" approach is exactly how the ope
 | Latin | Sinhala | Latin | Sinhala | Latin | Sinhala |
 |---|---|---|---|---|---|
 | `k` | ක | `t` | ට *(retroflex)* | `p` | ප |
-| `kh` | ඛ | `th` | ත *(dental)* | `ph`, `f` | ඵ |
+| `kh` | ඛ | `th` | ත *(dental)*, `thh` ථ *(dental aspirated)* | `ph`, `f` | ඵ |
 | `g` | ග | `T` | ට *(explicit retroflex)* | `b` | බ |
 | `gh` | ඝ | `d` | ද *(dental)* | `bh` | භ |
-| `ng` | ඞ | `dh` | ධ *(dental aspirated)* | `m` | ම |
+| `nG` | ඞ | `dh` | ධ *(dental aspirated)* | `m` | ම |
 | `c`, `ch` | ච | `D` | ඩ *(retroflex)* | `y` | ය |
 | `chh` | ඡ | `n` | න | `r` | ර |
 | `j` | ජ | `N` | ණ *(retroflex)* | `l` | ල |
 | `jh` | ඣ | `sh` | ශ | `v`, `w` | ව |
-| `ny` | ඤ | `Sh` | ෂ *(retroflex)* | `L` | ළ |
+| `nY` | ඤ | `Sh` | ෂ *(retroflex)* | `L` | ළ |
 | `jny` | ඥ | `s` | ස | `h` | හ |
 | | | `Th` | ඨ *(retroflex aspirated)* | `z` | ස *(no native /z/; map to ස or reject)* |
 | | | `Dh` | ඪ *(retroflex aspirated)* | | |
@@ -143,7 +143,9 @@ This "maximal munch over a trie, then syllabify" approach is exactly how the ope
 | `zj` | ඦ | `zb` | ඹ *(e.g. `azba` → අඹ)* |
 | `zD` | ඬ | | |
 
-`Th`/`Dh` take priority over the `T`+`h` / `D`+`h` cluster readings (ට්හ / ඩ්හ), and `jny` over `j`+`ny` (ජ්ඤ), by longest match; those clusters essentially never occur in Sinhala. Visarga (ඃ) has no rule yet.
+`Th`/`Dh` take priority over the `T`+`h` / `D`+`h` cluster readings (ට්හ / ඩ්හ), `thh` over `th`+`h` (ත්හ), and `jny` over `j`+`ny` (ජ්න්‍ය), by longest match; those clusters essentially never occur in Sinhala. Visarga (ඃ) has no rule yet.
+
+ඞ and ඤ are spelled `nG` and `nY`, not `ng` and `ny`. Plain `n`+`g` and `n`+`y` must stay ordinary clusters like any other consonant pair, because they are far more common: බල්ලන්ගේ = `ballangee`, තමන්ගේ = `thamangee`, සාමාන්‍ය = `saamaanya`, න්‍යාය = `nyaaya`. When ඞ was `ng` and ඤ was `ny`, round-trip testing against Lankadeepa showed those words could not be typed at all.
 
 The **capitalisation convention** (`T`/`N`/`L`/`Sh` for retroflex sounds) mirrors what the community Singlish schemes (and Google's own tool) use, because English has no separate letters for dental vs. retroflex consonants. Capitalisation is the *only* way to get a retroflex consonant: the engine deliberately does **not** also accept a doubled-letter alternative (`tt`, `dd`, `nn`, `ll`, `ss`) for these, because doubling a consonant is already meaningful on its own — it is how a user spells genuine **gemination** (hal kirīma followed by a repeat of the same consonant, e.g. `malli` → මල්ලි, `anda`-style clusters generalised to a repeated letter). Registering both meanings for the same doubled spelling made every geminated retroflex-adjacent consonant ambiguous and, in practice, always lose to the retroflex reading (the longest-match rule always prefers the 2-letter key), silently corrupting common colloquial words like `malli` (→ මළි, wrong) and `enne` (→ එණෙ, wrong). A user who forgets to hold Shift for a retroflex letter gets the plain dental/alveolar consonant instead — a real but different sound, not a corrupted one — rather than a silently wrong gemination somewhere else in the word.
 
@@ -153,6 +155,9 @@ The **capitalisation convention** (`T`/`N`/`L`/`Sh` for retroflex sounds) mirror
 |---|---|---|
 | `...Cra...` (consonant + `r` + vowel, mid-word) | `...C් + ZWJ + ර + vowel` | *Rakāraṃśaya*: e.g. `krama` → ක්‍රම |
 | `...Cya...` (consonant + `y` + vowel, mid-word) | `...C් + ZWJ + ය + vowel` | *Yansaya*: e.g. `vyaparaya` → ව්‍යාපාරය |
+| `...rya...` (`r` + `y` + vowel) | `...ර් + ය + vowel` (no ZWJ) | Repaya + ය is written as a plain cluster: `kaarya` → කාර්ය, `aachaarya` → ආචාර්ය, `suurya` → සූර්ය |
+
+**Syllable break `q`:** `q` emits nothing. It ends the current syllable the same way a passthrough character does: a pending consonant takes the virama, and the next letter starts fresh. It covers the two cases where the default reading is also a real spelling, so only a dictionary could choose. The first is a plain hal + ය with no yansaya: `kalqyaama` → කල්යාම, while `kalyaaNa` → කල්‍යාණ. The second is vowel hiatus across a compound boundary: `vagaquththarakaru` → වගඋත්තරකරු, while `vagau` gives the ෞ sign. `q` was chosen because the typing session buffers only letters and `q` has no Sinhala sound. `x` is kept free for a possible ක්ෂ rule.
 
 **Passthrough:** digits, ASCII punctuation, whitespace, and any character not matched by a rule are passed through unchanged — the user can freely mix Sinhala words with numbers, `@handles`, URLs, etc., exactly like Google's tool.
 
@@ -381,13 +386,13 @@ public static class RuleTable
         new("kh", TokenKind.Consonant, "ඛ"),
         new("g", TokenKind.Consonant, "ග"),
         new("gh", TokenKind.Consonant, "ඝ"),
-        new("ng", TokenKind.Consonant, "ඞ"),
+        new("nG", TokenKind.Consonant, "ඞ"),
         new("ch", TokenKind.Consonant, "ච"),
         new("c", TokenKind.Consonant, "ච"),
         new("chh", TokenKind.Consonant, "ඡ"),
         new("j", TokenKind.Consonant, "ජ"),
         new("jh", TokenKind.Consonant, "ඣ"),
-        new("ny", TokenKind.Consonant, "ඤ"),
+        new("nY", TokenKind.Consonant, "ඤ"),
         new("T", TokenKind.Consonant, "ට"),
         new("tt", TokenKind.Consonant, "ට"),
         new("t", TokenKind.Consonant, "ට"),

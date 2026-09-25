@@ -68,11 +68,18 @@ public sealed class TransliterationEngine : ITransliterationEngine
                 continue;
             }
 
+            if (latinWord[i] == RuleTable.SyllableBreak)
+            {
+                FlushPendingConsonantWithVirama(result, ref pendingConsonantGlyph);
+                i++;
+                continue;
+            }
+
             SyllableRule? consonantMatch = _consonants.FindLongestMatch(latinWord, i);
 
             if (pendingConsonantGlyph is not null
                 && consonantMatch is { } candidate
-                && TryGetConjunctTail(candidate.Latin, out string? tailGlyph)
+                && TryGetConjunctTail(pendingConsonantGlyph, candidate.Latin, out string? tailGlyph)
                 && IsFollowedByVowel(latinWord, i + candidate.Latin.Length))
             {
                 // Rakāraṃśaya / yansaya (design doc §3.2 "Special conjuncts"): the head
@@ -170,14 +177,16 @@ public sealed class TransliterationEngine : ITransliterationEngine
         return text[position] == 'a' || _dependentVowelSigns.FindLongestMatch(text, position) is not null;
     }
 
-    private static bool TryGetConjunctTail(string consonantLatin, out string tailGlyph)
+    private static bool TryGetConjunctTail(string headGlyph, string consonantLatin, out string tailGlyph)
     {
         switch (consonantLatin)
         {
             case "r":
                 tailGlyph = RuleTable.RakaransayaTail;
                 return true;
-            case "y":
+            // Standard orthography writes ර + ය as a plain cluster (කාර්ය, ආචාර්ය, සූර්ය): the
+            // head takes the repaya form and the ය is never joined into a yansaya.
+            case "y" when headGlyph != RuleTable.RakaransayaTail:
                 tailGlyph = RuleTable.YansayaTail;
                 return true;
             default:

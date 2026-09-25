@@ -25,6 +25,8 @@
 
 ## Status summary
 
+> Round 2: every row now passes (see [CHECKLIST.md](CHECKLIST.md)). The counts below are the Round-1 triage.
+
 | Status | Count |
 |---|---|
 | PASS | 68 |
@@ -41,6 +43,6 @@ The 3 BUG rows (ස්ථානයට, ස්ථානය, අවස්ථාව
 
 ## Checklist (BUG rows)
 
-- [ ] ස්ථානයට — missing Singlish token for dental aspirated ථ (U+0DAE); typed `sthaanayaTa`, got ස්තානයට (plain ත) instead of ස්ථානයට
-- [ ] ස්ථානය — same root cause as above; typed `sthaanaya`, got ස්තානය instead of ස්ථානය
-- [ ] අවස්ථාව — same root cause; typed `avasthaava`, got අවස්තාව instead of අවස්ථාව
+- [x] ස්ථානයට — missing Singlish token for dental aspirated ථ (U+0DAE); typed `sthaanayaTa`, got ස්තානයට (plain ත) instead of ස්ථානයට *(Round 2: fixed, see [CHECKLIST.md](CHECKLIST.md).)*
+- [x] ස්ථානය — same root cause as above; typed `sthaanaya`, got ස්තානය instead of ස්ථානය *(Round 2: fixed, see [CHECKLIST.md](CHECKLIST.md).)*
+- [x] අවස්ථාව — same root cause; typed `avasthaava`, got අවස්තාව instead of අවස්ථාව *(Round 2: fixed, see [CHECKLIST.md](CHECKLIST.md).)*

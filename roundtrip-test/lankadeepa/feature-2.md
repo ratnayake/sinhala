@@ -23,6 +23,8 @@ Every distinct Sinhala word (165) plus one Latin/digit token (`2000`) was spelle
 
 ## Status summary (166 rows)
 
+> Round 2: every row now passes (see [CHECKLIST.md](CHECKLIST.md)). The counts below are the Round-1 triage.
+
 | Status | Count |
 |---|---|
 | PASS | 125 |
@@ -33,7 +35,7 @@ Every distinct Sinhala word (165) plus one Latin/digit token (`2000`) was spelle
 
 ## BUG checklist
 
-- [ ] බල්ලන්ගේ (ballangee, "the dogs'") — typed as `ballangee`. The source word is බල්ල(ball) + ල(l) + න්(n, hal) + ග(ga) + ේ(ee), a plain mid-word cluster of "l"-hal-"n" then "n"-hal-"g" — no special ඟ (nga) letter and no ZWJ. The trie greedily matches the substring "ng" inside "ballangee" as the ඞ digraph (registered as a single consonant token) instead of parsing it as "n" (needing a virama before the following consonant) + "g", so the CLI outputs බල්ලඞේ instead.
-- [ ] කොල්ලන්ගේ (kollangee, "the boys'") — same defect as බල්ලන්ගේ above; output කොල්ලඞේ.
-- [ ] ලෙන්ගතුම (lengathuma, "the most affectionate") — same defect; output ලෙඞතුම. Together with අවසන්ය in *feature-1* (where "ny" collapses to ඤ the same way), this shows the "ny"/"ng" digraph rules in `RuleTable.Consonants` need to back off when the word's actual glyphs are a plain consonant-hal-consonant cluster rather than the dedicated ඤ/ඞ letter — currently the trie has no way to disambiguate the two, and no separator/escape is documented in the scheme.
-- [ ] මධ්‍යස්ථාන (madhyasthaana, "centers") — contains ස්ථ = ස + ් (virama) + ථ (dental aspirated "tha", U+0DAE). ථ has no mapping anywhere in `RuleTable.Consonants` — it is not part of Unit 1 (word-final hal) or Unit 2 (the listed new letters ඟ/ඳ/ඬ/ඹ/ඦ/ඨ/ඪ/ෘ/ඎ/ඥ) scope, it is a separate pre-existing gap. `th` is already taken by ත (dental unaspirated), so there is currently no way to type ථ at all; best-effort attempt `madhyasthaana` produces මධ්‍යස්තාන (ත instead of ථ).
+- [x] බල්ලන්ගේ (ballangee, "the dogs'") — typed as `ballangee`. The source word is බල්ල(ball) + ල(l) + න්(n, hal) + ග(ga) + ේ(ee), a plain mid-word cluster of "l"-hal-"n" then "n"-hal-"g" — no special ඟ (nga) letter and no ZWJ. The trie greedily matches the substring "ng" inside "ballangee" as the ඞ digraph (registered as a single consonant token) instead of parsing it as "n" (needing a virama before the following consonant) + "g", so the CLI outputs බල්ලඞේ instead. *(Round 2: fixed, see [CHECKLIST.md](CHECKLIST.md).)*
+- [x] කොල්ලන්ගේ (kollangee, "the boys'") — same defect as බල්ලන්ගේ above; output කොල්ලඞේ. *(Round 2: fixed, see [CHECKLIST.md](CHECKLIST.md).)*
+- [x] ලෙන්ගතුම (lengathuma, "the most affectionate") — same defect; output ලෙඞතුම. Together with අවසන්ය in *feature-1* (where "ny" collapses to ඤ the same way), this shows the "ny"/"ng" digraph rules in `RuleTable.Consonants` need to back off when the word's actual glyphs are a plain consonant-hal-consonant cluster rather than the dedicated ඤ/ඞ letter — currently the trie has no way to disambiguate the two, and no separator/escape is documented in the scheme. *(Round 2: fixed, see [CHECKLIST.md](CHECKLIST.md).)*
+- [x] මධ්‍යස්ථාන (madhyasthaana, "centers") — contains ස්ථ = ස + ් (virama) + ථ (dental aspirated "tha", U+0DAE). ථ has no mapping anywhere in `RuleTable.Consonants` — it is not part of Unit 1 (word-final hal) or Unit 2 (the listed new letters ඟ/ඳ/ඬ/ඹ/ඦ/ඨ/ඪ/ෘ/ඎ/ඥ) scope, it is a separate pre-existing gap. `th` is already taken by ත (dental unaspirated), so there is currently no way to type ථ at all; best-effort attempt `madhyasthaana` produces මධ්‍යස්තාන (ත instead of ථ). *(Round 2: fixed, see [CHECKLIST.md](CHECKLIST.md).)*

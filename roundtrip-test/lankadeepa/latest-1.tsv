@@ -3,24 +3,24 @@ sinhala	singlish	status	note
 මහික	mahika	PASS	
 වීරරත්න	viirarathna	PASS	
 සහ	saha	PASS	
-සුජිත්	sujith	NEEDS-U1	
+සුජිත්	sujith	PASS	was NEEDS-U1; passes with word-final hal (PR #10)
 හේවාජුලිගේ	heevaajuligee	PASS	
 දිවයින	divayina	PASS	
 පුරා	puraa	PASS	
 පිහිටි	pihiti	PASS	
-පාසල්	paasal	NEEDS-U1	
-සඳහා	sazdahaa	NEEDS-U2	
+පාසල්	paasal	PASS	was NEEDS-U1; passes with word-final hal (PR #10)
+සඳහා	sazdahaa	PASS	was NEEDS-U2; passes with the additional letters (PR #9)
 අධ්‍යාපන	adhyaapana	PASS	
 නවීකරණ	naviikaraNa	PASS	
-ව්‍යාපෘති	vyaapRthi	NEEDS-U2	
-කිහිපයක්	kihipayak	NEEDS-U1	
+ව්‍යාපෘති	vyaapRthi	PASS	was NEEDS-U2; passes with the additional letters (PR #9)
+කිහිපයක්	kihipayak	PASS	was NEEDS-U1; passes with word-final hal (PR #10)
 යටතේ	yatathee	PASS	
 සුහුරු	suhuru	PASS	
 පුවරු	puvaru	PASS	
 Smart		SKIP	
 boards		SKIP	
 4,570		SKIP	
-ක්	k	NEEDS-U1	
+ක්	k	PASS	was NEEDS-U1; passes with word-final hal (PR #10)
 ආනයනය	aanayanaya	PASS	
 කර	kara	PASS	
 වෙත	vetha	PASS	
@@ -31,7 +31,7 @@ boards		SKIP
 ඇති	aethi	PASS	
 බව	bava	PASS	
 අග්‍රාමාත්‍ය	agraamaathya	PASS	
-ආචාර්ය	aachaarya	BUG	Engine inserts a spurious ZWJ conjunct for the bare "r"+"y" cluster (ර්ය) - outputs ආචාර්‍ය instead of ආචාර්ය. The consonant+r/y+vowel ZWJ-conjunct rule appears to fire even when the preceding consonant is itself "r", which real orthography never ligates. Not part of Unit 1/2 scope.
+ආචාර්ය	aachaarya	PASS	was BUG: ZWJ yansaya emitted after ර; fixed: ර + ය is a plain cluster
 හරිනි	harini	PASS	
 අමරසූරිය	amarasuuriya	PASS	
 පාර්ලිමේන්තුවේදී	paarlimeenthuveedii	PASS	
@@ -46,7 +46,7 @@ boards		SKIP
 ලද	lada	PASS	
 ප්‍රශ්නයකට	prashnayakata	PASS	
 පිළිතුරු	piLithuru	PASS	
-දෙමින්	demin	NEEDS-U1	
+දෙමින්	demin	PASS	was NEEDS-U1; passes with word-final hal (PR #10)
 අග්‍රාමාත්‍යවරිය	agraamaathyavariya	PASS	
 මේ	mee	PASS	
 කීවාය	kiivaaya	PASS	
@@ -57,18 +57,18 @@ boards		SKIP
 විදුලි	viduli	PASS	
 සංදේශ	saMdeesha	PASS	
 නියාමන	niyaamana	PASS	
-කොමිෂන්	komiShan	NEEDS-U1	
+කොමිෂන්	komiShan	PASS	was NEEDS-U1; passes with word-final hal (PR #10)
 සභා	sabhaa	PASS	
 ප්‍රතිපාදන	prathipaadana	PASS	
-ව්‍යාපෘතිය	vyaapRthiya	NEEDS-U2	
-මගින්	magin	NEEDS-U1	
-ලබාගත්	labaagath	NEEDS-U1	
+ව්‍යාපෘතිය	vyaapRthiya	PASS	was NEEDS-U2; passes with the additional letters (PR #9)
+මගින්	magin	PASS	was NEEDS-U1; passes with word-final hal (PR #10)
+ලබාගත්	labaagath	PASS	was NEEDS-U1; passes with word-final hal (PR #10)
 1,000		SKIP	
 වන	vana	PASS	
 විට	vita	PASS	
 දී	dii	PASS	
-අවසන්	avasan	NEEDS-U1	
-සඳහන්	sazdahan	NEEDS-U1+U2	
+අවසන්	avasan	PASS	was NEEDS-U1; passes with word-final hal (PR #10)
+සඳහන්	sazdahan	PASS	was NEEDS-U1+U2; passes with PRs #9 and #10
 කළාය	kaLaaya	PASS	
 2025-2026		SKIP	
 වසර	vasara	PASS	
@@ -76,33 +76,33 @@ boards		SKIP
 ආධාර	aadhaara	PASS	
 කරන	karana	PASS	
 900		SKIP	
-න්	n	NEEDS-U1	
+න්	n	PASS	was NEEDS-U1; passes with word-final hal (PR #10)
 500		SKIP	
 ලබා	labaa	PASS	
 අතර	athara	PASS	
-රජයෙන්	rajayen	NEEDS-U1	
-පත්	path	NEEDS-U1	
+රජයෙන්	rajayen	PASS	was NEEDS-U1; passes with word-final hal (PR #10)
+පත්	path	PASS	was NEEDS-U1; passes with word-final hal (PR #10)
 කළමනාකරණ	kaLamanaakaraNa	PASS	
 කමිටුව	kamituva	PASS	
 එම	ema	PASS	
-ස්ථාපිත	sthaapitha	BUG	Contains U+0DAE (dental aspirated tha) which has no Singlish mapping in the target scheme; typing "th" maps to U+0DAD (unaspirated dental tha) instead, so the engine cannot reproduce this letter regardless of Unit 1/2. Neither unit covers it.
+ස්ථාපිත	sthhaapitha	PASS	was BUG: no spelling for ථ; fixed: thh -> ථ (row respelled)
 කිරීමේ	kiriimee	PASS	
 Installation		SKIP	
 කටයුතු	katayuthu	PASS	
 සිදු	sidu	PASS	
-කරමින්	karamin	NEEDS-U1	
+කරමින්	karamin	PASS	was NEEDS-U1; passes with word-final hal (PR #10)
 පවතින්නේ	pavathinnee	PASS	
 යැයිද	yaeyida	PASS	
 මීට	miita	PASS	
 අමතරව	amatharava	PASS	
-ඩිජිටල්	Dijital	NEEDS-U1	
-කාර්යසාධක	kaaryasaadhaka	BUG	Same "r"+"y" spurious-ZWJ issue as ආචාර්ය - outputs කාර්‍යසාධක instead of කාර්යසාධක. Not part of Unit 1/2 scope.
+ඩිජිටල්	Dijital	PASS	was NEEDS-U1; passes with word-final hal (PR #10)
+කාර්යසාධක	kaaryasaadhaka	PASS	was BUG: ZWJ yansaya emitted after ර; fixed: ර + ය is a plain cluster
 බලකායේ	balakaayee	PASS	
-මඟපෙන්වීම	mazgapenviima	NEEDS-U2	
-ආර්ථික	aarthika	BUG	Contains U+0DAE (dental aspirated tha) with no Singlish mapping in the target scheme; same root cause as sthaapitha.
+මඟපෙන්වීම	mazgapenviima	PASS	was NEEDS-U2; passes with the additional letters (PR #9)
+ආර්ථික	aarthhika	PASS	was BUG: no spelling for ථ; fixed: thh -> ථ (row respelled)
 අමාත්‍යාංශ	amaathyaaMsha	PASS	
-පළාත්	paLaath	NEEDS-U1	
-මට්ටමින්	mattamin	NEEDS-U1	
+පළාත්	paLaath	PASS	was NEEDS-U1; passes with word-final hal (PR #10)
+මට්ටමින්	mattamin	PASS	was NEEDS-U1; passes with word-final hal (PR #10)
 ප්‍රසම්පාදනය	prasampaadanaya	PASS	
 2,670		SKIP	
 ම	ma	PASS	
@@ -112,6 +112,6 @@ Installation		SKIP
 සවිකිරීමේ	savikiriimee	PASS	
 ද	da	PASS	
 සක්‍රීයව	sakriiyava	PASS	
-කෙරෙමින්	keremin	NEEDS-U1	
+කෙරෙමින්	keremin	PASS	was NEEDS-U1; passes with word-final hal (PR #10)
 තිබෙන	thibena	PASS	
 බවද	bavada	PASS	

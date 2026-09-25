@@ -25,6 +25,8 @@
 
 ## Status summary
 
+> Round 2: every row now passes (see [CHECKLIST.md](CHECKLIST.md)). The counts below are the Round-1 triage.
+
 | Status | Count |
 |---|---|
 | PASS | 86 |

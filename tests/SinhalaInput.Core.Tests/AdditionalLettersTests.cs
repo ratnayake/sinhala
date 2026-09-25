@@ -68,7 +68,6 @@ public class AdditionalLettersTests
     [InlineData("za", "ස")]
     [InlineData("zna", "ස්න")]
     [InlineData("ja", "ජ")]
-    [InlineData("nyaaya", "ඤාය")]
     [InlineData("jna", "ජ්න")]
     [InlineData("rata", "රට")]
     [InlineData("krama", "ක්‍රම")]

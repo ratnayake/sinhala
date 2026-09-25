@@ -20,6 +20,8 @@
 
 ## Status summary
 
+> Round 2: every row now passes (see [CHECKLIST.md](CHECKLIST.md)). The counts below are the Round-1 triage.
+
 | Status | Count |
 |---|---|
 | PASS | 97 |
@@ -32,4 +34,4 @@
 
 ## BUG checklist
 
-- [ ] ව්‍යවස්ථා (`vyavasthaa`) — contains U+0DAE (dental aspirated "tha", ථ), which has **no Singlish mapping at all** in the target scheme (only the retroflex aspirates `Th`/`Dh` were added by Unit 2; the dental aspirate ථ is missing from both the base table and the Unit 2 new-letters list). Typing "th" produces U+0DAD (ත) instead. Same root cause as ස්ථාපිත / ආර්ථික in latest-1.md — the scheme itself needs a rule for ථ.
+- [x] ව්‍යවස්ථා (`vyavasthaa`) — contains U+0DAE (dental aspirated "tha", ථ), which has **no Singlish mapping at all** in the target scheme (only the retroflex aspirates `Th`/`Dh` were added by Unit 2; the dental aspirate ථ is missing from both the base table and the Unit 2 new-letters list). Typing "th" produces U+0DAD (ත) instead. Same root cause as ස්ථාපිත / ආර්ථික in latest-1.md — the scheme itself needs a rule for ථ. *(Round 2: fixed, see [CHECKLIST.md](CHECKLIST.md).)*

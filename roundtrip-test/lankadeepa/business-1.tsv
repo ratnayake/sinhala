@@ -1,17 +1,17 @@
 sinhala	singlish	status	note
 ගෝලීය	gooliiya	PASS	
-වෙළෙඳපොළේ	veLezdapoLee	NEEDS-U2	
-ඇඟලු‍ම්	aezgalum	BUG	Source HTML contains an extra ZWJ (U+200D) not adjacent to any r/y conjunct (likely a copy-paste/CMS artifact on lankadeepa.lk); the engine has no way to emit a bare ZWJ, so no Singlish spelling can reproduce this exact codepoint sequence. Separately, this word also needs U1 (word-final hal) and/or U2 (new letters) for its other characters.
-සඳහා	sazdahaa	NEEDS-U2	
+වෙළෙඳපොළේ	veLezdapoLee	PASS	was NEEDS-U2; passes with the additional letters (PR #9)
+ඇඟලු‍ම්	aezgalum	PASS	was BUG: stray ZWJ after a vowel sign in the source HTML; harness drops ZWJ not preceded by virama
+සඳහා	sazdahaa	PASS	was NEEDS-U2; passes with the additional letters (PR #9)
 ඇති	aethi	PASS	
-ඉල්ලු‍ම	illuma	BUG	Source HTML contains an extra ZWJ (U+200D) not adjacent to any r/y conjunct (likely a copy-paste/CMS artifact on lankadeepa.lk); the engine has no way to emit a bare ZWJ, so no Singlish spelling can reproduce this exact codepoint sequence.
+ඉල්ලු‍ම	illuma	PASS	was BUG: stray ZWJ after a vowel sign in the source HTML; harness drops ZWJ not preceded by virama
 අඩුවීම	aDuviima	PASS	
 සහ	saha	PASS	
-වෙළෙඳපොළ	veLezdapoLa	NEEDS-U2	
+වෙළෙඳපොළ	veLezdapoLa	PASS	was NEEDS-U2; passes with the additional letters (PR #9)
 තත්වය	thathvaya	PASS	
 වෙනස්වීම	venasviima	PASS	
-හේතුවෙන්	heethuven	NEEDS-U1	
-ඉකුත්	ikuth	NEEDS-U1	
+හේතුවෙන්	heethuven	PASS	was NEEDS-U1; passes with word-final hal (PR #10)
+ඉකුත්	ikuth	PASS	was NEEDS-U1; passes with word-final hal (PR #10)
 අගෝස්තු	agoosthu	PASS	
 මාසයේදී	maasayeedii	PASS	
 මෙරට	merata	PASS	
@@ -20,9 +20,9 @@ sinhala	singlish	status	note
 අපනයන	apanayana	PASS	
 ආදායම	aadaayama	PASS	
 සියයට	siyayata	PASS	
-කින්	kin	NEEDS-U1	
+කින්	kin	PASS	was NEEDS-U1; passes with word-final hal (PR #10)
 පහළ	pahaLa	PASS	
-ගොස්	gos	NEEDS-U1	
+ගොස්	gos	PASS	was NEEDS-U1; passes with word-final hal (PR #10)
 ඇතැයි	aethaeyi	PASS	
 සංවර්ධන	saMvardhana	PASS	
 මණ්ඩලයේ	maNDalayee	PASS	
@@ -37,18 +37,18 @@ sinhala	singlish	status	note
 පසුගිය	pasugiya	PASS	
 වසරේ	vasaree	PASS	
 ඇමෙරිකානු	aemerikaanu	PASS	
-ඩොලර්	Dolar	NEEDS-U1	
+ඩොලර්	Dolar	PASS	was NEEDS-U1; passes with word-final hal (PR #10)
 මිලියන	miliyana	PASS	
 කට	kata	PASS	
 ආසන්නව	aasannava	PASS	
 පැවැති	paevaethi	PASS	
 මේ	mee	PASS	
-ක්	k	NEEDS-U1	
+ක්	k	PASS	was NEEDS-U1; passes with word-final hal (PR #10)
 දක්වා	dakvaa	PASS	
 අඩුවී	aDuvii	PASS	
 තිබේ	thibee	PASS	
 ඇමෙරිකාවට	aemerikaavata	PASS	
-එක්සත්	eksath	NEEDS-U1	
+එක්සත්	eksath	PASS	was NEEDS-U1; passes with word-final hal (PR #10)
 රාජධානියට	raajadhaaniyata	PASS	
 කරන	karana	PASS	
 අපනයනද	apanayanada	PASS	
@@ -61,18 +61,18 @@ sinhala	singlish	status	note
 කළ	kaLa	PASS	
 එම	ema	PASS	
 පමණ	pamaNa	PASS	
-දක්වාත්	dakvaath	NEEDS-U1	
-රාජධානියෙන්	raajadhaaniyen	NEEDS-U1	
+දක්වාත්	dakvaath	PASS	was NEEDS-U1; passes with word-final hal (PR #10)
+රාජධානියෙන්	raajadhaaniyen	PASS	was NEEDS-U1; passes with word-final hal (PR #10)
 ලැබුණු	laebuNu	PASS	
 ඇත	aetha	PASS	
 ශ්‍රී	shrii	PASS	
 ලංකාවේ	laMkaavee	PASS	
 මෙරටට	meratata	PASS	
-පමණක්	pamaNak	NEEDS-U1	
+පමණක්	pamaNak	PASS	was NEEDS-U1; passes with word-final hal (PR #10)
 බලපෑ	balapaae	PASS	
-තත්වයක්	thathvayak	NEEDS-U1	
+තත්වයක්	thathvayak	PASS	was NEEDS-U1; passes with word-final hal (PR #10)
 නොවන	novana	PASS	
-බවත්	bavath	NEEDS-U1	
+බවත්	bavath	PASS	was NEEDS-U1; passes with word-final hal (PR #10)
 තිබෙන	thibena	PASS	
 එයට	eyata	PASS	
 හේතුව	heethuva	PASS	
@@ -80,30 +80,30 @@ sinhala	singlish	status	note
 කළේය	kaLeeya	PASS	
 ලොව	lova	PASS	
 පුරා	puraa	PASS	
-රටවල්	rataval	NEEDS-U1	
+රටවල්	rataval	PASS	was NEEDS-U1; passes with word-final hal (PR #10)
 තත්වයට	thathvayata	PASS	
 මුහුණ	muhuNa	PASS	
-දෙමින්	demin	NEEDS-U1	
+දෙමින්	demin	PASS	was NEEDS-U1; passes with word-final hal (PR #10)
 සිටින	sitina	PASS	
 බවද	bavada	PASS	
 ඔහු	ohu	PASS	
 පැවැසුවේය	paevaesuveeya	PASS	
 මාසයේ	maasayee	PASS	
-කාර්ය	kaarya	BUG	Source HTML spells this word's rakaransaya+yansaya sequence as ර්ය (r + virama + ya, no ZWJ), but the engine's r/y-conjunct rule always inserts a ZWJ when 'y' follows a consonant+virama (even when that consonant is itself 'r'), producing ර්‍ය instead. Standard Sinhala orthography for words like ආචාර්ය usually DOES use the yansaya ligature (ZWJ) here, so the source text is likely missing it; the engine cannot produce the no-ZWJ form.
+කාර්ය	kaarya	PASS	was BUG: ZWJ yansaya emitted after ර; fixed: ර + ය is a plain cluster
 සාධනය	saadhanaya	PASS	
-සම්බන්ධයෙන්	sambandhayen	NEEDS-U1	
+සම්බන්ධයෙන්	sambandhayen	PASS	was NEEDS-U1; passes with word-final hal (PR #10)
 මාධ්‍ය	maadhya	PASS	
-දැනුවත්	daenuvath	NEEDS-U1	
+දැනුවත්	daenuvath	PASS	was NEEDS-U1; passes with word-final hal (PR #10)
 කිරීම	kiriima	PASS	
 රජයේ	rajayee	PASS	
-ප්‍රවෘත්ති	pravRththi	NEEDS-U2	
+ප්‍රවෘත්ති	pravRththi	PASS	was NEEDS-U2; passes with the additional letters (PR #9)
 දෙපාර්තමේන්තුවේ	depaarthameenthuvee	PASS	
 හමුවේදී	hamuveedii	PASS	
 බව	bava	PASS	
 කියා	kiyaa	PASS	
 සිටියේය	sitiyeeya	PASS	
 සමස්ත	samastha	PASS	
-මුල්	mul	NEEDS-U1	
+මුල්	mul	PASS	was NEEDS-U1; passes with word-final hal (PR #10)
 මාස	maasa	PASS	
 අට	ata	PASS	
 තුළදී	thuLadii	PASS	
@@ -123,11 +123,11 @@ sinhala	singlish	status	note
 ආදායමට	aadaayamata	PASS	
 සාපේක්ෂව	saapeekShava	PASS	
 ක	ka	PASS	
-වර්ධනයක්	vardhanayak	NEEDS-U1	
+වර්ධනයක්	vardhanayak	PASS	was NEEDS-U1; passes with word-final hal (PR #10)
 දත්ත	daththa	PASS	
 පෙන්වා	penvaa	PASS	
 දෙයි	deyi	PASS	
-ප්‍රථම	prathama	BUG	Contains ථ (aspirated dental 'th' as in Thomas) which is absent from RuleTable and not covered by the U1 (word-final hal) or U2 (new letters) scope; no Singlish spelling can currently produce this letter. Best-effort spelling used plain 'th', which the engine renders as ත (dental t) instead.
+ප්‍රථම	prathhama	PASS	was BUG: no spelling for ථ; fixed: thh -> ථ (row respelled)
 වතාවට	vathaavata	PASS	
 පසුකර	pasukara	PASS	
 මණ්ඩලය	maNDalaya	PASS	

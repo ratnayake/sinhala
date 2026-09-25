@@ -19,6 +19,8 @@
 
 ## Status summary (124 distinct words + 1 digit token)
 
+> Round 2: every row now passes (see [CHECKLIST.md](CHECKLIST.md)). The counts below are the Round-1 triage.
+
 | Status | Count |
 |---|---|
 | PASS | 93 |
@@ -30,8 +32,8 @@
 
 ## BUG checklist
 
-- [ ] වෙන්ගප්පුලි — engine greedily matches the "ng" digraph (→ ඞ) even though n and g belong to separate syllables (ven+hal+ga); produced වෙඞප්පුලි instead of වෙන්ගප්පුලි.
-- [ ] මහත්වරුන්ගේ — same "ng" digraph collision; produced මහත්වරුඞේ instead of මහත්වරුන්ගේ.
-- [ ] වගඋත්තරකරු — compound-word hiatus: the independent vowel උ follows a bare consonant ග (vaga+uttharakaru); typed "gau" is read as the "au" dependent vowel sign attaching to ග, producing වගෞත්තරකරු; the scheme has no way to force an independent-vowel break right after a consonant carrying its inherent a.
-- [ ] අවස්ථාවේදී — aspirated dental ථ has no mapping anywhere in the rule table (only plain ත "th" exists) and is not in the Unit 2 new-letter list either; produced අවස්තාවේදී instead of අවස්ථාවේදී.
-- [ ] බවත්ය — engine's automatic consonant+y+vowel → ZWJ yansaya conjunct rule fires for th+ya, producing බවත්‍ය (with ZWJ) instead of plain hal+ya බවත්ය.
+- [x] වෙන්ගප්පුලි — engine greedily matches the "ng" digraph (→ ඞ) even though n and g belong to separate syllables (ven+hal+ga); produced වෙඞප්පුලි instead of වෙන්ගප්පුලි. *(Round 2: fixed, see [CHECKLIST.md](CHECKLIST.md).)*
+- [x] මහත්වරුන්ගේ — same "ng" digraph collision; produced මහත්වරුඞේ instead of මහත්වරුන්ගේ. *(Round 2: fixed, see [CHECKLIST.md](CHECKLIST.md).)*
+- [x] වගඋත්තරකරු — compound-word hiatus: the independent vowel උ follows a bare consonant ග (vaga+uttharakaru); typed "gau" is read as the "au" dependent vowel sign attaching to ග, producing වගෞත්තරකරු; the scheme has no way to force an independent-vowel break right after a consonant carrying its inherent a. *(Round 2: fixed, see [CHECKLIST.md](CHECKLIST.md).)*
+- [x] අවස්ථාවේදී — aspirated dental ථ has no mapping anywhere in the rule table (only plain ත "th" exists) and is not in the Unit 2 new-letter list either; produced අවස්තාවේදී instead of අවස්ථාවේදී. *(Round 2: fixed, see [CHECKLIST.md](CHECKLIST.md).)*
+- [x] බවත්ය — engine's automatic consonant+y+vowel → ZWJ yansaya conjunct rule fires for th+ya, producing බවත්‍ය (with ZWJ) instead of plain hal+ya බවත්ය. *(Round 2: fixed, see [CHECKLIST.md](CHECKLIST.md).)*

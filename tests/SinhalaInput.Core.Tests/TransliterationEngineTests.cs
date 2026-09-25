@@ -74,16 +74,17 @@ public class TransliterationEngineTests
     [InlineData("kh", "ඛ්")]
     [InlineData("g", "ග්")]
     [InlineData("gh", "ඝ්")]
-    [InlineData("ng", "ඞ්")]
+    [InlineData("nG", "ඞ්")]
     [InlineData("c", "ච්")]
     [InlineData("ch", "ච්")]
     [InlineData("chh", "ඡ්")]
     [InlineData("j", "ජ්")]
     [InlineData("jh", "ඣ්")]
-    [InlineData("ny", "ඤ්")]
+    [InlineData("nY", "ඤ්")]
     [InlineData("t", "ට්")] // bare "t" defaults to the retroflex sound.
     [InlineData("T", "ට්")] // capitalisation convention: explicit retroflex.
     [InlineData("th", "ත්")] // dental, spelled with the digraph.
+    [InlineData("thh", "ථ්")] // dental aspirate, mirroring ch/chh.
     [InlineData("d", "ද්")] // bare "d" defaults to dental.
     [InlineData("dh", "ධ්")]
     [InlineData("D", "ඩ්")] // capitalisation convention: explicit retroflex.

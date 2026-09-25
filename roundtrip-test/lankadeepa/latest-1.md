@@ -24,6 +24,8 @@
 
 ## Status summary
 
+> Round 2: every row now passes (see [CHECKLIST.md](CHECKLIST.md)). The counts below are the Round-1 triage.
+
 | Status | Count |
 |---|---|
 | PASS | 80 |
@@ -36,7 +38,7 @@
 
 ## BUG checklist
 
-- [ ] ආචාර්ය (`aachaarya`) — engine inserts a spurious ZWJ conjunct for the bare "r"+"y" cluster (ර්ය): outputs ආචාර්‍ය instead of ආචාර්ය. The consonant+r/y+vowel ZWJ-conjunct rule appears to fire even when the preceding consonant is itself "r", which real orthography never ligates. Not part of Unit 1/2 scope — an existing engine issue.
-- [ ] කාර්යසාධක (`kaaryasaadhaka`) — same spurious-ZWJ "r"+"y" issue as ආචාර්ය: outputs කාර්‍යසාධක instead of කාර්යසාධක.
-- [ ] ස්ථාපිත (`sthaapitha`) — contains U+0DAE (dental aspirated "tha", ථ), which has **no Singlish mapping at all** in the target scheme (only the retroflex aspirates `Th`/`Dh` were added by Unit 2; the dental aspirate ථ is missing from both the base table and the Unit 2 new-letters list). Typing "th" produces U+0DAD (ත) instead. Neither unit's scope currently covers this letter — the scheme itself needs a rule for ථ.
-- [ ] ආර්ථික (`aarthika`) — same missing-ථ-mapping issue as ස්ථාපිත.
+- [x] ආචාර්ය (`aachaarya`) — engine inserts a spurious ZWJ conjunct for the bare "r"+"y" cluster (ර්ය): outputs ආචාර්‍ය instead of ආචාර්ය. The consonant+r/y+vowel ZWJ-conjunct rule appears to fire even when the preceding consonant is itself "r", which real orthography never ligates. Not part of Unit 1/2 scope — an existing engine issue. *(Round 2: fixed, see [CHECKLIST.md](CHECKLIST.md).)*
+- [x] කාර්යසාධක (`kaaryasaadhaka`) — same spurious-ZWJ "r"+"y" issue as ආචාර්ය: outputs කාර්‍යසාධක instead of කාර්යසාධක. *(Round 2: fixed, see [CHECKLIST.md](CHECKLIST.md).)*
+- [x] ස්ථාපිත (`sthaapitha`) — contains U+0DAE (dental aspirated "tha", ථ), which has **no Singlish mapping at all** in the target scheme (only the retroflex aspirates `Th`/`Dh` were added by Unit 2; the dental aspirate ථ is missing from both the base table and the Unit 2 new-letters list). Typing "th" produces U+0DAD (ත) instead. Neither unit's scope currently covers this letter — the scheme itself needs a rule for ථ. *(Round 2: fixed, see [CHECKLIST.md](CHECKLIST.md).)*
+- [x] ආර්ථික (`aarthika`) — same missing-ථ-mapping issue as ස්ථාපිත. *(Round 2: fixed, see [CHECKLIST.md](CHECKLIST.md).)*

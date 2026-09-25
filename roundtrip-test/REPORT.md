@@ -1,5 +1,12 @@
 # Round-trip testing against real Sinhala news text
 
+> **Historical.** This Ada Derana round and its `word-list.csv` predate the word-final hal convention
+> (PR #10) and the later rule changes (`thh`, `nG`/`nY`, no yansaya after ර, the `q` syllable break).
+> Many of its expected outputs are now stale, and it is not part of the automated test suite. The
+> current round-trip corpus is `lankadeepa/` (10 articles), which
+> `tests/SinhalaInput.Core.Tests/CorpusRoundTripTests.cs` checks on every test run. See
+> `lankadeepa/CHECKLIST.md`.
+
 **Source:** two short articles fetched live from https://sinhala.adaderana.lk/ (a weather advisory and a parliament news item), ~65-74 words of real, unedited Sinhala prose covering everyday and technical vocabulary.
 
 **Method:** for each Sinhala word in the articles, construct the Latin ("Singlish") phonetic spelling that *should* reproduce it under this engine's documented rule table, run it through `SinhalaInput.Cli`, and compare the output to the original word.
