@@ -98,8 +98,8 @@ This "maximal munch over a trie, then syllabify" approach is exactly how the ope
 | `aae`, `Ae` | ඈ | `o` | ඔ |
 | `i` | ඉ | `oo`, `O` | ඕ |
 | `ii`, `I` | ඊ | `au` | ඖ |
-| `u` | උ | | |
-| `uu`, `U` | ඌ | | |
+| `u` | උ | `R` | ඍ *(vocalic r)* |
+| `uu`, `U` | ඌ | `RR` | ඎ *(long vocalic r)* |
 
 **Dependent vowel signs** (*pili*, attached to a consonant, replacing its inherent `a`):
 
@@ -112,7 +112,8 @@ This "maximal munch over a trie, then syllabify" approach is exactly how the ope
 | `i` | ි | `oo`, `O` | ෝ (wraps left+right) |
 | `ii`, `I` | ී | `au` | ෞ (wraps left+right) |
 | `u` | ු | *(none, consonant cluster)* | ් (virama / hal kirīma) |
-| `uu`, `U` | ූ | | |
+| `uu`, `U` | ූ | `R` | ෘ (vocalic r, e.g. `kRShi` → කෘෂි) |
+| | | `RR` | ෲ (long vocalic r) |
 
 > The "wraps to the left" vowel signs are a **rendering** detail handled automatically by the Sinhala OpenType shaping engine (Uniscribe/DirectWrite/HarfBuzz) once you emit the codepoints in **logical order** (consonant, then vowel sign) — do not try to reorder characters yourself; that is exactly what the shaping engine is for.
 
@@ -130,8 +131,19 @@ This "maximal munch over a trie, then syllabify" approach is exactly how the ope
 | `j` | ජ | `N` | ණ *(retroflex)* | `l` | ල |
 | `jh` | ඣ | `sh` | ශ | `v`, `w` | ව |
 | `ny` | ඤ | `Sh` | ෂ *(retroflex)* | `L` | ළ |
-| | | `s` | ස | `h` | හ |
-| | | | | `z` | ‍ස *(no native /z/; map to ස or reject)* |
+| `jny` | ඥ | `s` | ස | `h` | හ |
+| | | `Th` | ඨ *(retroflex aspirated)* | `z` | ස *(no native /z/; map to ස or reject)* |
+| | | `Dh` | ඪ *(retroflex aspirated)* | | |
+
+**Sanyaka (prenasalized) consonants** — `z` + the stop; `z` alone stays ස:
+
+| Latin | Sinhala | Latin | Sinhala |
+|---|---|---|---|
+| `zg` | ඟ | `zd` | ඳ *(e.g. `sazdahaa` → සඳහා)* |
+| `zj` | ඦ | `zb` | ඹ *(e.g. `azba` → අඹ)* |
+| `zD` | ඬ | | |
+
+`Th`/`Dh` take priority over the `T`+`h` / `D`+`h` cluster readings (ට්හ / ඩ්හ), and `jny` over `j`+`ny` (ජ්ඤ), by longest match; those clusters essentially never occur in Sinhala. Visarga (ඃ) has no rule yet.
 
 The **capitalisation convention** (`T`/`N`/`L`/`Sh` for retroflex sounds) mirrors what the community Singlish schemes (and Google's own tool) use, because English has no separate letters for dental vs. retroflex consonants. Capitalisation is the *only* way to get a retroflex consonant: the engine deliberately does **not** also accept a doubled-letter alternative (`tt`, `dd`, `nn`, `ll`, `ss`) for these, because doubling a consonant is already meaningful on its own — it is how a user spells genuine **gemination** (hal kirīma followed by a repeat of the same consonant, e.g. `malli` → මල්ලි, `anda`-style clusters generalised to a repeated letter). Registering both meanings for the same doubled spelling made every geminated retroflex-adjacent consonant ambiguous and, in practice, always lose to the retroflex reading (the longest-match rule always prefers the 2-letter key), silently corrupting common colloquial words like `malli` (→ මළි, wrong) and `enne` (→ එණෙ, wrong). A user who forgets to hold Shift for a retroflex letter gets the plain dental/alveolar consonant instead — a real but different sound, not a corrupted one — rather than a silently wrong gemination somewhere else in the word.
 
