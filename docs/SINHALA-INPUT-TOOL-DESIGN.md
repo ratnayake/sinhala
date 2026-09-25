@@ -78,7 +78,7 @@ This means transliteration is **not** a 1:1 character map — it is a **syllable
 3. Classify the matched token as a **consonant**, **independent vowel**, or **vowel sign continuation**, and emit the corresponding Sinhala glyph(s), correctly choosing between:
    - a bare consonant glyph (inherent `a`),
    - a consonant + dependent vowel sign,
-   - a consonant + virama (when followed by another consonant with no vowel between them),
+   - a consonant + virama (whenever no vowel follows it: before another consonant, before punctuation/digits, or at the end of the word — see §3.3),
    - an independent vowel glyph (word start, or vowel following another vowel).
 4. Handle a small number of **conjunct exceptions**: the *rakāraṃśaya* (`r`-conjunct, e.g. `krama` → `ක්‍රම`) and *yansaya* (`y`-conjunct, e.g. `vyaparaya` → `ව්‍යාපාරය`), which insert a virama + ZWJ (U+200D) + consonant instead of a plain virama.
 
@@ -174,7 +174,7 @@ function Transliterate(word: string) -> string:
     while i < word.length:
         token, kind, consumed = LongestMatch(word, i)   # trie lookup, longest key wins
         if token is null:
-            if pendingConsonant: result.append(pendingConsonant); pendingConsonant = null
+            if pendingConsonant: result.append(pendingConsonant + VIRAMA); pendingConsonant = null
             result.append(word[i])   # passthrough, e.g. punctuation/digits
             i += 1
             continue
@@ -196,9 +196,11 @@ function Transliterate(word: string) -> string:
 
         i += consumed
 
-    if pendingConsonant: result.append(pendingConsonant)        # trailing consonant, inherent 'a'
+    if pendingConsonant: result.append(pendingConsonant + VIRAMA)   # word-final consonant: hal
     return join(result)
 ```
+
+**Word-final hal (virama) convention.** A consonant that is not followed by a vowel *always* takes the virama — before another consonant (a cluster), before a passthrough character, and at the end of the word. The inherent vowel is never implied; it has to be typed as `a` — with one exception: anusvara (`M`, §3.2) attaches to a pending consonant's inherent vowel, so `kM` → කං and `laMkaa` → ලංකා, not ක්ං. This is the Google Input Tools / Helakuru convention: `visin` → විසින්, `gaman` → ගමන්, `ekak` → එකක්, `nam` → නම්, while `mama` → මම and `kana` → කන still keep their inherent vowels because the final `a` is typed. An earlier version kept the inherent vowel on a word-final bare consonant (`kan` → කන); round-trip testing against real Sinhala news text showed that dead-consonant endings account for roughly 30–40% of words, so the old default forced a separate workaround on a large share of everyday typing and was reversed.
 
 The `LongestMatch` step is a trie (prefix tree) keyed by the Latin patterns above, checked longest-key-first (e.g. `th` before `t`, `aae` before `ae` before `a`), which is the standard technique used by every rule-based Singlish engine surveyed for this document (see §12 references) and gives `O(word length)` performance with no backtracking.
 
@@ -554,6 +556,15 @@ public sealed class TransliterationEngine : ITransliterationEngine
 
             if (chosen is null)
             {
+                // A bare 'a' after a consonant is the inherent vowel: it has no sign of its own.
+                if (pendingConsonantGlyph is not null && latinWord[i] == 'a')
+                {
+                    result.Append(pendingConsonantGlyph);
+                    pendingConsonantGlyph = null;
+                    i++;
+                    continue;
+                }
+
                 FlushPendingConsonant(result, ref pendingConsonantGlyph);
                 result.Append(latinWord[i]); // passthrough: punctuation, digits, unknown chars
                 i++;
@@ -591,10 +602,9 @@ public sealed class TransliterationEngine : ITransliterationEngine
             return;
         }
 
-        // A consonant with no vowel that follows is either word-final (keeps its inherent
-        // vowel, matching Google's observed behaviour) or is about to be superseded by the
-        // next consonant, which appends the virama itself — see the Consonant case above.
-        result.Append(pendingConsonantGlyph);
+        // A consonant with no vowel that follows always takes the virama — before another
+        // consonant, before a passthrough character, and at the end of the word (§3.3).
+        result.Append(pendingConsonantGlyph).Append(RuleTable.Virama);
         pendingConsonantGlyph = null;
     }
 
@@ -607,7 +617,7 @@ public sealed class TransliterationEngine : ITransliterationEngine
 }
 ```
 
-> This listing intentionally omits the rakāraṃśaya/yansaya conjunct pass and the consonant-cluster virama insertion refinement (a cluster like `nda` in `chandra` needs `ChandraGlyph + Virama + DaGlyph`, not two bare consonants) — implement those as a second pass or as additional `TokenKind` cases once the base engine's golden tests (§9) are green. Keeping the first implementation to the core algorithm keeps it readable; layer complexity on top of passing tests rather than up front.
+> This listing intentionally omits the rakāraṃśaya/yansaya conjunct pass and anusvara handling (consonant clusters such as `nda` in `chandra` and word-final hal already fall out of the always-virama flush above) — implement those as a second pass or as additional `TokenKind` cases once the base engine's golden tests (§9) are green. Keeping the first implementation to the core algorithm keeps it readable; layer complexity on top of passing tests rather than up front.
 
 ---
 

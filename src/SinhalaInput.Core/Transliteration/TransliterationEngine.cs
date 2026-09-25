@@ -106,9 +106,9 @@ public sealed class TransliterationEngine : ITransliterationEngine
                     continue;
                 }
 
-                // Passthrough (punctuation/digits/unknown chars) never inserts a virama: a
-                // pending consonant ahead of it simply keeps its inherent vowel.
-                FlushPendingConsonant(result, ref pendingConsonantGlyph, appendVirama: false);
+                // A passthrough character (punctuation/digits/unknown) ends the syllable just
+                // like the end of the word does, so a pending consonant gets its virama here too.
+                FlushPendingConsonantWithVirama(result, ref pendingConsonantGlyph);
                 result.Append(latinWord[i]);
                 i++;
                 continue;
@@ -119,7 +119,7 @@ public sealed class TransliterationEngine : ITransliterationEngine
                 case TokenKind.Consonant:
                     // Superseding a still-pending consonant with no vowel in between is a
                     // consonant cluster: the first consonant's vowel is suppressed (virama).
-                    FlushPendingConsonant(result, ref pendingConsonantGlyph, appendVirama: true);
+                    FlushPendingConsonantWithVirama(result, ref pendingConsonantGlyph);
                     pendingConsonantGlyph = chosen.Value.Glyph;
                     break;
 
@@ -141,27 +141,20 @@ public sealed class TransliterationEngine : ITransliterationEngine
             i += chosen.Value.Latin.Length;
         }
 
-        // A consonant with no vowel that follows anywhere else in the word is word-final: it
-        // keeps its inherent vowel (matching Google's observed behaviour), never a virama —
-        // a virama is only ever inserted when another consonant supersedes it (see the
-        // Consonant case above) or as part of a rakāraṃśaya/yansaya conjunct.
-        FlushPendingConsonant(result, ref pendingConsonantGlyph, appendVirama: false);
+        // Google/Helakuru convention: a consonant not followed by a vowel always takes the
+        // virama, word-final included (visin -> විසින්); the inherent vowel must be typed as "a".
+        FlushPendingConsonantWithVirama(result, ref pendingConsonantGlyph);
         return result.ToString();
     }
 
-    private static void FlushPendingConsonant(StringBuilder result, ref string? pendingConsonantGlyph, bool appendVirama)
+    private static void FlushPendingConsonantWithVirama(StringBuilder result, ref string? pendingConsonantGlyph)
     {
         if (pendingConsonantGlyph is null)
         {
             return;
         }
 
-        result.Append(pendingConsonantGlyph);
-        if (appendVirama)
-        {
-            result.Append(RuleTable.Virama[0]);
-        }
-
+        result.Append(pendingConsonantGlyph).Append(RuleTable.Virama[0]);
         pendingConsonantGlyph = null;
     }
 
