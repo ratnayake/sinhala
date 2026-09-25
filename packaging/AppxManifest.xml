@@ -26,7 +26,8 @@
     xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10"
     xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10"
     xmlns:rescap="http://schemas.microsoft.com/appx/manifest/foundation/windows10/restrictedcapabilities"
-    IgnorableNamespaces="uap rescap">
+    xmlns:desktop="http://schemas.microsoft.com/appx/manifest/desktop/windows10"
+    IgnorableNamespaces="uap rescap desktop">
 
   <Identity
       Name="IsuruRatnayake.SinhalaInput"
@@ -74,6 +75,20 @@
             Square71x71Logo="Assets\Square71x71Logo.png"
             Square310x310Logo="Assets\Square310x310Logo.png" />
       </uap:VisualElements>
+      <Extensions>
+        <!--
+          Start at sign-in for the packaged app. Unpackaged builds use an HKCU Run value
+          instead (see src/SinhalaInput.App/Settings/StartupRegistration.cs); a packaged
+          app defers to this task, which the user toggles in Settings > Apps > Startup.
+          Enabled="true" makes it on by default, matching the unpackaged default.
+        -->
+        <desktop:Extension
+            Category="windows.startupTask"
+            Executable="SinhalaInput.App.exe"
+            EntryPoint="Windows.FullTrustApplication">
+          <desktop:StartupTask TaskId="SinhalaInputStartup" Enabled="true" DisplayName="SinhalaInput" />
+        </desktop:Extension>
+      </Extensions>
     </Application>
   </Applications>
 
