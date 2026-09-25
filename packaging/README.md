@@ -112,7 +112,16 @@ and Windows SmartScreen will flag it.
   automatically. This is also the path that gets a Store listing that shows the tool in
   search.
 - **Real app icon/tile artwork** in place of the placeholder monogram PNGs in `Assets/`.
-- Optionally, an MSIX **startup task** extension (`<uap5:Extension Category="windows.startupTask">`)
-  if you want the tray app to auto-start at sign-in as part of the package manifest instead
-  of a separate Registry Run-key/shortcut — not added here since it's a behavior change, not
-  a packaging-only change, and is out of scope for this pass.
+
+## Start at sign-in
+
+The manifest declares a `desktop:StartupTask` (`TaskId="SinhalaInputStartup"`,
+`Enabled="true"`), so the packaged app starts when the user signs in by default. Windows owns
+this setting: users turn it on or off under **Settings › Apps › Startup** (or Task Manager's
+Startup apps tab). The app's own Settings window shows a note pointing there in place of its
+start-at-sign-in checkbox and never writes anything itself.
+
+The unpackaged build (plain `SinhalaInput.App.exe`) has no manifest, so it instead writes a
+per-user `HKCU\Software\Microsoft\Windows\CurrentVersion\Run\SinhalaInput` value (no admin
+rights needed), controlled by the "Start SinhalaInput when I sign in to Windows" checkbox and
+re-pointed at the running exe on every launch.

@@ -12,6 +12,13 @@ namespace SinhalaInput.Platform.Windows;
 /// </summary>
 internal static partial class NativeMethods
 {
+    // -- MSIX package identity (Packaging/PackageIdentity.cs) ---------------------------------
+
+    internal const int APPMODEL_ERROR_NO_PACKAGE = 15700;
+
+    [LibraryImport("kernel32.dll")]
+    internal static partial int GetCurrentPackageFullName(ref uint packageFullNameLength, nint packageFullName);
+
     // -- WH_KEYBOARD_LL hook (Hooking/LowLevelKeyboardHook.cs) --------------------------------
 
     internal const int WH_KEYBOARD_LL = 13;

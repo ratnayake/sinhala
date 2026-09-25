@@ -46,10 +46,20 @@ public partial class App : System.Windows.Application
                 services.AddSingleton<TypingSessionController>();
                 services.AddSingleton<CandidateWindow>();
                 services.AddTransient<SettingsWindow>();
+                services.AddSingleton<ISettingsStore>(
+                    _ => new JsonSettingsStore(JsonSettingsStore.GetDefaultFilePath()));
+                services.AddSingleton<IStartupRegistration>(_ => SinhalaInput.Platform.Windows.Packaging.PackageIdentity.IsPackaged
+                    ? new PackagedStartupRegistration()
+                    : new RunKeyStartupRegistration(
+                        RunKeyStartupRegistration.DefaultRunKeyPath,
+                        RunKeyStartupRegistration.DefaultValueName,
+                        Environment.ProcessPath ?? System.IO.Path.Combine(AppContext.BaseDirectory, "SinhalaInput.App.exe")));
+                services.AddSingleton<SettingsCoordinator>();
             })
             .Build();
 
         _host.Start();
+        _host.Services.GetRequiredService<SettingsCoordinator>().Initialize();
 
         _controller = _host.Services.GetRequiredService<TypingSessionController>();
         _candidateWindow = _host.Services.GetRequiredService<CandidateWindow>();
