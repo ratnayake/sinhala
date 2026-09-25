@@ -47,8 +47,9 @@ actually exercise the real behaviour:
 
 ## Caret location: what's automatic now vs. still manual
 
-`Win32CaretLocator` chains four strategies: `GetGUIThreadInfo`, then `GetCaretPos`/
-`ClientToScreen` with `AttachThreadInput`, then UI Automation's `TextPattern.GetBoundingRectangles`
+`Win32CaretLocator` chains five strategies: `GetGUIThreadInfo`, then MSAA `OBJID_CARET`, then
+`GetCaretPos`/`ClientToScreen` with `AttachThreadInput` (skipped for Chromium windows, and a
+`(0, 0)` result is rejected), then UI Automation's `TextPattern.GetBoundingRectangles`
 (falling back to the focused element's own bounding rectangle), then `GetCursorPos` as a
 last-resort anchor near the mouse. This closes the gap that used to leave the candidate popup
 with no anchor (and therefore invisible, wherever it last was) for apps that expose no Win32
@@ -98,3 +99,31 @@ the same `AttachThreadInput` trick `TryGetFromCaretPos` already uses for a diffe
 Not verified: the WPF `CandidateWindow` popup's actual on-screen rendering position when
 anchored by each strategy — no screenshot/vision tooling was available for this verification, so
 only the underlying `ICaretLocator` data was confirmed, not the popup's final pixel placement.
+
+### Findings from the Chrome/Edge "popup sometimes missing" fix
+
+Checked on a mixed-DPI desktop with three monitors (125% primary, plus 100% monitors placed
+above and to the upper right with negative Y). The locator and the popup were run against a
+focused `<input>` in a separate Edge window:
+
+- **The DPI coordinate space matters more than which strategy is used.** From a DPI-unaware or
+  system-aware thread, `GetCaretPos`/`ClientToScreen` return coordinates scaled by the system
+  DPI, but UI Automation does not scale its results the same way. The strategies therefore
+  disagreed by hundreds of pixels. Every strategy now runs under a per-monitor-v2 thread DPI
+  scope, so all results are physical pixels.
+- **Chromium's `GetCaretPos` result is always bogus.** It reports client `(0, 0)`, which is
+  the window's top-left. That point is now rejected, and `GetCaretPos` is skipped for
+  `Chrome_WidgetWin_1` windows.
+- **MSAA `OBJID_CARET` gives the exact caret in Chromium**, for example `(672,-561) 1x15`, and
+  it moves as you type. UIA only gave the input box's top-left. MSAA now runs second, after
+  `GetGUIThreadInfo`. Typical cost: MSAA and Win32 calls take about 1 ms. UIA takes 2 to 4 ms
+  once warm and 35 to 50 ms on the first query. All of this runs on the resolver thread, never
+  on the hook thread.
+- **WPF `Window.Left`/`Top` are DPI-scaled units, not pixels.** Assigning the physical caret
+  position to them misplaced the popup on scaled monitors. The popup is now positioned with
+  `SetWindowPos` in physical pixels, clamped to the work area of the monitor containing the
+  caret, and `HWND_TOPMOST` is re-asserted on every placement.
+- **End-to-end result:** the built app was run with Edge on the upper monitor. The popup appeared
+  directly under the caret in 10 of 10 rounds. Across a word it followed the caret exactly
+  (x = 644, 684, 725, 766 for caret x = 644, 684, 725, 766). The committed Sinhala text was
+  injected correctly.
