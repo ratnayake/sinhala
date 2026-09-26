@@ -9,7 +9,8 @@ namespace SinhalaInput.App.Tests.Settings;
 /// </summary>
 public sealed class RunKeyStartupRegistrationTests : IDisposable
 {
-    private const string ValueName = "SinhalaInput";
+    private const string ValueName = "EasyAkuru";
+    private const string LegacyValueName = "SinhalaInput";
     private const string ExePath = @"C:\Program Files\SinhalaInput\SinhalaInput.App.exe";
 
     private const string ParentKeyPath = @"Software\SinhalaInput.Tests";
@@ -27,10 +28,84 @@ public sealed class RunKeyStartupRegistrationTests : IDisposable
         }
     }
 
-    private object? ReadValue()
+    private object? ReadValue(string valueName = ValueName)
     {
         using RegistryKey? key = Registry.CurrentUser.OpenSubKey(_keyPath);
-        return key?.GetValue(ValueName);
+        return key?.GetValue(valueName);
+    }
+
+    private void WriteLegacyValue()
+    {
+        using RegistryKey key = Registry.CurrentUser.CreateSubKey(_keyPath);
+        key.SetValue(LegacyValueName, @"""C:\old\SinhalaInput.App.exe""", RegistryValueKind.String);
+    }
+
+    private RunKeyStartupRegistration CreateWithLegacy() =>
+        new(_keyPath, ValueName, ExePath, [LegacyValueName]);
+
+    [Fact]
+    public void Defaults_UseEasyAkuruValueAndSinhalaInputLegacyValue()
+    {
+        Assert.Equal("EasyAkuru", RunKeyStartupRegistration.DefaultValueName);
+        Assert.Equal("SinhalaInput", RunKeyStartupRegistration.LegacyValueName);
+    }
+
+    [Fact]
+    public void SetEnabled_True_RemovesLegacyValue()
+    {
+        WriteLegacyValue();
+
+        CreateWithLegacy().SetEnabled(true);
+
+        Assert.Equal($"\"{ExePath}\"", ReadValue());
+        Assert.Null(ReadValue(LegacyValueName));
+    }
+
+    [Fact]
+    public void SetEnabled_True_WhenAlreadyEnabled_StillRemovesLegacyValue()
+    {
+        CreateWithLegacy().SetEnabled(true);
+        WriteLegacyValue();
+
+        CreateWithLegacy().SetEnabled(true);
+
+        Assert.Equal($"\"{ExePath}\"", ReadValue());
+        Assert.Null(ReadValue(LegacyValueName));
+    }
+
+    [Fact]
+    public void SetEnabled_False_RemovesCurrentAndLegacyValues()
+    {
+        var registration = CreateWithLegacy();
+        registration.SetEnabled(true);
+        WriteLegacyValue();
+
+        registration.SetEnabled(false);
+
+        Assert.Null(ReadValue());
+        Assert.Null(ReadValue(LegacyValueName));
+    }
+
+    [Fact]
+    public void SetEnabled_WithoutLegacyNames_LeavesOtherValuesAlone()
+    {
+        WriteLegacyValue();
+
+        var registration = new RunKeyStartupRegistration(_keyPath, ValueName, ExePath);
+        registration.SetEnabled(true);
+        registration.SetEnabled(false);
+
+        Assert.NotNull(ReadValue(LegacyValueName));
+    }
+
+    [Fact]
+    public void Constructor_LegacyNameEqualToValueName_IsIgnored()
+    {
+        var registration = new RunKeyStartupRegistration(_keyPath, ValueName, ExePath, [ValueName]);
+
+        registration.SetEnabled(true);
+
+        Assert.True(registration.IsEnabled());
     }
 
     [Fact]
