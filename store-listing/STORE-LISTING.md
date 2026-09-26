@@ -12,7 +12,7 @@ and [`UPLOAD-CHECKLIST.md`](UPLOAD-CHECKLIST.md) maps each image file to its upl
   Keywords, copyright, license terms and "Developed by" aren't described on the MSIX page any
   more. Their limits come from the same docs set's
   [PWA Store listing page](https://learn.microsoft.com/windows/apps/publish/publish-your-app/pwa/add-and-edit-store-listing-info),
-  which describes the same Partner Center form.
+  which describes the same Partner Center form. The rendered Learn page may cut those sections off; they are in the source, [`hub/apps/publish/publish-your-app/pwa/add-and-edit-store-listing-info.md`](https://github.com/MicrosoftDocs/windows-dev-docs/blob/docs/hub/apps/publish/publish-your-app/pwa/add-and-edit-store-listing-info.md) (sections "Keywords", "Copyright and trademark info", "Additional license terms", "Developed by").
 - **Length** means characters as Partner Center counts them (UTF-16 code units, including
   spaces and line breaks). Every value is inside a code block, so copy the block's contents
   and nothing else.
@@ -25,7 +25,7 @@ and [`UPLOAD-CHECKLIST.md`](UPLOAD-CHECKLIST.md) maps each image file to its upl
 | # | Field | Required? | Limit | This listing |
 |---|---|---|---|---|
 | 1 | Product name | Yes (chosen from reserved names) | reserved name | `EasyAkuru` |
-| 2 | Description | **Yes** | 10,000 chars, plain text | 2,124 chars |
+| 2 | Description | **Yes** | 10,000 chars, plain text | 2,133 chars |
 | 3 | What's new in this version | No (leave blank on first submission) | 1,500 chars | blank for v1.0.0; template 199 chars |
 | 4 | Product features | No | up to 20, ≤200 chars each | 10 features, longest 105 chars |
 | 5 | Screenshots (Desktop) | **Yes** (at least 1; 4+ recommended) | up to 10 desktop, PNG, ≥1366×768, ≤50 MB; caption ≤200 chars | 5 at 1920×1080, captions ≤160 chars |
@@ -51,10 +51,10 @@ Pick **EasyAkuru** from the drop-down. It's the only reserved name, and it match
 
 ## 2. Description
 
-Limit 10,000 characters of plain text. **Length: 2,124.**
+Limit 10,000 characters of plain text. **Length: 2,133.**
 
 ```text
-EasyAkuru lets you type Sinhala anywhere on Windows using the keyboard you already have. Type words the way they sound in Latin letters ("Singlish"), and EasyAkuru turns them into Sinhala Unicode as you type. For example, "mama" becomes මම, "api" becomes අපි and "siMhala" becomes සිංහල.
+EasyAkuru lets you type Sinhala anywhere on Windows using the keyboard you already have. Type words the way they sound in Latin letters ("Singlish"), and EasyAkuru transliterates them into Sinhala Unicode as you type. For example, "mama" becomes මම, "api" becomes අපි and "siMhala" becomes සිංහල.
 
 It works in the apps you already use, including Word and other Office apps, web browsers, email, chat apps and Notepad. You don't need to switch keyboard layouts or install a language pack.
 
@@ -115,9 +115,11 @@ two-thirds.
 | 2 | `screenshots/02-finished-sinhala-text.png` | `Real Sinhala Unicode text, typed in an ordinary app with a regular keyboard.` | 76 |
 | 3 | `screenshots/03-tray-menu.png` | `EasyAkuru runs in the system tray. Turn Sinhala typing on or off, or open Settings and About.` | 93 |
 | 4 | `screenshots/04-about-window.png` | `About EasyAkuru: version, publisher and author.` | 47 |
-| 5 | `screenshots/05-settings-window.png` | `Settings: turn Sinhala typing on or off and check the Ctrl+Space hotkey. In the Store version, start at sign-in is managed in Windows Settings > Apps > Startup.` | 160 |
+| 5 (optional; see note) | `screenshots/05-settings-window.png` | `Settings: turn Sinhala typing on or off and check the Ctrl+Space hotkey. In the Store version, start at sign-in is managed in Windows Settings > Apps > Startup.` | 160 |
 
-> **Note on screenshot 5.** These screenshots came from the unpackaged Release build, which
+> **Screenshot 5: recapture it or leave it out.** Certification can reject screenshots that show
+> UI the customer won't get. By default, upload **1–4** and add 5 only after recapturing it
+> from an installed MSIX build. These screenshots came from the unpackaged Release build, which
 > has its own "Start EasyAkuru when I sign in to Windows" checkbox. In the Store (MSIX) build,
 > that checkbox is replaced by a note that says start at sign-in is managed in Windows
 > Settings › Apps › Startup (see `docs/STORE-SUBMISSION.md` §6). The caption says this. You
@@ -227,9 +229,10 @@ relevant terms. **7 keywords, 13 words.**
 | 6 | `phonetic keyboard` | 17 | 2 |
 | 7 | `Sri Lanka Sinhala` | 17 | 3 |
 
-(`docs/STORE-SUBMISSION.md` §4 also lists *transliteration*, *Sinhala input* and *akuru*. Those
-words are already in the description, which the Store indexes, so they were dropped to stay
-within the 7-keyword limit.)
+(`docs/STORE-SUBMISSION.md` §4 also lists *transliteration*, *Sinhala input*, *Sri Lanka* and
+*akuru*. These were dropped to stay within the 7-keyword limit. "Transliterates" and
+"Sri Lanka" still appear in the description and keyword 7. If Partner Center's keyword
+suggestions do better, swap *phonetic keyboard* for *transliteration*.)
 
 ### 14. Copyright and trademark info
 
@@ -278,7 +281,7 @@ Isuru Ratnayake
 
 ### Description (si)
 
-Limit 10,000. **Length: 1,771.**
+Limit 10,000. **Length: 1,863.**
 
 ```text
 EasyAkuru මඟින් ඔබ දැනටමත් භාවිතා කරන යතුරුපුවරුවෙන්ම Windows හි ඕනෑම තැනක සිංහලෙන් ටයිප් කළ හැක. වචනය උච්චාරණය වන ආකාරයට ලතින් අකුරින් ("සිංග්ලිෂ්") ටයිප් කරන්න; ඔබ ටයිප් කරන විටම EasyAkuru එය සිංහල යුනිකෝඩ් බවට පරිවර්තනය කරයි. උදාහරණයක් ලෙස "mama" → මම, "api" → අපි, "siMhala" → සිංහල.
@@ -291,7 +294,7 @@ Word ඇතුළු Office යෙදුම්, වෙබ් බ්‍රව්�
 EasyAkuru system tray එකේ නිහඬව ක්‍රියාත්මක වේ. සාමාන්‍ය ඉංග්‍රීසියෙන් ටයිප් කිරීමට අවශ්‍ය විට Ctrl+Space ඔබන්න (හෝ tray මෙනුව භාවිතා කරන්න); නැවත සිංහලට මාරු වීමට එය නැවත ඔබන්න.
 
 පෞද්ගලිකත්වය
-ඕනෑම යෙදුමක අකුරු පරිවර්තනය කිරීම සඳහා EasyAkuru ඔබ ඔබන යතුරු කියවීමට Windows හි සම්මත පද්ධති-පුරා keyboard hook එකක් භාවිතා කරයි. සියලු සැකසීම් ඔබගේ පරිගණකය තුළම, මතකයේ පමණක් සිදු වේ. EasyAkuru හි කිසිදු ජාල විශේෂාංගයක් නැත - ඔබගේ යතුරු එබීම් කිසි විටෙකත් යවන්නේ, ගබඩා කරන්නේ හෝ ලොග් කරන්නේ නැත. එය සුරකින්නේ ඔබගේ සැකසුම් සහ ඔබ තෝරාගත් වචන පමණක් වන අතර ඒවා ඔබගේම Windows පරිශීලක ගිණුම තුළ තැන්පත් වේ. මුරපද ක්ෂේත්‍ර හඳුනාගෙන ඒවා මඟ හැරීමට EasyAkuru උත්සාහ කරයි. දැන්වීම්, ගිණුම් හෝ analytics නැත.
+ඕනෑම යෙදුමක අකුරු පරිවර්තනය කිරීම සඳහා EasyAkuru ඔබ ඔබන යතුරු කියවීමට Windows හි සම්මත පද්ධති-පුරා keyboard hook එකක් භාවිතා කරයි. සියලු සැකසීම් ඔබගේ පරිගණකය තුළම, මතකයේ පමණක් සිදු වේ. EasyAkuru හි කිසිදු ජාල විශේෂාංගයක් නැත - ඔබගේ යතුරු එබීම් කිසි විටෙකත් යවන්නේ, ගබඩා කරන්නේ හෝ ලොග් කරන්නේ නැත. එය සුරකින්නේ ඔබගේ සැකසුම් සහ ඔබ තෝරාගත් වචන පමණක් වන අතර ඒවා ඔබගේම Windows පරිශීලක ගිණුම තුළ තැන්පත් වේ. මුරපද ක්ෂේත්‍ර හඳුනාගෙන ඒවා මඟ හැරීමට EasyAkuru උත්සාහ කරයි; සම්මත Windows මුරපද කොටු හඳුනා ගන්නා නමුත් සමහර විශේෂයෙන් සාදන ලද ඒවා හඳුනා නොගැනීමට ඉඩ ඇත. දැන්වීම්, ගිණුම් හෝ analytics නැත.
 
 ඔබ පුරනය වන විට ආරම්භ වේ
 EasyAkuru පළමු වරට විවෘත කළ පසු, ඔබ Windows වෙත පුරනය වන සෑම විටම එය ස්වයංක්‍රීයව ආරම්භ වේ. මෙය ඕනෑම වේලාවක Windows Settings > Apps > Startup හි හෝ Task Manager හි Startup apps කොටසේ අක්‍රිය කළ හැක.
@@ -313,7 +316,7 @@ Each ≤200 characters.
 
 ### Keywords (si)
 
-Up to 7, ≤40 characters each, ≤21 words in total. **7 keywords, 11 words.**
+Up to 7, ≤40 characters each, ≤21 words in total. **7 keywords, 10 words.**
 
 | # | Keyword (paste) | Length | Words |
 |---|---|---|---|

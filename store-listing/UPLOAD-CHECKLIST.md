@@ -16,7 +16,7 @@ and is far below the 50 MB limit.
 | `screenshots/02-finished-sinhala-text.png` | 1920×1080 | Screenshots › Desktop, #2 | recommended (4+) |
 | `screenshots/03-tray-menu.png` | 1920×1080 | Screenshots › Desktop, #3 | recommended |
 | `screenshots/04-about-window.png` | 1920×1080 | Screenshots › Desktop, #4 | recommended |
-| `screenshots/05-settings-window.png` | 1920×1080 | Screenshots › Desktop, #5 (see the note below) | recommended |
+| `screenshots/05-settings-window.png` | 1920×1080 | Screenshots › Desktop, #5: **leave out unless recaptured from the MSIX build** (step 6 below) | optional |
 | `images/poster-art-1440x2160.png` | 1440×2160 | Store logos › 2:3 Poster art | optional for apps |
 | `images/poster-art-720x1080.png` | 720×1080 | Store logos › 2:3 Poster art (lower-resolution alternative; upload only one) | optional |
 | `images/box-art-2160x2160.png` | 2160×2160 | Store logos › 1:1 Box art | optional for apps |
@@ -32,7 +32,7 @@ and is far below the 50 MB limit.
 - [ ] Description (§2)
 - [ ] What's new in this version: **leave blank** for 1.0.0
 - [ ] Product features 1–10 (§4), one per box, with no bullets
-- [ ] Screenshot captions 1–5 (§5)
+- [ ] Screenshot captions 1–4, plus 5 only if you recaptured it (§5)
 - [ ] Short title, Sort title, Voice title (§8–10)
 - [ ] Short description (§11)
 - [ ] Additional system requirements: 3 Minimum and 2 Recommended hardware items (§12)
@@ -57,11 +57,11 @@ and is far below the 50 MB limit.
 5. **Submission options › Restricted capabilities**: paste the `runFullTrust` justification
    from `docs/STORE-SUBMISSION.md` §3.
 6. **Screenshot 5 (Settings)**: this shows the unpackaged build's "Start EasyAkuru when I sign
-   in to Windows" checkbox. The Store build shows a "managed by Windows" note instead, and the
-   caption says so. If you'd rather the image match the Store build exactly, install the
+   in to Windows" checkbox. The Store build shows a "managed by Windows" note instead. Because
+   certification can reject screenshots that don't match the app, **by default leave it out**.
+   Four screenshots still meet the recommendation. To include it, install the
    package (Store or sideload), open **Settings…** from the tray, and replace this file with a
-   1920×1080 capture of that window before you submit. Or leave screenshot 5 out, because 4
-   screenshots meet the recommendation.
+   1920×1080 capture of that window before you submit.
 7. **Optional Sinhala listing**: the package declares only `en-us`. To use the Sinhala text in
    STORE-LISTING.md, add Sinhala in **Add/remove languages › Manage additional languages**.
    Then select the Product name for it, and upload the same images and screenshots again for
