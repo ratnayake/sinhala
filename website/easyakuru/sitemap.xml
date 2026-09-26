@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  <url>
+    <loc>https://ratnayake.info/easyakuru/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ratnayake.info/easyakuru/"/>
+    <xhtml:link rel="alternate" hreflang="si" href="https://ratnayake.info/easyakuru/si/"/>
+  </url>
+  <url>
+    <loc>https://ratnayake.info/easyakuru/si/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ratnayake.info/easyakuru/"/>
+    <xhtml:link rel="alternate" hreflang="si" href="https://ratnayake.info/easyakuru/si/"/>
+  </url>
+  <url>
+    <loc>https://ratnayake.info/easyakuru/guide/</loc>
+  </url>
+  <url>
+    <loc>https://ratnayake.info/easyakuru/support/</loc>
+  </url>
+  <url>
+    <loc>https://ratnayake.info/easyakuru/privacy/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ratnayake.info/easyakuru/privacy/"/>
+    <xhtml:link rel="alternate" hreflang="si" href="https://ratnayake.info/easyakuru/si/privacy/"/>
+  </url>
+  <url>
+    <loc>https://ratnayake.info/easyakuru/si/privacy/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ratnayake.info/easyakuru/privacy/"/>
+    <xhtml:link rel="alternate" hreflang="si" href="https://ratnayake.info/easyakuru/si/privacy/"/>
+  </url>
+</urlset>
