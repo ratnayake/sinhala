@@ -1,0 +1,8 @@
+# Cloudflare Pages redirects (syntax: [source] [destination] [code]).
+# https://developers.cloudflare.com/pages/configuration/redirects/
+#
+# The whole site lives under /easyakuru/ so that easyakuru.pages.dev/easyakuru/...
+# and ratnayake.info/easyakuru/... map 1:1. Send the bare pages.dev root there.
+# Trailing slashes are distinct paths, so /easyakuru gets its own rule.
+/            /easyakuru/  301
+/easyakuru   /easyakuru/  301

@@ -1,0 +1,26 @@
+# Cloudflare Pages response headers.
+# https://developers.cloudflare.com/pages/configuration/headers/
+# Headers from every matching rule are applied together; a header that appears in
+# two matching rules is joined with a comma, so each header is set by one rule only.
+#
+# The site is static HTML/CSS with no JavaScript and no third-party requests, so the
+# CSP only allows same-origin resources (plus data: images).
+# HSTS deliberately omits includeSubDomains: the header is served from ratnayake.info
+# itself, and whether every *.ratnayake.info host is HTTPS-only is a zone decision.
+/*
+  Content-Security-Policy: default-src 'self'; img-src 'self' data:; base-uri 'self'; form-action 'self'; frame-ancestors 'none'
+  Strict-Transport-Security: max-age=31536000
+  X-Content-Type-Options: nosniff
+  X-Frame-Options: DENY
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: accelerometer=(), autoplay=(), camera=(), display-capture=(), encrypted-media=(), fullscreen=(), geolocation=(), gyroscope=(), magnetometer=(), microphone=(), midi=(), payment=(), publickey-credentials-get=(), screen-wake-lock=(), serial=(), usb=(), xr-spatial-tracking=(), browsing-topics=()
+  Cross-Origin-Opener-Policy: same-origin
+
+# HTML: Pages' default for pages is "public, max-age=0, must-revalidate", which is
+# what we want (always revalidate, cheap 304s via ETag), so no Cache-Control is set
+# for HTML here - setting one on /* would be comma-joined with the asset rule below.
+
+# Static assets (CSS, images, fonts). File names are not content-hashed, so cache for
+# a week and allow a stale copy while revalidating instead of "immutable" for a year.
+/easyakuru/assets/*
+  Cache-Control: public, max-age=604800, stale-while-revalidate=86400

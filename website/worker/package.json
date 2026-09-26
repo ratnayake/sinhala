@@ -1,0 +1,13 @@
+{
+  "name": "easyakuru-route",
+  "private": true,
+  "description": "Cloudflare Worker that serves ratnayake.info/easyakuru/* from the easyakuru Pages project",
+  "type": "module",
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "test": "node --test",
+    "deploy": "npx wrangler deploy"
+  }
+}
