@@ -43,11 +43,12 @@ and is far below the 50 MB limit.
 
 ## Remaining manual steps (outside the Store listings page)
 
-1. **Host the privacy policy publicly first.** Convert `docs/PRIVACY-POLICY.md` into a web
-   page at a stable public HTTPS URL (for example GitHub Pages, or a page on
-   ratnayake.info). Enter that URL in **Properties › Privacy policy URL**. EasyAkuru reads
-   keystrokes through a system-wide hook, so reviewers will expect a privacy policy. Don't
-   put the URL in the Description, because Store policy says to put links in their own fields.
+1. **Privacy policy URL.** Enter `https://ratnayake.info/easyakuru/privacy/` in
+   **Properties › Privacy policy URL**. That page is `website/easyakuru/privacy/index.html`
+   (source text: `docs/PRIVACY-POLICY.md`); make sure the website is deployed and the URL
+   loads before you submit. EasyAkuru reads keystrokes through a system-wide hook, so
+   reviewers will expect a privacy policy. Don't put the URL in the Description, because
+   Store policy says to put links in their own fields.
 2. **Properties**: Category *Productivity* (subcategory *Utilities & tools* if it's offered),
    plus a website and support contact (e.g. isuru.sampath@ratnayake.info) if you want them
    shown.
