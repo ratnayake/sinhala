@@ -243,7 +243,7 @@ Do not attempt a statistical/ML re-ranker in v1 — it adds a training-data and 
 ## 6. Solution structure
 
 ```
-SinhalaInput.sln
+SinhalaInput.slnx
 ├── src/
 │   ├── SinhalaInput.Core/                  # Pure .NET, no Windows/UI dependency, 100% unit-testable
 │   │   ├── Transliteration/
