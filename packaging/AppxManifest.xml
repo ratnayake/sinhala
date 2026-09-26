@@ -1,26 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-  AppxManifest.xml for SinhalaInput.
+  AppxManifest.xml for EasyAkuru.
 
-  IDENTITY / SIGNING NOTE (read before shipping anything built from this file):
-  The Publisher below ("CN=Isuru Sampath Ratnayake") is a PLACEHOLDER subject name
-  that matches this repository's git `user.name`. It only works with a *self-signed*
-  code-signing certificate whose Subject is exactly this string (see
-  Build-MsixPackage.ps1's -Sign switch), and a machine that has been told to trust
-  that specific certificate (see packaging/README.md). That is fine for local
-  installs/testing on machines you control, but it is NOT a real distribution
-  identity: Windows will refuse to install this package on a machine that has not
-  explicitly trusted the self-signed cert, and Explorer/SmartScreen will flag it.
+  IDENTITY / SIGNING NOTE:
+  Identity Name, Publisher and PublisherDisplayName below are the values Partner Center
+  reserved for this app (Product identity page, Store ID 9P65C2RS1N87, package family name
+  Ratcon.EasyAkuru_swc2syyz6eg42). They must not be changed: the Store rejects an upload
+  whose identity doesn't match the reservation.
 
-  For real (public) distribution you need one of:
-    - A code-signing certificate from a public CA/EV code-signing vendor, with the
-      Publisher value in this manifest changed to match that certificate's exact
-      Subject, or
-    - A Microsoft Store app identity (via Partner Center), which supplies its own
-      Publisher/Package Identity values that MUST replace the ones below (Store
-      submission reserves and issues these; you cannot pick your own).
-  Either way, the Identity/Publisher and Identity/Name values below would change
-  to match the real identity before that package is signed/submitted.
+  The Store re-signs submitted packages with its own certificate, so a Store upload is
+  built unsigned (Build-MsixPackage.ps1 -StoreUpload). For local sideload testing,
+  Build-MsixPackage.ps1 -Sign signs with a self-signed certificate whose Subject is set to
+  this exact Publisher string; that package only installs on a machine that explicitly
+  trusts that certificate (see packaging/README.md).
 -->
 <Package
     xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10"
@@ -30,63 +22,66 @@
     IgnorableNamespaces="uap rescap desktop">
 
   <Identity
-      Name="IsuruRatnayake.SinhalaInput"
-      Publisher="CN=Isuru Sampath Ratnayake"
+      Name="Ratcon.EasyAkuru"
+      Publisher="CN=E7B0A46A-21DB-4DDA-BDA6-CCAB7E8753EA"
       Version="1.0.0.0"
       ProcessorArchitecture="x64" />
 
   <Properties>
-    <DisplayName>SinhalaInput</DisplayName>
-    <PublisherDisplayName>Isuru Sampath Ratnayake</PublisherDisplayName>
+    <DisplayName>EasyAkuru</DisplayName>
+    <PublisherDisplayName>Ratcon</PublisherDisplayName>
     <Logo>Assets\StoreLogo.png</Logo>
-    <Description>Sinhala phonetic input tool: transliterates Latin ("Singlish") keystrokes into Sinhala Unicode in real time as a background tray application.</Description>
+    <Description>EasyAkuru: type Sinhala anywhere in Windows. Phonetic ("Singlish") Latin keystrokes are transliterated into Sinhala Unicode in real time by a lightweight tray application.</Description>
   </Properties>
 
   <!--
-    Win10 1809 is build 17763 (the earliest build with full support for the
-    desktop-bridge/runFullTrust MSIX shape this classic WPF app uses).
-    MaxVersionTested is deliberately left at the same major "10.0.19041.0" family
-    marker Microsoft's own desktop-app MSIX samples use for "runs from 1809
-    through current Win10/11" rather than pinning to one exact current build,
-    since Windows evaluates MaxVersionTested for compatibility warnings only
-    (it does not block newer OS versions from installing the package).
+    Win10 1809 (build 17763) is the earliest build with full support for the
+    desktop-bridge/runFullTrust MSIX shape this classic WPF app uses. MaxVersionTested is the
+    Windows 11 24H2 build; Windows only uses it for compatibility behaviour and does not
+    block newer builds from installing the package.
   -->
   <Dependencies>
     <TargetDeviceFamily
         Name="Windows.Desktop"
         MinVersion="10.0.17763.0"
-        MaxVersionTested="10.0.19041.0" />
+        MaxVersionTested="10.0.26100.0" />
   </Dependencies>
 
+  <!--
+    Scale- and targetsize-qualified images in Assets\ (e.g. Square44x44Logo.scale-200.png,
+    Square44x44Logo.targetsize-16_altform-unplated.png) are resolved through resources.pri,
+    which Build-MsixPackage.ps1 generates with makepri before packing.
+  -->
   <Resources>
     <Resource Language="en-us" />
   </Resources>
 
   <Applications>
-    <Application Id="SinhalaInput" Executable="SinhalaInput.App.exe" EntryPoint="Windows.FullTrustApplication">
+    <Application Id="EasyAkuru" Executable="EasyAkuru.exe" EntryPoint="Windows.FullTrustApplication">
       <uap:VisualElements
-          DisplayName="SinhalaInput"
-          Description="Sinhala phonetic input tool (Singlish to Sinhala Unicode transliteration)"
-          BackgroundColor="#1B5E6B"
+          DisplayName="EasyAkuru"
+          Description="Type Sinhala anywhere in Windows with phonetic (Singlish) keystrokes."
+          BackgroundColor="#8D153A"
           Square150x150Logo="Assets\Square150x150Logo.png"
           Square44x44Logo="Assets\Square44x44Logo.png">
         <uap:DefaultTile
             Wide310x150Logo="Assets\Wide310x150Logo.png"
             Square71x71Logo="Assets\Square71x71Logo.png"
             Square310x310Logo="Assets\Square310x310Logo.png" />
+        <uap:SplashScreen Image="Assets\SplashScreen.png" BackgroundColor="#8D153A" />
       </uap:VisualElements>
       <Extensions>
         <!--
-          Start at sign-in for the packaged app. Unpackaged builds use an HKCU Run value
-          instead (see src/SinhalaInput.App/Settings/StartupRegistration.cs); a packaged
-          app defers to this task, which the user toggles in Settings > Apps > Startup.
-          Enabled="true" makes it on by default, matching the unpackaged default.
+          Start at every sign-in, on by default. MSIX cannot run code at install time, so the
+          very first run is the Store's "Launch" button (or Start menu); from then on Windows
+          starts the app at sign-in. Users toggle it under Settings > Apps > Startup. Unpackaged
+          builds use an HKCU Run value instead (see src/SinhalaInput.App/Settings/StartupRegistration.cs).
         -->
         <desktop:Extension
             Category="windows.startupTask"
-            Executable="SinhalaInput.App.exe"
+            Executable="EasyAkuru.exe"
             EntryPoint="Windows.FullTrustApplication">
-          <desktop:StartupTask TaskId="SinhalaInputStartup" Enabled="true" DisplayName="SinhalaInput" />
+          <desktop:StartupTask TaskId="EasyAkuruStartup" Enabled="true" DisplayName="EasyAkuru" />
         </desktop:Extension>
       </Extensions>
     </Application>
@@ -94,12 +89,10 @@
 
   <Capabilities>
     <!--
-      runFullTrust is the standard (and only) capability a classic Win32/WPF app
-      packaged via the desktop bridge needs to run with its normal, unsandboxed
-      Win32 API access (P/Invoke, SetWindowsHookEx, SendInput, etc. — all of which
-      SinhalaInput.Platform.Windows relies on). It is a restricted capability, which
-      is why it lives in the rescap: namespace and requires that namespace to be
-      declared in IgnorableNamespaces above.
+      runFullTrust is the capability a classic Win32/WPF app packaged via the desktop bridge
+      needs to keep its normal, unsandboxed Win32 API access (SetWindowsHookEx, SendInput and
+      the other P/Invokes SinhalaInput.Platform.Windows relies on). It is a restricted
+      capability, so the Store submission must justify it (global keyboard hook for text input).
     -->
     <rescap:Capability Name="runFullTrust" />
   </Capabilities>
