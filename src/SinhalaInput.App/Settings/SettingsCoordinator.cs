@@ -130,7 +130,7 @@ public sealed class SettingsCoordinator : IDisposable
         catch (Exception ex) when (ex is IOException or UnauthorizedAccessException or System.Security.SecurityException)
         {
             // Policy-locked registries shouldn't stop the tool; it just won't auto-start.
-            Debug.WriteLine($"SinhalaInput: could not update start-at-sign-in registration: {ex}");
+            Debug.WriteLine($"EasyAkuru: could not update start-at-sign-in registration: {ex}");
         }
     }
 
@@ -153,7 +153,7 @@ public sealed class SettingsCoordinator : IDisposable
             }
             catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
             {
-                Debug.WriteLine($"SinhalaInput: could not save settings: {ex}");
+                Debug.WriteLine($"EasyAkuru: could not save settings: {ex}");
             }
         }
     }

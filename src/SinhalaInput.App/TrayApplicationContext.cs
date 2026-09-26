@@ -43,7 +43,7 @@ public sealed class TrayApplicationContext : IDisposable
         _notifyIcon = new System.Windows.Forms.NotifyIcon
         {
             Icon = _trayIcon,
-            Text = "SinhalaInput",
+            Text = "EasyAkuru",
             ContextMenuStrip = contextMenu,
             Visible = true,
         };
