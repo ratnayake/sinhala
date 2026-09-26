@@ -1,0 +1,211 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Support — EasyAkuru</title>
+<meta name="description" content="Install, set up, and troubleshoot EasyAkuru: first run, the tray icon, turning it on/off, start-at-sign-in, common issues, uninstalling, and how to report a bug.">
+<link rel="canonical" href="https://ratnayake.info/easyakuru/support/">
+<meta property="og:title" content="Support — EasyAkuru">
+<meta property="og:description" content="Install, set up, and troubleshoot EasyAkuru: first run, the tray icon, turning it on/off, start-at-sign-in, common issues, uninstalling, and how to report a bug.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://ratnayake.info/easyakuru/support/">
+<meta property="og:image" content="https://ratnayake.info/easyakuru/assets/img/logo.png">
+<link rel="icon" href="/easyakuru/assets/img/favicon.ico">
+<link rel="stylesheet" href="/easyakuru/assets/css/site.css">
+</head>
+<body>
+<header class="site-header">
+  <div class="container">
+    <a class="site-logo" href="/easyakuru/">
+      <img src="/easyakuru/assets/img/logo.png" alt="" width="32" height="32">
+      <span>EasyAkuru</span>
+    </a>
+    <nav class="site-nav" aria-label="Primary">
+      <a href="/easyakuru/#features">Features</a>
+      <a href="/easyakuru/guide/">Guide</a>
+      <a href="/easyakuru/support/" aria-current="page">Support</a>
+      <a href="/easyakuru/privacy/">Privacy</a>
+    </nav>
+    <div class="lang-switch">
+      <a href="/easyakuru/">EN</a>
+      <a href="/easyakuru/si/" lang="si">සිං</a>
+    </div>
+  </div>
+</header>
+
+<main>
+  <section class="hero">
+    <div class="container">
+      <h1>Support</h1>
+      <p>Everything you need to install, set up, and troubleshoot EasyAkuru, the Sinhala
+      phonetic (Singlish) typing tool for Windows 10/11.</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container prose">
+      <h2>Installing EasyAkuru</h2>
+      <ol class="steps">
+        <li>Open the <a href="https://apps.microsoft.com/detail/9P65C2RS1N87">EasyAkuru listing on the Microsoft Store</a>.</li>
+        <li>Select <strong>Get</strong> / <strong>Install</strong> and let the Store install the app.</li>
+        <li>Select <strong>Open</strong> (or find EasyAkuru in the Start menu) to launch it for
+        the first time.</li>
+      </ol>
+      <p>EasyAkuru is published by <strong>Ratcon</strong> (author: Isuru Ratnayake). Installing
+      from the Store also keeps EasyAkuru updated automatically.</p>
+    </div>
+  </section>
+
+  <section class="section-alt">
+    <div class="container prose">
+      <h2>First run and the tray icon</h2>
+      <p>EasyAkuru runs quietly in the background — there's no main window. After launching it,
+      look for its icon in the Windows notification area (system tray), on the taskbar. Windows
+      sometimes hides tray icons in the "overflow" area (the small up-arrow next to the clock); if
+      you don't see it, click that arrow, then drag the EasyAkuru icon out to keep it visible.</p>
+      <p>Right-click (or left-click, depending on your Windows version) the tray icon to open its
+      menu:</p>
+      <table class="table">
+        <thead><tr><th>Menu item</th><th>What it does</th></tr></thead>
+        <tbody>
+          <tr><td>Enabled</td><td>Turns transliteration on or off (same as <kbd class="kbd">Ctrl</kbd> + <kbd class="kbd">Space</kbd>)</td></tr>
+          <tr><td>Settings</td><td>Opens the settings window</td></tr>
+          <tr><td>About</td><td>Shows the app version and publisher</td></tr>
+          <tr><td>Exit</td><td>Closes EasyAkuru</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container prose">
+      <h2>Turning EasyAkuru on and off</h2>
+      <p>Press <kbd class="kbd">Ctrl</kbd> + <kbd class="kbd">Space</kbd> at any time to toggle
+      EasyAkuru on or off without closing it — useful when you need to type plain Latin text for a
+      moment. You can also toggle it from the tray menu's <strong>Enabled</strong> item. While it's
+      off, every key you press is passed straight through untouched.</p>
+    </div>
+  </section>
+
+  <section class="section-alt">
+    <div class="container prose">
+      <h2>Starting at Windows sign-in</h2>
+      <p>EasyAkuru can start automatically when you sign in to Windows. How you control this
+      depends on how you installed it:</p>
+      <ul>
+        <li><strong>Microsoft Store install:</strong> auto-start is managed by Windows itself as a
+        startup task, not by a setting inside EasyAkuru. Turn it off in
+        <strong>Settings › Apps › Startup</strong> (or the <strong>Startup apps</strong> tab in
+        Task Manager) — find EasyAkuru in the list and switch it off.</li>
+        <li><strong>Direct-download build:</strong> EasyAkuru's own Settings window has a
+        "start at sign-in" checkbox you can turn on or off directly.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container prose">
+      <h2>Troubleshooting</h2>
+
+      <h3>The candidate popup isn't showing</h3>
+      <ul>
+        <li>Check that EasyAkuru is enabled (tray icon menu, or press <kbd class="kbd">Ctrl</kbd> + <kbd class="kbd">Space</kbd>).</li>
+        <li>Make sure the field you're typing into is focused and is a normal text field — the
+        popup only appears while a word is being typed.</li>
+        <li>EasyAkuru deliberately does not show the popup, or transliterate at all, in fields it
+        recognizes as password fields (see below).</li>
+      </ul>
+
+      <h3>It doesn't type into some windows</h3>
+      <p>EasyAkuru cannot inject text into a window that is running <strong>elevated</strong>
+      (opened with "Run as administrator") unless EasyAkuru itself is also running elevated —
+      this is a Windows security restriction (User Interface Privilege Isolation), not a bug.
+      Running EasyAkuru elevated all the time isn't recommended; if you occasionally need Sinhala
+      input in an elevated window, close and reopen EasyAkuru with "Run as administrator" for that
+      session.</p>
+
+      <h3>Password fields</h3>
+      <p>EasyAkuru tries to detect standard Windows password fields and disengages completely
+      there so your keystrokes pass through untouched. This detection is best-effort — it may not
+      recognize password-style fields built with fully custom controls. See the
+      <a href="/easyakuru/privacy/">Privacy</a> page for details.</p>
+
+      <h3>Chrome, Edge, and other browsers</h3>
+      <p>EasyAkuru works in Chromium-based browsers, but locating the exact on-screen caret
+      position in these apps sometimes takes an extra fallback step behind the scenes, since they
+      don't expose the caret the same way classic Windows apps do. If the candidate popup ever
+      appears slightly out of place in a browser, the transliteration and text itself are still
+      correct — try clicking into the field again if the popup position looks off.</p>
+
+      <h3>Conflicts with other IMEs or the Windows Sinhala keyboard</h3>
+      <p>EasyAkuru works as a global keyboard hook, not as a registered Windows input method, so
+      it can conflict with another Sinhala input method (including Windows' own built-in Sinhala
+      keyboard layout) if both are active at the same time and try to interpret the same
+      keystrokes. If you notice odd or doubled-up transliteration, disable the other Sinhala
+      input method (or switch your Windows input language back to English) while using EasyAkuru,
+      and keep only one Sinhala typing tool active at a time.</p>
+    </div>
+  </section>
+
+  <section class="section-alt">
+    <div class="container prose">
+      <h2>Uninstalling</h2>
+      <ol class="steps">
+        <li>Open <strong>Settings › Apps › Installed apps</strong> (or Control Panel's "Uninstall
+        a program").</li>
+        <li>Find <strong>EasyAkuru</strong> in the list and select <strong>Uninstall</strong>.</li>
+      </ol>
+      <p>Uninstalling removes the app itself. EasyAkuru's local settings and word-preference data
+      live in <code>%AppData%\EasyAkuru</code> under your Windows user profile; if you'd like to
+      remove that too, you can delete that folder yourself after uninstalling.</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container prose">
+      <h2>Reporting a bug</h2>
+      <p>Found something wrong — a word that transliterates incorrectly, a crash, or anything else?
+      Email <a href="mailto:isuru.sampath@ratnayake.info">isuru.sampath@ratnayake.info</a> with what
+      you typed, what you expected, and what happened instead.</p>
+      <p>You can also open an issue on
+      <a href="https://github.com/ratnayake/sinhala/issues">GitHub</a>, where EasyAkuru's source
+      code is public.</p>
+    </div>
+  </section>
+
+  <section class="section-alt">
+    <div class="container">
+      <h2>FAQ</h2>
+      <div class="card-grid">
+        <div class="card">
+          <h3>Is EasyAkuru free?</h3>
+          <p>See the current price and availability on the
+          <a href="https://apps.microsoft.com/detail/9P65C2RS1N87">Microsoft Store listing</a>.</p>
+        </div>
+        <div class="card">
+          <h3>Does it work offline?</h3>
+          <p>Yes. EasyAkuru transliterates entirely on your device and makes no network
+          connections of any kind.</p>
+        </div>
+        <div class="card">
+          <h3>Does it store what I type?</h3>
+          <p>No. Only the word currently being typed is held in memory, and only until it's
+          committed. If you pick a non-default spelling from the candidate popup, EasyAkuru
+          remembers that already-committed word locally so it can offer it first next time — see
+          the <a href="/easyakuru/privacy/">Privacy</a> page for the full details.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <p>&copy; 2026 Ratcon &middot; <a href="/easyakuru/privacy/">Privacy</a> &middot;
+    <a href="/easyakuru/support/">Support</a> &middot;
+    <a href="mailto:isuru.sampath@ratnayake.info">isuru.sampath@ratnayake.info</a></p>
+  </div>
+</footer>
+</body>
+</html>

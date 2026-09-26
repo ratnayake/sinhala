@@ -1,0 +1,306 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Typing Guide — EasyAkuru</title>
+<meta name="description" content="How to type Sinhala with EasyAkuru's Singlish phonetic scheme: vowels, consonants, conjuncts, anusvara, and the candidate popup keys.">
+<link rel="canonical" href="https://ratnayake.info/easyakuru/guide/">
+<meta property="og:title" content="Typing Guide — EasyAkuru">
+<meta property="og:description" content="How to type Sinhala with EasyAkuru's Singlish phonetic scheme: vowels, consonants, conjuncts, anusvara, and the candidate popup keys.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://ratnayake.info/easyakuru/guide/">
+<meta property="og:image" content="https://ratnayake.info/easyakuru/assets/img/logo.png">
+<link rel="icon" href="/easyakuru/assets/img/favicon.ico">
+<link rel="stylesheet" href="/easyakuru/assets/css/site.css">
+</head>
+<body>
+<header class="site-header">
+  <div class="container">
+    <a class="site-logo" href="/easyakuru/">
+      <img src="/easyakuru/assets/img/logo.png" alt="" width="32" height="32">
+      <span>EasyAkuru</span>
+    </a>
+    <nav class="site-nav" aria-label="Primary">
+      <a href="/easyakuru/#features">Features</a>
+      <a href="/easyakuru/guide/" aria-current="page">Guide</a>
+      <a href="/easyakuru/support/">Support</a>
+      <a href="/easyakuru/privacy/">Privacy</a>
+    </nav>
+    <div class="lang-switch">
+      <a href="/easyakuru/">EN</a>
+      <a href="/easyakuru/si/" lang="si">සිං</a>
+    </div>
+  </div>
+</header>
+
+<main>
+  <section class="hero">
+    <div class="container">
+      <h1>Typing guide</h1>
+      <p>EasyAkuru converts Latin ("Singlish") keystrokes into Sinhala Unicode as you type. This
+      page lists the full phonetic scheme it understands, taken directly from the app's rule
+      table, so you can look up any letter or pattern you're unsure of.</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container prose">
+      <h2>How it works</h2>
+      <p>As you type a word in Latin letters, EasyAkuru shows a small candidate popup near the
+      text caret with a live preview and, once enough letters make it ambiguous, numbered
+      alternates. Pressing <kbd class="kbd">Space</kbd>, <kbd class="kbd">Enter</kbd>,
+      <kbd class="kbd">Tab</kbd>, a punctuation key, or a digit commits the word and replaces the
+      Latin text already on screen with its Sinhala rendering. For example, typing
+      <code>mama</code> gives <span lang="si">මම</span>, and <code>api</code> gives
+      <span lang="si">අපි</span>.</p>
+      <p>Sinhala is an abugida: a consonant letter already carries a short "a" sound unless a
+      vowel sign replaces it or a virama (hal kirīma, <span lang="si">්</span>) removes it
+      entirely. The rules below follow from that one idea.</p>
+    </div>
+  </section>
+
+  <section class="section-alt">
+    <div class="container prose">
+      <h2>The hal (virama) rule</h2>
+      <p>Every consonant keeps its built-in "a" sound unless you type a vowel sign after it or it
+      is followed by another consonant, punctuation, or the end of the word — in which case
+      EasyAkuru automatically adds the virama (<span lang="si">්</span>) to cancel the vowel. You
+      never type the virama yourself.</p>
+      <table class="table">
+        <thead><tr><th>You type</th><th>Result</th><th>Why</th></tr></thead>
+        <tbody>
+          <tr><td><code>ka</code></td><td lang="si">ක</td><td>consonant + inherent "a" (typed explicitly)</td></tr>
+          <tr><td><code>k</code></td><td lang="si">ක්</td><td>consonant with nothing after it: virama added automatically</td></tr>
+          <tr><td><code>gaman</code></td><td lang="si">ගමන්</td><td>word-final consonant with no vowel typed: virama added</td></tr>
+        </tbody>
+      </table>
+      <p class="note">The inherent vowel is never assumed for you — if you want <span lang="si">ම</span>
+      you type <code>ma</code>, not just <code>m</code>. This matches Google Input Tools' and
+      Helakuru's convention, and is why <code>visin</code> gives <span lang="si">විසින්</span> and
+      <code>ekak</code> gives <span lang="si">එකක්</span>, while <code>mama</code> keeps both its
+      inherent vowels and gives <span lang="si">මම</span>.</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <h2>Independent vowels</h2>
+      <p class="prose">Used at the start of a word, or when a vowel follows another vowel.</p>
+      <table class="table">
+        <thead><tr><th>Latin</th><th>Sinhala</th><th>Latin</th><th>Sinhala</th></tr></thead>
+        <tbody>
+          <tr><td><code>a</code></td><td lang="si">අ</td><td><code>e</code></td><td lang="si">එ</td></tr>
+          <tr><td><code>aa</code>, <code>A</code></td><td lang="si">ආ</td><td><code>ee</code>, <code>E</code></td><td lang="si">ඒ</td></tr>
+          <tr><td><code>ae</code></td><td lang="si">ඇ</td><td><code>ai</code></td><td lang="si">ඓ</td></tr>
+          <tr><td><code>aae</code>, <code>Ae</code></td><td lang="si">ඈ</td><td><code>o</code></td><td lang="si">ඔ</td></tr>
+          <tr><td><code>i</code></td><td lang="si">ඉ</td><td><code>oo</code>, <code>O</code></td><td lang="si">ඕ</td></tr>
+          <tr><td><code>ii</code>, <code>I</code></td><td lang="si">ඊ</td><td><code>au</code></td><td lang="si">ඖ</td></tr>
+          <tr><td><code>u</code></td><td lang="si">උ</td><td><code>R</code></td><td lang="si">ඍ <span>(vocalic r)</span></td></tr>
+          <tr><td><code>uu</code>, <code>U</code></td><td lang="si">ඌ</td><td><code>RR</code></td><td lang="si">ඎ <span>(long vocalic r)</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="section-alt">
+    <div class="container">
+      <h2>Dependent vowel signs</h2>
+      <p class="prose">Typed right after a consonant; they replace its inherent "a" (the "a" sign
+      itself is never typed — it's the default). For example <code>ki</code> gives
+      <span lang="si">කි</span> and <code>koo</code> gives <span lang="si">කෝ</span>.</p>
+      <table class="table">
+        <thead><tr><th>After a consonant</th><th>Sign</th><th>After a consonant</th><th>Sign</th></tr></thead>
+        <tbody>
+          <tr><td><code>aa</code>, <code>A</code></td><td lang="si">ා</td><td><code>ee</code>, <code>E</code></td><td lang="si">ේ</td></tr>
+          <tr><td><code>ae</code></td><td lang="si">ැ</td><td><code>ai</code></td><td lang="si">ෛ</td></tr>
+          <tr><td><code>aae</code>, <code>Ae</code></td><td lang="si">ෑ</td><td><code>o</code></td><td lang="si">ො</td></tr>
+          <tr><td><code>i</code></td><td lang="si">ි</td><td><code>oo</code>, <code>O</code></td><td lang="si">ෝ</td></tr>
+          <tr><td><code>ii</code>, <code>I</code></td><td lang="si">ී</td><td><code>au</code></td><td lang="si">ෞ</td></tr>
+          <tr><td><code>u</code></td><td lang="si">ු</td><td><code>R</code></td><td lang="si">ෘ <span>(vocalic r, e.g. <code>kRShi</code> → <span lang="si">කෘෂි</span>)</span></td></tr>
+          <tr><td><code>uu</code>, <code>U</code></td><td lang="si">ූ</td><td><code>RR</code></td><td lang="si">ෲ <span>(long vocalic r)</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <h2>Consonants</h2>
+      <p class="prose">Capital letters (<code>T D N L Sh</code>) are how you reach the retroflex
+      sounds — English has no separate letters for dental vs. retroflex consonants, so
+      capitalisation is the convention. A doubled letter is <em>not</em> a shortcut for these; it
+      means gemination instead (see below), so type the capital deliberately.</p>
+      <table class="table">
+        <thead><tr><th>Latin</th><th>Sinhala</th><th>Latin</th><th>Sinhala</th><th>Latin</th><th>Sinhala</th></tr></thead>
+        <tbody>
+          <tr><td><code>k</code></td><td lang="si">ක</td><td><code>t</code>, <code>T</code></td><td lang="si">ට <span>(retroflex)</span></td><td><code>p</code></td><td lang="si">ප</td></tr>
+          <tr><td><code>kh</code></td><td lang="si">ඛ</td><td><code>th</code></td><td lang="si">ත <span>(dental)</span></td><td><code>ph</code></td><td lang="si">ඵ</td></tr>
+          <tr><td><code>g</code></td><td lang="si">ග</td><td><code>thh</code></td><td lang="si">ථ <span>(dental aspirated)</span></td><td><code>f</code></td><td lang="si">ෆ</td></tr>
+          <tr><td><code>gh</code></td><td lang="si">ඝ</td><td><code>Th</code></td><td lang="si">ඨ <span>(retroflex aspirated)</span></td><td><code>b</code></td><td lang="si">බ</td></tr>
+          <tr><td><code>nG</code></td><td lang="si">ඞ</td><td><code>d</code></td><td lang="si">ද <span>(dental)</span></td><td><code>bh</code></td><td lang="si">භ</td></tr>
+          <tr><td><code>ch</code>, <code>c</code></td><td lang="si">ච</td><td><code>dh</code></td><td lang="si">ධ <span>(dental aspirated)</span></td><td><code>m</code></td><td lang="si">ම</td></tr>
+          <tr><td><code>chh</code></td><td lang="si">ඡ</td><td><code>D</code></td><td lang="si">ඩ <span>(retroflex)</span></td><td><code>y</code></td><td lang="si">ය</td></tr>
+          <tr><td><code>j</code></td><td lang="si">ජ</td><td><code>Dh</code></td><td lang="si">ඪ <span>(retroflex aspirated)</span></td><td><code>r</code></td><td lang="si">ර</td></tr>
+          <tr><td><code>jh</code></td><td lang="si">ඣ</td><td><code>N</code></td><td lang="si">ණ <span>(retroflex)</span></td><td><code>l</code></td><td lang="si">ල</td></tr>
+          <tr><td><code>nY</code></td><td lang="si">ඤ</td><td><code>n</code></td><td lang="si">න</td><td><code>L</code></td><td lang="si">ළ <span>(retroflex)</span></td></tr>
+          <tr><td><code>jny</code></td><td lang="si">ඥ</td><td></td><td></td><td><code>v</code>, <code>w</code></td><td lang="si">ව</td></tr>
+          <tr><td></td><td></td><td></td><td></td><td><code>Sh</code></td><td lang="si">ෂ <span>(retroflex)</span></td></tr>
+          <tr><td></td><td></td><td></td><td></td><td><code>sh</code></td><td lang="si">ශ</td></tr>
+          <tr><td></td><td></td><td></td><td></td><td><code>s</code></td><td lang="si">ස</td></tr>
+          <tr><td></td><td></td><td></td><td></td><td><code>h</code></td><td lang="si">හ</td></tr>
+          <tr><td></td><td></td><td></td><td></td><td><code>z</code></td><td lang="si">ස <span>(no native "z" sound; maps to ස)</span></td></tr>
+        </tbody>
+      </table>
+      <p class="note"><code>ඞ</code>/<code>ඤ</code> are spelled <code>nG</code>/<code>nY</code>, not
+      <code>ng</code>/<code>ny</code> — plain <code>n</code>+<code>g</code> and <code>n</code>+<code>y</code>
+      stay ordinary consonant clusters, because they're far more common
+      (<code>ballangee</code> → <span lang="si">බල්ලන්ගේ</span>,
+      <code>saamaanya</code> → <span lang="si">සාමාන්‍ය</span>).</p>
+    </div>
+  </section>
+
+  <section class="section-alt">
+    <div class="container">
+      <h2>Sanyaka (prenasalized) consonants</h2>
+      <p class="prose"><code>z</code> is otherwise a stand-in for "s", so it's free to prefix the
+      prenasalized stops.</p>
+      <table class="table">
+        <thead><tr><th>Latin</th><th>Sinhala</th><th>Example</th></tr></thead>
+        <tbody>
+          <tr><td><code>zg</code></td><td lang="si">ඟ</td><td></td></tr>
+          <tr><td><code>zj</code></td><td lang="si">ඦ</td><td></td></tr>
+          <tr><td><code>zD</code></td><td lang="si">ඬ</td><td></td></tr>
+          <tr><td><code>zd</code></td><td lang="si">ඳ</td><td><code>hozda</code> → <span lang="si">හොඳ</span> (good)</td></tr>
+          <tr><td><code>zb</code></td><td lang="si">ඹ</td><td></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container prose">
+      <h2>Gemination (doubled consonants)</h2>
+      <p>Doubling a consonant letter spells a genuine geminated consonant — a virama followed by a
+      repeat of the same letter — rather than a shortcut to a retroflex sound. That's why the
+      retroflex sounds have their own dedicated capital letters instead of doubled spellings.</p>
+      <table class="table">
+        <thead><tr><th>You type</th><th>Result</th></tr></thead>
+        <tbody>
+          <tr><td><code>malli</code></td><td lang="si">මල්ලි <span>(younger brother)</span></td></tr>
+          <tr><td><code>enne</code></td><td lang="si">එන්නෙ</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="section-alt">
+    <div class="container prose">
+      <h2>Conjuncts: rakāraṃśaya and yansaya</h2>
+      <p>A consonant followed by <code>r</code> or <code>y</code> and then a vowel, mid-word, forms
+      a conjunct: the virama is followed by a zero-width joiner and the conjunct consonant, instead
+      of a plain cluster.</p>
+      <table class="table">
+        <thead><tr><th>Pattern</th><th>You type</th><th>Result</th><th>Note</th></tr></thead>
+        <tbody>
+          <tr><td>rakāraṃśaya (consonant + r + vowel)</td><td><code>krama</code></td><td lang="si">ක්‍රම</td><td>method</td></tr>
+          <tr><td>yansaya (consonant + y + vowel)</td><td><code>vyaapaaraya</code></td><td lang="si">ව්‍යාපාරය</td><td>business</td></tr>
+          <tr><td>ර + ය (no joiner)</td><td><code>kaarya</code></td><td lang="si">කාර්ය</td><td>work — repaya + ය is a plain cluster, not a yansaya</td></tr>
+          <tr><td>ර + ය (no joiner)</td><td><code>aachaarya</code></td><td lang="si">ආචාර්ය</td><td>teacher</td></tr>
+          <tr><td>ර + ය (no joiner)</td><td><code>suurya</code></td><td lang="si">සූර්ය</td><td>sun</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container prose">
+      <h2>Anusvara — <code>M</code></h2>
+      <p>Capital <code>M</code> adds the anusvara (<span lang="si">ං</span>) to the end of a
+      syllable that already has its vowel — it attaches rather than replacing anything, unlike a
+      dependent vowel sign.</p>
+      <table class="table">
+        <thead><tr><th>You type</th><th>Result</th></tr></thead>
+        <tbody>
+          <tr><td><code>laMkaa</code></td><td lang="si">ලංකා <span>(Lanka)</span></td></tr>
+          <tr><td><code>siMhala</code></td><td lang="si">සිංහල <span>(Sinhala)</span></td></tr>
+          <tr><td><code>kM</code></td><td lang="si">කං</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="section-alt">
+    <div class="container prose">
+      <h2>Syllable break — <code>q</code></h2>
+      <p><code>q</code> emits nothing; it just ends the current syllable, the same way punctuation
+      would. It exists for the rare cases where the default conjunct/vowel reading is also a real
+      spelling, so only a dictionary could pick correctly:</p>
+      <table class="table">
+        <thead><tr><th>You type</th><th>Result</th><th>Without <code>q</code></th></tr></thead>
+        <tbody>
+          <tr><td><code>kalqyaama</code></td><td lang="si">කල්යාම <span>(plain hal + ය)</span></td><td><code>kalyaaNa</code> → <span lang="si">කල්‍යාණ</span> <span>(yansaya)</span></td></tr>
+          <tr><td><code>vagaquththarakaru</code></td><td lang="si">වගඋත්තරකරු <span>(vowel hiatus across a compound boundary)</span></td><td><code>vagau...</code> would read as the <span lang="si">ෞ</span> sign</td></tr>
+          <tr><td><code>avasanqya</code></td><td lang="si">අවසන්ය</td><td>would otherwise get an unwanted yansaya</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <h2>Common words</h2>
+      <table class="table">
+        <thead><tr><th>You type</th><th>Result</th><th>Meaning</th></tr></thead>
+        <tbody>
+          <tr><td><code>mama</code></td><td lang="si">මම</td><td>I</td></tr>
+          <tr><td><code>api</code></td><td lang="si">අපි</td><td>we</td></tr>
+          <tr><td><code>kohomada</code></td><td lang="si">කොහොමද</td><td>how / how are you</td></tr>
+          <tr><td><code>karanawaa</code></td><td lang="si">කරනවා</td><td>do / doing</td></tr>
+          <tr><td><code>yanawaa</code></td><td lang="si">යනවා</td><td>go / going</td></tr>
+          <tr><td><code>kanawaa</code></td><td lang="si">කනවා</td><td>eat / eating</td></tr>
+          <tr><td><code>sthuthiyi</code></td><td lang="si">ස්තුතියි</td><td>thank you</td></tr>
+          <tr><td><code>aayuboovan</code></td><td lang="si">ආයුබෝවන්</td><td>traditional greeting</td></tr>
+          <tr><td><code>koheda</code></td><td lang="si">කොහෙද</td><td>where</td></tr>
+          <tr><td><code>mokakda</code></td><td lang="si">මොකක්ද</td><td>what</td></tr>
+          <tr><td><code>laMkaawa</code></td><td lang="si">ලංකාව</td><td>Sri Lanka</td></tr>
+          <tr><td><code>puluwan</code></td><td lang="si">පුලුවන්</td><td>can / possible</td></tr>
+          <tr><td><code>gedara</code></td><td lang="si">ගෙදර</td><td>home</td></tr>
+          <tr><td><code>ammaa</code></td><td lang="si">අම්මා</td><td>mother</td></tr>
+          <tr><td><code>thaaththaa</code></td><td lang="si">තාත්තා</td><td>father</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="section-alt">
+    <div class="container">
+      <h2>Candidate popup keys</h2>
+      <p class="prose">While the popup is open under the word you're typing:</p>
+      <table class="table">
+        <thead><tr><th>Key</th><th>Action</th></tr></thead>
+        <tbody>
+          <tr><td><kbd class="kbd">1</kbd>–<kbd class="kbd">9</kbd></td><td>Pick that numbered candidate and commit it</td></tr>
+          <tr><td><kbd class="kbd">↑</kbd> / <kbd class="kbd">↓</kbd></td><td>Move the highlighted candidate</td></tr>
+          <tr><td><kbd class="kbd">Page Up</kbd> / <kbd class="kbd">Page Down</kbd></td><td>Move the highlighted candidate</td></tr>
+          <tr><td><kbd class="kbd">Space</kbd>, <kbd class="kbd">Enter</kbd>, <kbd class="kbd">Tab</kbd>, punctuation</td><td>Commit the highlighted candidate, then type the key itself</td></tr>
+          <tr><td><kbd class="kbd">Backspace</kbd></td><td>Edit the Latin word (deletes the last Latin letter, re-previews)</td></tr>
+          <tr><td><kbd class="kbd">Esc</kbd></td><td>Revert to the raw Latin text you typed and close the popup</td></tr>
+          <tr><td><kbd class="kbd">Ctrl</kbd> + <kbd class="kbd">Space</kbd></td><td>Toggle EasyAkuru on/off entirely, from anywhere</td></tr>
+        </tbody>
+      </table>
+      <p class="prose">Need help with installing, enabling, or troubleshooting instead of the
+      typing rules? See the <a href="/easyakuru/support/">Support</a> page.</p>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <p>&copy; 2026 Ratcon &middot; <a href="/easyakuru/privacy/">Privacy</a> &middot;
+    <a href="/easyakuru/support/">Support</a> &middot;
+    <a href="mailto:isuru.sampath@ratnayake.info">isuru.sampath@ratnayake.info</a></p>
+  </div>
+</footer>
+</body>
+</html>
