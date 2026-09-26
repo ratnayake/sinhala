@@ -1,0 +1,17 @@
+# Cloudflare Worker that serves ratnayake.info/easyakuru/* from the "easyakuru"
+# Cloudflare Pages project. Deploy with: npx wrangler deploy (see website/README.md).
+# No account IDs or secrets belong in this file; wrangler picks the account at login.
+name = "easyakuru-route"
+main = "src/index.js"
+compatibility_date = "2026-09-01"
+
+# Only reachable through the route below; no *.workers.dev URL.
+workers_dev = false
+
+# Requires a proxied (orange-cloud) DNS record for ratnayake.info.
+routes = [
+  { pattern = "ratnayake.info/easyakuru*", zone_name = "ratnayake.info" },
+]
+
+[vars]
+PAGES_ORIGIN = "https://easyakuru.pages.dev"
