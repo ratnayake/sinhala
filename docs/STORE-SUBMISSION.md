@@ -76,6 +76,11 @@ the app is allowed to declare it. Use text along these lines:
 
 ## 4. Store listing text
 
+> The final, paste-ready values for every Store listing field (with character limits, screenshots,
+> captions and Store art) are in [`store-listing/STORE-LISTING.md`](../store-listing/STORE-LISTING.md),
+> with a file-to-field map in [`store-listing/UPLOAD-CHECKLIST.md`](../store-listing/UPLOAD-CHECKLIST.md).
+> The draft copy below is kept for reference.
+
 **Category:** Productivity → Utilities & tools (or "Productivity" if the "Utilities & tools"
 sub-category is not offered for this app type — pick the closest available match at
 submission time).
