@@ -9,7 +9,8 @@
     <GenerateDocumentationFile>false</GenerateDocumentationFile>
     <NeutralLanguage>en</NeutralLanguage>
     <Authors>Isuru Sampath Ratnayake</Authors>
-    <Company>SinhalaInput</Company>
+    <Company>Ratcon</Company>
+    <Product>EasyAkuru</Product>
   </PropertyGroup>
 
   <!-- Test projects don't need the extra analyzer/doc-comment strictness applied to shipping code. -->

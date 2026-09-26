@@ -24,11 +24,11 @@ public sealed class JsonUserDictionaryStore : IUserDictionaryStore
 
     /// <summary>
     /// The per-user file location used in production
-    /// (<c>%AppData%/SinhalaInput/user-dictionary.json</c> on Windows). Unit tests should
+    /// (<c>%AppData%/EasyAkuru/user-dictionary.json</c> on Windows). Unit tests should
     /// inject their own path instead of calling this.
     /// </summary>
     public static string GetDefaultFilePath() =>
-        Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "SinhalaInput", "user-dictionary.json");
+        Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "EasyAkuru", "user-dictionary.json");
 
     public string? TryGetPreferredCandidate(string latinWord)
     {

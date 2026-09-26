@@ -22,10 +22,10 @@ public sealed class JsonSettingsStore : ISettingsStore
     }
 
     /// <summary>
-    /// The per-user file location used in production (<c>%AppData%/SinhalaInput/settings.json</c>).
+    /// The per-user file location used in production (<c>%AppData%/EasyAkuru/settings.json</c>).
     /// </summary>
     public static string GetDefaultFilePath() =>
-        Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "SinhalaInput", "settings.json");
+        Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), LegacyDataMigration.DataFolderName, "settings.json");
 
     public UserSettings Load()
     {

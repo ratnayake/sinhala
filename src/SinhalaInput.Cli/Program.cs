@@ -4,7 +4,7 @@ Console.OutputEncoding = System.Text.Encoding.UTF8;
 
 ITransliterationEngine engine = new TransliterationEngine();
 
-Console.WriteLine("SinhalaInput CLI — type Latin ('Singlish') words, one per line. Ctrl+C to exit.");
+Console.WriteLine("EasyAkuru CLI — type Latin ('Singlish') words, one per line. Ctrl+C to exit.");
 
 string? line;
 while ((line = Console.ReadLine()) is not null)

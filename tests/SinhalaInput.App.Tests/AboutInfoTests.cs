@@ -12,6 +12,13 @@ public class AboutInfoTests
     }
 
     [Fact]
+    public void Current_ShowsPublisher()
+    {
+        Assert.Equal("Ratcon", AboutInfo.Current.Publisher);
+        Assert.Equal("Publisher: Ratcon", AboutInfo.Current.PublisherText);
+    }
+
+    [Fact]
     public void Current_ShowsProjectVersionWithoutBuildMetadata()
     {
         Assert.Equal("1.0.0", AboutInfo.Current.Version);
@@ -21,7 +28,7 @@ public class AboutInfoTests
     [Fact]
     public void Current_HasProductNameAndDescription()
     {
-        Assert.Equal("SinhalaInput", AboutInfo.Current.ProductName);
+        Assert.Equal("EasyAkuru", AboutInfo.Current.ProductName);
         Assert.False(string.IsNullOrWhiteSpace(AboutInfo.Current.Description));
     }
 

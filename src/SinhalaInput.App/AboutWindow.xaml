@@ -1,7 +1,7 @@
 <Window x:Class="SinhalaInput.App.AboutWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="About SinhalaInput"
+        Title="About EasyAkuru"
         SizeToContent="WidthAndHeight"
         MinWidth="320"
         ResizeMode="NoResize"
@@ -16,6 +16,7 @@
                 <TextBlock Text="{Binding VersionText}" Foreground="Gray" />
             </StackPanel>
         </StackPanel>
+        <TextBlock Text="{Binding PublisherText}" />
         <TextBlock Text="{Binding AuthorText}" Margin="0,0,0,6" />
         <TextBlock Text="{Binding Description}" TextWrapping="Wrap" MaxWidth="320" HorizontalAlignment="Left" />
         <Button Content="OK" IsDefault="True" IsCancel="True" Width="80" Margin="0,16,0,0"
