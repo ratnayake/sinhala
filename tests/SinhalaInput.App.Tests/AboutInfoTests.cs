@@ -49,9 +49,9 @@ public class AboutInfoTests
         using System.Drawing.Icon icon = AppIcon.CreateTrayIcon();
         using System.Drawing.Bitmap bitmap = icon.ToBitmap();
 
-        // Top-centre pixel is inside the teal background (clear of the rounded corners and the glyph),
+        // Top-centre pixel is inside the maroon background (clear of the rounded corners and the glyph),
         // which the generic SystemIcons.Application fallback would not match.
         System.Drawing.Color pixel = bitmap.GetPixel(bitmap.Width / 2, 1);
-        Assert.Equal((27, 94, 107), (pixel.R, pixel.G, pixel.B));
+        Assert.Equal((141, 21, 58), (pixel.R, pixel.G, pixel.B));
     }
 }

@@ -53,7 +53,7 @@ public partial class App : System.Windows.Application
                     : new RunKeyStartupRegistration(
                         RunKeyStartupRegistration.DefaultRunKeyPath,
                         RunKeyStartupRegistration.DefaultValueName,
-                        Environment.ProcessPath ?? System.IO.Path.Combine(AppContext.BaseDirectory, "SinhalaInput.App.exe")));
+                        Environment.ProcessPath ?? System.IO.Path.Combine(AppContext.BaseDirectory, "EasyAkuru.exe")));
                 services.AddSingleton<SettingsCoordinator>();
             })
             .Build();
