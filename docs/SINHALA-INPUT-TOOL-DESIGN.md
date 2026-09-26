@@ -1,9 +1,11 @@
-# Sinhala Phonetic Input Tool for Windows 10/11 — Design Document
+# EasyAkuru — Sinhala Phonetic Input Tool for Windows 10/11 — Design Document
 
-**Status:** Draft v1
+**Status:** Draft v1; product renamed to **EasyAkuru** for Microsoft Store submission (see `docs/STORE-SUBMISSION.md`) — internal code keeps its original naming, see note below.
 **Author:** isuru.sampath@ratnayake.info
 **Target platform:** Windows 10 (1809+) and Windows 11, .NET 8 (LTS)
 **Goal:** A background input tool that transliterates Latin ("Singlish") keystrokes into Sinhala Unicode in real time, the same way Google Input Tools' Sinhala keyboard behaves — e.g. `mama` → `මම`, `api` → `අපි`.
+
+> **Naming note:** the shipped, user-facing product is branded **EasyAkuru** (Store listing, tray icon tooltip, window titles, Start-menu shortcut). Everything below that names a *code* artifact — the solution file, project folders, C# namespaces, and the illustrative class names in this document (`SinhalaInput.slnx`, `SinhalaInput.Core`, `SinhalaInput.App`, `SinhalaInput.Platform.Windows`, etc.) — keeps the original `SinhalaInput.*` naming and is not renamed.
 
 ---
 
@@ -61,7 +63,7 @@ A normal Windows process (no admin rights, no COM registration) that:
 
 ### Decision
 
-Build **Option B** first as `SinhalaInput` v1. Structure the solution (see §6) so the transliteration engine is a pure, UI/OS-agnostic library — that engine is reused unchanged if/when a TSF text service (Option A) is added later as an alternative front end.
+Build **Option B** first as **EasyAkuru** v1 (internal code name/namespace: `SinhalaInput`). Structure the solution (see §6) so the transliteration engine is a pure, UI/OS-agnostic library — that engine is reused unchanged if/when a TSF text service (Option A) is added later as an alternative front end.
 
 ---
 
