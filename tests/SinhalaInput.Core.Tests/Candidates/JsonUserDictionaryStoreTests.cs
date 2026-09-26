@@ -64,11 +64,11 @@ public class JsonUserDictionaryStoreTests : IDisposable
     }
 
     [Fact]
-    public void GetDefaultFilePath_ReturnsAPathUnderApplicationDataForSinhalaInput()
+    public void GetDefaultFilePath_ReturnsAPathUnderApplicationDataForEasyAkuru()
     {
         string path = JsonUserDictionaryStore.GetDefaultFilePath();
 
-        Assert.Contains("SinhalaInput", path);
+        Assert.Contains("EasyAkuru", path);
         Assert.EndsWith("user-dictionary.json", path);
     }
 

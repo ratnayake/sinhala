@@ -32,6 +32,8 @@ public partial class App : System.Windows.Application
     {
         base.OnStartup(e);
 
+        LegacyDataMigration.Migrate(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData));
+
         _host = Host.CreateDefaultBuilder()
             .ConfigureServices((_, services) =>
             {
@@ -53,7 +55,8 @@ public partial class App : System.Windows.Application
                     : new RunKeyStartupRegistration(
                         RunKeyStartupRegistration.DefaultRunKeyPath,
                         RunKeyStartupRegistration.DefaultValueName,
-                        Environment.ProcessPath ?? System.IO.Path.Combine(AppContext.BaseDirectory, "EasyAkuru.exe")));
+                        Environment.ProcessPath ?? System.IO.Path.Combine(AppContext.BaseDirectory, "EasyAkuru.exe"),
+                        [RunKeyStartupRegistration.LegacyValueName]));
                 services.AddSingleton<SettingsCoordinator>();
             })
             .Build();

@@ -4,7 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
-        Title="SinhalaInput Settings"
+        Title="EasyAkuru Settings"
         Width="360"
         SizeToContent="Height"
         ResizeMode="NoResize"
@@ -16,11 +16,11 @@
                   Unchecked="OnEnabledCheckBoxToggled"
                   Margin="0,0,0,12" />
         <CheckBox x:Name="StartWithWindowsCheckBox"
-                  Content="Start SinhalaInput when I sign in to Windows"
+                  Content="Start EasyAkuru when I sign in to Windows"
                   Checked="OnStartWithWindowsCheckBoxToggled"
                   Unchecked="OnStartWithWindowsCheckBoxToggled" />
         <TextBlock x:Name="StartupManagedText"
-                   Text="Starting SinhalaInput when you sign in to Windows is managed by Windows: turn it on or off in Settings › Apps › Startup."
+                   Text="Starting EasyAkuru when you sign in to Windows is managed by Windows: turn it on or off in Settings › Apps › Startup."
                    TextWrapping="Wrap"
                    Visibility="Collapsed" />
         <TextBlock x:Name="HotkeyText" Margin="0,12,0,0" />

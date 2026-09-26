@@ -9,13 +9,25 @@ namespace SinhalaInput.App.Settings;
 public sealed class RunKeyStartupRegistration : IStartupRegistration
 {
     public const string DefaultRunKeyPath = @"Software\Microsoft\Windows\CurrentVersion\Run";
-    public const string DefaultValueName = "SinhalaInput";
+    public const string DefaultValueName = "EasyAkuru";
+
+    /// <summary>The value name written by releases from before the app was renamed to EasyAkuru.</summary>
+    public const string LegacyValueName = "SinhalaInput";
 
     private readonly string _runKeyPath;
     private readonly string _valueName;
     private readonly string _command;
+    private readonly string[] _legacyValueNames;
 
-    public RunKeyStartupRegistration(string runKeyPath, string valueName, string executablePath)
+    /// <param name="legacyValueNames">
+    /// Value names from older releases that are removed whenever the registration is applied, so an
+    /// upgraded install doesn't launch twice at sign-in.
+    /// </param>
+    public RunKeyStartupRegistration(
+        string runKeyPath,
+        string valueName,
+        string executablePath,
+        IEnumerable<string>? legacyValueNames = null)
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(runKeyPath);
         ArgumentException.ThrowIfNullOrWhiteSpace(valueName);
@@ -23,6 +35,9 @@ public sealed class RunKeyStartupRegistration : IStartupRegistration
         _runKeyPath = runKeyPath;
         _valueName = valueName;
         _command = $"\"{executablePath}\"";
+        _legacyValueNames = legacyValueNames?
+            .Where(name => !string.IsNullOrWhiteSpace(name) && !string.Equals(name, valueName, StringComparison.OrdinalIgnoreCase))
+            .ToArray() ?? [];
     }
 
     public bool IsManagedByWindows => false;
@@ -39,18 +54,36 @@ public sealed class RunKeyStartupRegistration : IStartupRegistration
     {
         if (enabled)
         {
-            if (IsEnabled())
+            if (!IsEnabled())
             {
-                return;
+                using RegistryKey key = Registry.CurrentUser.CreateSubKey(_runKeyPath);
+                key.SetValue(_valueName, _command, RegistryValueKind.String);
             }
 
-            using RegistryKey key = Registry.CurrentUser.CreateSubKey(_runKeyPath);
-            key.SetValue(_valueName, _command, RegistryValueKind.String);
+            DeleteValues(_legacyValueNames);
         }
         else
         {
-            using RegistryKey? key = Registry.CurrentUser.OpenSubKey(_runKeyPath, writable: true);
-            key?.DeleteValue(_valueName, throwOnMissingValue: false);
+            DeleteValues([_valueName, .. _legacyValueNames]);
+        }
+    }
+
+    private void DeleteValues(string[] valueNames)
+    {
+        if (valueNames.Length == 0)
+        {
+            return;
+        }
+
+        using RegistryKey? key = Registry.CurrentUser.OpenSubKey(_runKeyPath, writable: true);
+        if (key is null)
+        {
+            return;
+        }
+
+        foreach (string valueName in valueNames)
+        {
+            key.DeleteValue(valueName, throwOnMissingValue: false);
         }
     }
 }

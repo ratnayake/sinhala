@@ -3,13 +3,19 @@ using System.Reflection;
 namespace SinhalaInput.App;
 
 /// <summary>The text shown in the About window, kept separate from the XAML so it can be unit tested.</summary>
-public sealed record AboutInfo(string ProductName, string Version, string Author, string Description)
+public sealed record AboutInfo(string ProductName, string Version, string Publisher, string Author, string Description)
 {
+    public const string ProductDisplayName = "EasyAkuru";
+
+    public const string PublisherName = "Ratcon";
+
     public const string AuthorName = "Isuru Ratnayake";
 
     public static AboutInfo Current { get; } = FromAssembly(typeof(AboutInfo).Assembly);
 
     public string VersionText => $"Version {Version}";
+
+    public string PublisherText => $"Publisher: {Publisher}";
 
     public string AuthorText => $"Author: {Author}";
 
@@ -18,8 +24,9 @@ public sealed record AboutInfo(string ProductName, string Version, string Author
         ArgumentNullException.ThrowIfNull(assembly);
 
         return new AboutInfo(
-            ProductName: "SinhalaInput",
+            ProductName: ProductDisplayName,
             Version: GetDisplayVersion(assembly),
+            Publisher: PublisherName,
             Author: AuthorName,
             Description: "Type Sinhala anywhere in Windows using Latin (Singlish) keystrokes.");
     }
