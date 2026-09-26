@@ -111,7 +111,7 @@ Sri Lanka, phonetic keyboard, Sinhala input, akuru
 > automatically when you sign in to Windows (you can turn this off at any time in
 > Settings › Apps › Startup), and everything it does happens entirely on your device — no
 > keystrokes are ever stored or sent anywhere. See the in-app privacy notice or
-> [the privacy policy](#5-privacy-policy-url) for details.
+> [the privacy policy](#7-privacy-policy-url) for details.
 >
 > Whether you're writing a message to family, drafting a document, or posting online, EasyAkuru
 > makes typing fluent Sinhala as easy as typing English.
@@ -181,7 +181,8 @@ asked during Store certification review:
 
 The Store requires a privacy policy URL for any app that processes user input, which EasyAkuru
 does (it reads every keystroke via a system-wide keyboard hook in order to transliterate it).
-Host the contents of `docs/PRIVACY-POLICY.md` (converted to a plain web page, e.g. as a GitHub
-Pages page, a page on ratnayake.info, or similar) at a stable, publicly reachable URL, and
-enter that URL in Partner Center's **Privacy policy URL** field before submitting. Partner
+The policy is published at **<https://ratnayake.info/easyakuru/privacy/>** (the web page is
+`website/easyakuru/privacy/index.html`; its source text is `docs/PRIVACY-POLICY.md`, and a
+Sinhala summary is at <https://ratnayake.info/easyakuru/si/privacy/>). Confirm the URL loads,
+then enter it in Partner Center's **Privacy policy URL** field before submitting. Partner
 Center will reject a submission that has user-input access declared without one.

@@ -19,6 +19,9 @@ and [`UPLOAD-CHECKLIST.md`](UPLOAD-CHECKLIST.md) maps each image file to its upl
 - Store policy: descriptions are **plain text**. Don't use HTML, Markdown, code or URLs, and put
   links in their own fields (privacy policy URL, website, support). The copy below follows
   that rule and makes no claims that can't be checked (no "#1", "best" or "fastest").
+- **Privacy policy URL** (Properties page, not this page):
+  `https://ratnayake.info/easyakuru/privacy/`. The Description's privacy paragraph must stay
+  consistent with that policy (source text: [`docs/PRIVACY-POLICY.md`](../docs/PRIVACY-POLICY.md)).
 
 ## Summary of fields and lengths
 
